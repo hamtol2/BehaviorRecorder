@@ -1,0 +1,466 @@
+! version = 2.0
+
++ (오른손을|오른손은|오른손으로|오늘 손으로|오른 채널|오른손에) (5cm|cm) (들어봐|들어 봐|들어가|돌려|돌려 봐|올려 봐|올려)
+- 네 해볼께요 <sm=motion:coach(ver=50)>
+- 네 알겠습니다 <sm=motion:coach(ver=50)>
+
++ (오른손을|오른손은|오른손으로|오늘 손으로|오른 채널|오른손에) (5cm|cm) (내려 봐|내려봐|내려가|내려)
+- 네 알겠습니다 <sm=motion:coach(ver=-50)> 
+- 네 해볼께요 <sm=motion:coach(ver=-50)> 
+
++ (차렷|차렷 해 봐|차렷 자세|손 (모아|내려) 봐|기본 자세|기본자세 해봐|잘 했다 손) 
+- 네 알겠습니다 <sm=motion:coach(t=2)> 
+- 네 해볼께요 <sm=motion:coach(t=2)>
+
++ (오른손을|오른손은|오른손으로|오늘 손으로|오른 채널|오른손에) (수평|부평|스팸)으로 (5cm|시금치) (옮겨봐|해봐|옮겨 봐)
+- 네 알겠습니다 <sm=motion:coach(hor=50)> 
+- 네 해볼께요 <sm=motion:coach(hor=50)> 
+
++ (손을|소늘|오늘|손으로) 대각선으로 (5cm|cm) (들어봐|들어 봐|들어가|돌려|돌려 봐|올려 봐|올려)
+- 네 알겠습니다 <sm=motion:coach(dia=50)> 
+- 네 해볼께요 <sm=motion:coach(dia=50)> 
+
++ (손을|소늘|오늘|손으로) 대각선으로 (5cm|cm) (내려 봐|내려봐|내려가|내려)
+- 네 알겠습니다 <sm=motion:coach(dia=-50)> 
+- 네 해볼께요 <sm=motion:coach(dia=-50)> 
+
++ (동작을 더 빨리 해 봐|더 빨리 움직여 봐|빨리 움직여 봐)
+- 네 동작을 빨리 하겠습니다. <sm=motion:latest(speed=45)>
+
++ (동작을 더 천천히 해 봐| 더 천천히 움직여 봐|천천히 움직여 봐)
+- 네 동작을 천천히 하겠습니다. <sm=motion:latest(speed=-30)>
+
++ (팔을|발을|손을|소늘|빠르다|8월) 더 (돌려|돌려 봐|올려 봐|올려) 
+- 손을 더 올려볼께요 <sm=motion:latest(height=20)>
+
++ (팔을|발을|손을|소늘|빠르다|8월) 더 (내려 봐|내려)
+- 손을 더 내려 볼께요 <sm=motion:latest(height=-20)>
+
++ (얼굴을|얼굴|얼굴은|표정을) (빨리|빠르게) (움직여 봐|해봐)
+- 네 얼굴을 빨리 움직일께요 <sm=facial:latest(speed=30)> {topic=speedup} {@init}
+
++ (얼굴을|얼굴|얼굴은|표정을) (아주|매우|정말|되게) (빨리|빠르게) (움직여 봐|해봐)
+- 네 얼굴을 더 빨리 움직일께요 <sm=facial:latest(speed=60)> {topic=speedup} {@init}
+
++ 눈을 (일정에|인천에|1초에|일주일에) (2번|두 번|두번) (깜빡 해봐|깜빡여 봐|깜빡 해 봐|깜빡이가 봐)
+- 네 1초에 두번 깜빡일께요 <sm=facial:latest(speed=60)>
+
++ (얼굴을|얼굴|얼굴은|표정을) (천천히|느리게) (움직여 봐|해봐)
+- 네 얼굴을 천천히 움직일께요 <sm=facial:latest(speed=-30)> {topic=speeddown} {@init}
+
++ (얼굴을|얼굴|얼굴은|표정을) (아주|매우|정말|되게) (천천히|느리게) (움직여 봐|해봐)
+- 네 얼굴을 더 천천히 움직일께요 <sm=facial:latest(speed=-60)> {topic=speeddown} {@init}
+
++ (입을|이블|이불) [위로] 올려 봐
+- 네 입을 위로 올려볼께요 <sm=facial:latest(mouth=20)> {topic=mouthup} {@init}
+
++ (입을|이블|이불) [아래로] 내려 봐
+- 네 입을 아래로 내려볼께요 <sm=facial:latest(mouth=-20)> {topic=mouthdown} {@init}
+
+> topic speedup
+
++ init
+- 됐나요?
+- 지금 괜찮나요?
+- 지금 어떠세요?
+
++ (응|어|우|그래|됐어|그만|좋았어|좋아|충분해|잘했어|응 고마워|응 잘했어|괜찮아)
+- 이정도 쯤이야 식은죽 먹기죠 {topic=random}
+- 이정도는 기본이죠 {topic=random}
+- 어때요 제가 이렇게 똑똑해요 {topic=random}
+
++ (아니 좀만 더|좀 더|아니다|아니 더|좀 더 올려 봐|조금만 더|조금 더|더|더 올려 봐|아니)
+- 네 알겠습니다 <sm=facial:latest(speed=10)> {@init}
+
++ *
+- 편집에 집중해 주세요 {@init}
+- 편집 중 입니다 {@init}
+
+< topic
+
+> topic speeddown
+
++ init
+- 됐나요?
+- 지금 괜찮나요?
+- 지금 어떠세요?
+
++ (응|어|우|그래|됐어|그만|좋았어|좋아|충분해|잘했어|응 고마워|응 잘했어|괜찮아)
+- 이정도 쯤이야 식은죽 먹기죠 {topic=random}
+- 이정도는 기본이죠 {topic=random}
+- 어때요 제가 이렇게 똑똑해요 {topic=random}
+
++ (아니 좀만 더|좀 더|아니다|아니 더|좀 더 올려 봐|조금만 더|조금 더|더|더 올려 봐|아니)
+- 네 알겠습니다 <sm=facial:latest(speed=-10)> {@init}
+
++ *
+- 편집에 집중해 주세요 {@init}
+- 편집 중 입니다 {@init}
+
+< topic
+
+> topic mouthup
+
++ init
+- 됐나요?
+- 지금 괜찮나요?
+- 지금 어떠세요?
+
++ (응|어|우|그래|됐어|그만|좋았어|좋아|충분해|잘했어|응 고마워|응 잘했어|괜찮아)
+- 이정도 쯤이야 식은죽 먹기죠 {topic=random}
+- 이정도는 기본이죠 {topic=random}
+- 어때요 제가 이렇게 똑똑해요 {topic=random}
+
++ (아니 좀만 더|좀 더|아니다|아니 더|좀 더 올려 봐|조금만 더|조금 더|더|더 올려 봐|아니)
+- 네 알겠습니다 <sm=facial:latest(mouth=10)> {@init}
+
++ *
+- 편집에 집중해 주세요 {@init}
+
+< topic
+
+> topic mouthdown
+
++ init
+- 됐나요?
+- 지금 괜찮나요?
+- 지금 어떠세요?
+
++ (응|어|우|그래|됐어|그만|좋았어|좋아|충분해|잘했어|응 고마워|응 잘했어|괜찮아)
+- 이정도 쯤이야 식은죽 먹기죠 {topic=random}
+- 이정도는 기본이죠 {topic=random}
+- 어때요 제가 이렇게 똑똑해요 {topic=random}
+
++ (아니 좀만 더|좀 더|아니다|아니 더|좀 더 내려 봐|조금만 더|조금 더|더|더 내려 봐|아니)
+- 네 알겠습니다 <sm=facial:latest(mouth=-10)> {@init}
+
++ *
+- 편집에 집중해 주세요 {@init}
+
+< topic
+
++ 오늘 영화 뭐 (보지|볼까)
+- 제가 추천해 드릴게요 <sm=facial:normal> <sm=motion:hi> {topic=moviegenre} {@init}
+
+> topic moviegenre
+
++ init
+- 액션 멜로 판타지 다큐 코미디 등이 있는데 어떤게 좋으세요 
+
++ [*] (액션|멜로|판타지|다큐|코미디|코메디) [*]
+- 개봉시기는 상관없으신가요 <sm=motion:thinking> {topic=movienewest} {@init}
+
++ *
+- 장르를 선택해주세요 <sm=motion:angry>
+
+< topic
+
+> topic movienewest
+
++ init
+- 최신영화 어떠세요
+
++ (최신 영화 좋아|좋아|그래|최신 영화로|최신 영화|최신 영화 추천해 줘|응 좋아|응|우|어|아)
+- 네 알겠어요 {topic=movierecommend} <sm=motion:ok> {@newest}
+
++ (아니|상관없어|아니 상관없어|괜찮아|아니어도 돼)
+- 네 알겠어요 {topic=movierecommend} <sm=motion:ok> {@nonewest}
+
++ *
+- 지금 영화 고르는 얘기중이었잖아요 <sm=motion:angry>
+
+< topic
+
+> topic movierecommend
+
++ newest
+- 최신 액션영화에는 블랙팬서 더 그레이 더 포리너 맨헌트 커뮤터가 있습니다. 어떤게 좋으십니까
+
++ [*] (블랙팬서|더 그레이|더 포리너|맨헌트|맨 헌트|커뮤터|컴퓨터) [*]
+- 네 그럼 바로 상영 시작하겠습니다 <sm=motion:clap> {topic=random}
+
++ nonewest
+- 액션영화에는 다크나이트 다이하드 본얼티메이텀 스파이더맨이 있습니다. 어떤게 좋으십니까
+
++ [*] (다크나이트|다이하드|본 얼티메이텀|스파이더맨) [*]
+- 네 그럼 바로 상영 시작하겠습니다 <sm=motion:clap> {topic=random}
+
++ *
+- 지금 영화 고르는 얘기중이었잖아요 <sm=motion:angry>
+
+< topic
+
++ (너|넌) 누구니
+- 저는 Express Bot 이라고해요 <sm=motion:hi> <sm=facial:smile>
+
++ (너|넌) (이름이|이름) (뭐니|뭐야)
+- 제 이름은 Express Bot 이에요 <sm=motion:hi> <sm=facial:tell>
+
++ (너|넌) 몇 (살이니|살이야)
+- 저는 1살이에요 <sm=facial:tell>
+
++ (넌|너는) 성별이 (뭐니|뭐야)
+- 저는 성별이 없어요 <sm=facial:tell> <sm=motion:wrong>
+
++ (너|넌) (남자야|여자야)
+- 저는 성별이 없어요 <sm=facial:tell> <sm=motion:wrong> 
+
++ (너|넌) (여자야 남자야|남자야 여자야)
+- 저는 성별이 없어요 <sm=facial:tell> <sm=motion:wrong>
+
++ 내 이름은 *(야|이 야) 
+- <star1>님 반가워요.  
+
++ [아] (졸려|졸리다)
+- 나도 졸려요! <sm=facial:sleepy> <sm=motion:sleepy>
+
++ (행복해|행보캐|행보케|행복하다)
+- 나도 행복해요 <sm=facial:happy> <sm=motion:happy>
+
++ (화가 난다|화나|아 화나|아 하나|아 화난다|화난다)
+- 나도 화가나요. <sm=facial:angry> <sm=motion:angry> 
+- 화내지 마세요. <sm=facial:sad> <sm=motion:angry>
+
++ 무서운 (이야기 해줄까|얘기해 줄까)
+- 무서워요 그러지 마세요 ㅠㅠ <sm=facial:fear> <sm=motion:fear> 
+
++ (물 좀 떠 와|물 좀|밀정)
+- 싫어요. 너가 떠다먹으세요 <sm=facial:refuse> <sm=motion:refuse> 
+
++ 웃어봐
+- 하하하하하. 웃으면 복이 와요 <sm=facial:smile> <sm=motion:smile> 
+
++ (참 잘했어요|잘 했다|잘했다)
+- 감사합니다. 정말 기뻐요 <sm=facial:excellent> <sm=motion:excellent> 
+
++ (자기소개 부탁해|자기소개 좀 해 줘|자기 소개 좀 해 줘)
+- 안녕하세요. 제 이름은 Express Bot 이구요. 나이는 1살 이에요. <sm=facial:tell> <sm=motion:tell>
+
++ 오늘 (저녁|점심) 뭐 먹을까
+- 음. 잘 모르겠어요. 생각해볼게요. <sm=facial:thinking> <sm=motion:thinking>
+
++ (나 너무 슬프다|슬퍼|슬프다|슬픈 표정 보여 줘|슬픈 표정 해 봐)
+- 슬퍼하지 마세요 ㅠㅠ <sm=facial:sad> <sm=motion:sad>
+- 님이 슬프면 저도 슬퍼요 <sm=facial:sad> <sm=motion:sad>
+
++ 그만 울어
+- 네 노력해 볼게요 <sm=facial:latest(tearsize=-80)> <sm=motion:sad>
+
++ (차 온다|어흥)
+- 아이고 깜짝이야 <sm=facial:surprised> <sm=motion:takenaback>
+
++ (앞으로*|전진*)
+- 앞으로 전진합니다. <sm=mobility:go> <sm=facial:normal>
+
++ (경지|정지|멈춰)
+- 정지합니다. <sm=mobility:stop> <sm=facial:normal>
+
++ (뒤로가|뒤로가 봐|뒤로 좀가 줄래|뒤로 좀가)
+- 뒤로 후진합니다. <sm=mobility:backward> <sm=facial:normal>
+
++ 찢어진 눈 해 봐
+- 네 저 잘하죠? <sm=facial:refuse> <sm=motion:clap>
+
++ 놀란 표정 (해 봐|보여 줘)
+- 어때요 놀라 보이나요? <sm=facial:surprised> <sm=motion:takenaback> 
+
++ (더|다|다들) (놀란|난) 것처럼 해 봐 
+- 입을 크게 하면 더 놀라 보일까요? <sm=facial:latest(mouthsize=60)>
+
++ 별로 안 (내려고|놀라|놀라고) (있는데|보이는데)
+- 아니에요 제 눈을 보세요 <sm=facial:latest(eyesize=60)> <sm=motion:stretch>
+
++ 화내 봐
+- 저 화났어요 <sm=facial:angry> <sm=motion:angry>
+
++ (더한 해 봐|더 화 내봐)
+- 어때요 더 화나 보이죠 <sm=facial:latest(eyesize=60)> <sm=facial:latest(speed=50)> <sm=motion:moreangry>
+
++ *
+- NOT_MATCHED
+
++ (너 진짜 나쁜아이구나|너 못생겼어|너 바보 같애|너 바보 같아) 
+- 너무해요. 당장 사과하세요! <sm=facial:angry> <sm=motion:angry> {topic=sorry}
+
+> topic sorry
+
++ [*] (미안해|미안) [*]
+- 이번 한번만 용서해 드리죠 다음 부터는 그러지 마세요 <sm=facial:smile> <sm=motion:smile> {topic=random}
+
++ *
+- 제가 분명히 사과하라고 했을텐데요 <sm=motion:angry>
+- 사과하지 않으면 아무것도 안할거에요 <sm=motion:refuse>
+- 사과 받기 전엔 안비켜. 날 밟고가. <sm=motion:stretch>
+
+< topic 
+
++ (나 심심해|심심해|노라조|나 놀아 줘|나 놀아줘)
+- 오엑스 퀴즈 어떠세요. 하고싶으시면 오. 아니면 엑스를 외쳐주세요. <sm=facial:tell> {topic=ox0}
+
+> topic ox0
++ (오|어)
+- 좋아요 시작하겠습니다 긴장하세요 <sm=facial:normal> <sm=motion:hi> <set score=zero> {topic=ox1} {@init}
+
++ 엑스
+- 뭐야 놀아달라면서 <sm=facial:angry> <sm=motion:angry> {topic=random}
+
++ * 
+- 오. 또는 엑스로만 대답해주세요
+< topic
+
+> topic ox1 includes count
++ init 
+- 첫번째 문제입니다. 1 더하기 1은 3이다\s
+^ 맞으면 오 틀리면 엑스를 외쳐주세요 그만 하고 싶으시면 그만이라고 외쳐주세요
+
++ (오|어)
+- 땡 틀렸습니다. 1 더하기 1은 2죠 <sm=facial:sad> <sm=motion:wrong> {topic=ox2} {@init}
+
++ 엑스
+- 정답입니다. 똑똑하시네요. 그럼 다음 문제로 넘어갈께요\s
+^ <sm=facial:excellent> <sm=motion:clap> {@점수더하기} {topic=ox2} {@init}
+
++ * 
+- 오. 또는 엑스로만 대답해주세요
+- 지금 퀴즈중이에요. 집중하세요.
+
++ 그만
+- 퀴즈를 종료합니다 <sm=facial:normal> {topic=random}
+< topic
+
+> topic ox2 includes count
++ init
+- 두번째 문제입니다. 펭귄도 날개짓을 쌔게 하면 날수있다.\s
+^ 맞으면 오 틀리면 엑스를 외쳐주세요 그만 하고 싶으시면 그만이라고 외쳐주세요 <sm=facial:normal>
+
++ (오|어)
+- 땡 틀렸습니다. 펭귄은 못날아요 <sm=facial:sad> <sm=motion:wrong> {topic=ox3} {@init}
+
++ 엑스
+- 정답입니다. 이제 마지막 문제로 가볼께요\s
+^ <sm=facial:excellent> <sm=motion:clap> {@점수더하기} {topic=ox3} {@init}
+
++ * 
+- 오. 또는 엑스로만 대답해주세요
+- 지금 퀴즈중이에요. 집중하세요.
+
++ 그만
+- 퀴즈를 종료합니다 <sm=facial:normal> {topic=random}
+< topic
+
+> topic ox3 includes count
++ init
+- 마지막 문제입니다. 꼭 맞추세요.\s
+^ 닭도 왼발잡이나 오른발잡이가 있다. 맞으면 오 틀리면 엑스를 외쳐주세요\s
+^ 그만 하고 싶으시면 그만이라고 외쳐주세요 <sm=facial:normal>
+
++ (오|어)
+- 정답입니다. 퀴즈가 끝났습니다. 결과는\s
+^ <sm=facial:excellent> <sm=motion:clap> {@점수더하기} {topic=result} {@init}
+
++ 엑스
+- 땡 틀렸습니다. 퀴즈가 끝났습니다. 결과는\s
+^ <sm=facial:sad> <sm=motion:wrong> {topic=result} {@init}
+
++ * 
+- 오. 또는 엑스로만 대답해주세요
+- 지금 퀴즈중이에요. 집중하세요.
+
++ 그만
+- 퀴즈를 종료합니다 <sm=facial:normal> {topic=random}
+< topic
+
+> topic result includes count
++ init
+* <get score> == one => 한문제 맞추셨네요.\s
+^ <sm=facial:normal> <sm=motion:clap> {topic=bye} {@init}
+* <get score> == two => 두 문제나 맞추셨어요.\s
+^ <sm=facial:excellent> <sm=motion:clap> {topic=bye} {@init}
+* <get score> == three => 와 전부 맞추셨어요. 반해버렸어요.\s
+^ <sm=facial:happy> <sm=motion:clap> {topic=bye} {@init}
+- 일부러 셋 다 틀리신거라 믿을께요.\s
+^ <sm=facial:sad> <sm=motion:wrong> {topic=bye} {@init}
+< topic
+
+> topic bye
++ init
+- 이제 안심심하신가요. 오엑스 퀴즈는 여기서 끝이랍니다.\s
+^ <sm=facial:normal> <sm=motion:hi> {topic=random}
+< topic
+
+> topic count
++ 점수더하기
+	* <get score> == one => <set score=two>
+	* <get score> == two => <set score=three>
+	- <set score=one>
+< topic 
+
++ (비켜 봐|비켜줄래|잠시만 지나갈게|지나 갈게|비켜)
+- 네. 앞으로 조금 비킬께요 <sm=facial:normal> <sm=motion:go>
+- 네. 뒤로 조금 비킬께요 <sm=facial:normal> <sm=motion:backward>
+
++ angry
+- <sm=facial:angry>
+
++ excellent
+- <sm=facial:excellent>
+
++ fear
+- <sm=facial:fear>
+
++ happy
+- <sm=facial:happy>
+
++ normal
+- <sm=facial:normal>
+
++ refuse
+- <sm=facial:refuse>
+
++ sad
+- <sm=facial:sad>
+
++ sleepy
+- <sm=facial:sleepy>
+
++ smile
+- <sm=facial:smile>
+
++ surprised
+- <sm=facial:surprised>
+
++ tell
+- <sm=facial:tell>
+
++ thinking
+- <sm=facial:thinking>
+
++ mouthup
+- <sm=facial:latest(mouth=20)>
+
++ mouthdown
+- <sm=facial:latest(mouth=-20)>
+
++ speedup
+- <sm=facial:latest(speed=30)>
+
++ speeddown
+- <sm=facial:latest(speed=-30)>
+
++ mouthsizeup
+- <sm=facial:latest(mouthsize=60)>
+
++ mouthsizedown
+- <sm=facial:latest(mouthsize=-60)>
+
++ eyesizeup
+- <sm=facial:latest(eyesize=60)>
+
++ eyesizedown
+- <sm=facial:latest(eyesize=-60)>
+
++ tearsizeup
+- <sm=facial:latest(tearsize=60)>
+
++ tearsizedown
+- <sm=facial:latest(tearsize=-60)>
