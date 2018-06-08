@@ -15,8 +15,8 @@ namespace REEL.Recorder
     public class RecordEvent
     {
         // 0: motion, 1: facial.
-        public int eventType;
-        public string eventValue;
+        public int eventType = -1;
+        public string eventValue = string.Empty;
 
         public RecordEvent() { }
         public RecordEvent(int eventType, string eventValue)
@@ -44,6 +44,19 @@ namespace REEL.Recorder
     {
         public float x;
         public float y;
+
+        public CustomVector2() { }
+        public CustomVector2(float x, float y)
+        {
+            this.x = x;
+            this.y = y;
+        }
+
+        public CustomVector2(Vector2 position)
+        {
+            x = position.x;
+            y = position.y;
+        }
 
         public Vector2 ToVector2()
         {
