@@ -6,6 +6,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using UnityEngine;
 using UnityEngine.UI;
+using REEL.Recorder;
 
 namespace REEL.Animation
 {
@@ -13,6 +14,7 @@ namespace REEL.Animation
     {
         public TextAsset riveScriptFile;
         public RobotFacialRenderer robotFacialRenderer;
+        public BehaviorRecorder behaviorRecorder;
         public Text debugText;
 
         string rsFile = "/begin.txt";
@@ -76,6 +78,8 @@ namespace REEL.Animation
                                             ShowDebugTest("Sub command facial with " + detail[1]);
                                             //Debug.Log("Sub command facial with " + detail[1]);
                                             robotFacialRenderer.Play(detail[1]);
+                                            // On Testing.
+                                            behaviorRecorder.RecordBehavior(new RecordEvent(1, detail[1]));
                                             break;
                                         default:
                                             break;
