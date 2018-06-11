@@ -16,6 +16,7 @@ namespace REEL.Recorder
         public RecordFormat[] records;
         private Timer mainTimer;
         private int currentIndex = 0;
+        private bool isReplaying = false;
 
         private void Awake()
         {
@@ -24,30 +25,22 @@ namespace REEL.Recorder
 
         private void OnEnable()
         {
-            string filePath = Application.dataPath + "/" + fileName;
-            string jsonString = File.ReadAllText(filePath);
-            records = SimpleJson.SimpleJson.DeserializeObject<RecordFormat[]>(jsonString);
-
-            marker.SetActive(true);
+            InitState();
         }
 
         private void OnDisable()
         {
-            ResetState();
+            //ResetState();
         }
 
         private void Update()
         {
-            if (currentIndex >= records.Length)
-            {
-                gameObject.SetActive(false);
-                return;
-            }   
+            if (!isReplaying) return;
 
             mainTimer.Update(Time.deltaTime);
 
             if (mainTimer.GetElapsedTime >= records[currentIndex].elapsedTime)
-            {   
+            {
                 Vector3 markerPos = records[currentIndex].markerPosition.ToVector2();
                 markerPos.z = -5f;
                 marker.transform.position = markerPos;
@@ -55,17 +48,47 @@ namespace REEL.Recorder
                 if (records[currentIndex].recordEvent != null)
                 {
                     facialRenderer.Play(records[currentIndex].recordEvent.eventValue);
-                }   
+                }
 
                 ++currentIndex;
+
+                if (currentIndex >= records.Length)
+                {
+                    StopReplay();
+                    return;
+                }
             }
+        }
+
+        public void PlayReplay()
+        {
+            InitState();
+            isReplaying = true;
+            marker.SetActive(true);
+        }
+
+        public void StopReplay()
+        {
+            isReplaying = false;
+            ResetState();
+        }
+
+        private void InitState()
+        {   
+            string filePath = Application.dataPath + "/" + fileName;
+            string jsonString = File.ReadAllText(filePath);
+            records = SimpleJson.SimpleJson.DeserializeObject<RecordFormat[]>(jsonString);
         }
 
         private void ResetState()
         {
             mainTimer.Reset();
-            Array.Clear(records, 0, records.Length);
-            records = null;
+            if (records != null && records.Length > 0)
+            {
+                Array.Clear(records, 0, records.Length);
+                //records = null;
+            }
+
             marker.SetActive(false);
             currentIndex = 0;
         }

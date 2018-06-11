@@ -18,6 +18,13 @@
             if (intervalEvent != null) SubsribeIntervalEvent(intervalEvent);
         }
 
+        public void SetTimer(float interval, IntervalDelegate intervalEvent = null)
+        {
+            this.interval = interval;
+            intervalTimer = new Timer();
+            if (intervalEvent != null) SubsribeIntervalEvent(intervalEvent);
+        }
+
         // Timer Update.
         public void Update(float deltaTime)
         {

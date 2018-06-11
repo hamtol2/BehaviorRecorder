@@ -8,17 +8,22 @@ namespace REEL.Recorder
     {
         public float frame = 30f;
         public string fileName = "Behavior.json";
+        public bool autoSave = true;
 
         private List<RecordFormat> records = new List<RecordFormat>();
         private float fps = 0f;
         private Timer mainTimer;
         private string filePath;
-
+        private bool isRecording = false;
+        
         private void Awake()
         {
-            fps = 1f / frame;
-            mainTimer = new Timer(fps, RecordBehavior);
-            filePath = Application.dataPath + "/" + fileName;
+            //InitState();
+        }
+
+        private void OnEnable()
+        {
+            InitState();
         }
 
         private void OnDisable()
@@ -26,15 +31,36 @@ namespace REEL.Recorder
             ResetState();
         }
 
-        private void OnApplicationQuit()
-        {
-            string jsonString = SimpleJson.SimpleJson.SerializeObject(records);
-            File.WriteAllText(filePath, jsonString);
-        }
-
         private void Update()
         {
-            mainTimer.Update(Time.deltaTime);
+            if (isRecording) mainTimer.Update(Time.deltaTime);
+        }
+
+        private void OnApplicationQuit()
+        {
+            FinishRecording();
+        }
+
+        public void StartRecording()
+        {
+            isRecording = true;
+        }
+
+        public void FinishRecording()
+        {
+            isRecording = false;
+            if (autoSave) SaveFile();
+            ResetState();
+        }
+
+        public void SaveFile()
+        {
+            if (records == null || records.Count == 0)
+                return;
+
+            string jsonString = SimpleJson.SimpleJson.SerializeObject(records);
+            Debug.Log(jsonString);
+            File.WriteAllText(filePath, jsonString);
         }
 
         private void RecordBehavior()
@@ -56,9 +82,20 @@ namespace REEL.Recorder
             records.Add(newRecord);
         }
 
+        private void InitState()
+        {
+            fps = 1f / frame;
+
+            mainTimer = new Timer();
+            mainTimer.SetTimer(fps, RecordBehavior);
+
+            filePath = Application.dataPath + "/" + fileName;
+        }
+
         public void ResetState()
         {
             records = new List<RecordFormat>();
+            mainTimer.Reset();
         }
     }
 }
