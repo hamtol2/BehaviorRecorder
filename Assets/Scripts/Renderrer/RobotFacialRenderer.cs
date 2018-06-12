@@ -7,7 +7,7 @@ using UnityEngine.UI;
 
 namespace REEL.Animation
 {
-    public class RobotFacialRenderer : MonoBehaviour, Renderrer
+    public class RobotFacialRenderer : MonoBehaviour
     {
         public RobotFacialData robotFacialData;
         public RobotFacialAnimator robotFacialAnimator;
@@ -42,11 +42,14 @@ namespace REEL.Animation
             }
         }
 
-        public void Play(string name)
+        //public void Play(string name)
+        public bool Play(string name)
         {
             string[] splitString = name.Split('(');
-            SetFacialModel(splitString[0]);
+            bool retValue = SetFacialModel(splitString[0]);
             robotFacialAnimator.PlayFacialAnim(splitString[0], 1f);
+
+            return retValue;
         }
 
         public void Stop()
@@ -60,20 +63,22 @@ namespace REEL.Animation
         }
 
         // 표정 이름으로 캔버스에 있는 표정 설정하는 함수.
-        private void SetFacialModel(string faceName)
+        //private void SetFacialModel(string faceName)
+        private bool SetFacialModel(string faceName)
         {
-            if (isDebug) debugText.text = "Sub command facial with " + faceName;
+            if (isDebug) debugText.text = faceName;
 
             for (int ix = 0; ix < robotFacialData.partData.Count; ++ix)
             {
                 if (CompareTwoStrings(faceName, robotFacialData.partData[ix].faceName))
                 {
                     SetFacePart(robotFacialData.partData[ix]);
-                    break;
+                    return true;
                 }
-
-                SetFacePart(robotFacialData.partData[0]);
             }
+
+            SetFacePart(robotFacialData.partData[4]);
+            return false;
         }
 
         // 대문자, 소문자 관계없이 두 문자열을 비교하는 함수.

@@ -1,5 +1,7 @@
-﻿using System.Collections;
+﻿using REEL.PoseAnimation;
+using System.Collections;
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -9,12 +11,24 @@ namespace REEL.Animation
     {
         public InputField inputField;
         public RobotFacialRenderer robotFacialRenderer;
+        public RobotTransformController robotTransformController;
         public MessageTranslator messageTranslator;
+
+        private StringBuilder sb = new StringBuilder();
 
         public void SendInputMesage()
         {
-            messageTranslator.SetMessage(inputField.text);
-            //robotFacialRenderer.Play(inputField.text);
+            sb.Clear();
+            sb.Append("<sm=facial:");
+            sb.Append(inputField.text);
+            sb.Append(">");
+            messageTranslator.SetMessage(sb.ToString());
+
+            sb.Clear();
+            sb.Append("<sm=motion:");
+            sb.Append(inputField.text);
+            sb.Append(">");
+            messageTranslator.SetMessage(sb.ToString());
         }
     }
 }

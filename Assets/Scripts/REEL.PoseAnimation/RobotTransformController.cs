@@ -101,35 +101,53 @@ namespace REEL.PoseAnimation
             }
         }
 
-        public void PlayGesture(string gesture)
+        public bool PlayGesture(string gesture)
         {
-            behaviorRecorder.RecordBehavior(new RecordEvent(0, gesture));
-            switch (gesture) {
-				case "hi":
-					StartCoroutine("GestureProcess", hi_list);
-					break;
-				case "hello":
-					StartCoroutine("GestureProcess", hello_list);
-					break;
-				case "angry":
-					StartCoroutine("GestureProcess", angry_list);
-					break;
-				case "sad":
-					StartCoroutine("GestureProcess", sad_list);
-					break;
-				case "ok":
-					StartCoroutine("GestureProcess", ok_list);
-					break;
-				case "no":
-					StartCoroutine("GestureProcess", no_list);
-					break;
-				case "happy":
-					StartCoroutine("GestureProcess", happy_list);
-					break;
-				default:
-					break;
-			}
+            // Record robot motion.
+            //behaviorRecorder.RecordBehavior(new RecordEvent(0, gesture));
+            switch (gesture)
+            {
+                case "hi": StartCoroutine("GestureProcess", hi_list); return true;
+                case "hello": StartCoroutine("GestureProcess", hello_list); return true;
+                case "angry": StartCoroutine("GestureProcess", angry_list); return true;
+                case "sad": StartCoroutine("GestureProcess", sad_list); return true;
+                case "ok": StartCoroutine("GestureProcess", ok_list); return true;
+                case "no": StartCoroutine("GestureProcess", no_list); return true;
+                case "happy": StartCoroutine("GestureProcess", happy_list); return true;
+                default: return false;
+            }
         }
+
+        //     public void PlayGesture(string gesture)
+        //     {
+        //         // Record robot motion.
+        //         behaviorRecorder.RecordBehavior(new RecordEvent(0, gesture));
+        //         switch (gesture) {
+        //	case "hi":
+        //		StartCoroutine("GestureProcess", hi_list);
+        //		break;
+        //	case "hello":
+        //		StartCoroutine("GestureProcess", hello_list);
+        //		break;
+        //	case "angry":
+        //		StartCoroutine("GestureProcess", angry_list);
+        //		break;
+        //	case "sad":
+        //		StartCoroutine("GestureProcess", sad_list);
+        //		break;
+        //	case "ok":
+        //		StartCoroutine("GestureProcess", ok_list);
+        //		break;
+        //	case "no":
+        //		StartCoroutine("GestureProcess", no_list);
+        //		break;
+        //	case "happy":
+        //		StartCoroutine("GestureProcess", happy_list);
+        //		break;
+        //	default:
+        //		break;
+        //}
+        //     }
 
         private void Awake()
         {

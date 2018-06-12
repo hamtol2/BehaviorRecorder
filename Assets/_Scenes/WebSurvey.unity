@@ -638,6 +638,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   riveScriptFile: {fileID: 4900000, guid: 0f5a58d6eb9cf43019f4b7fe58cc3626, type: 3}
   robotFacialRenderer: {fileID: 1053427238}
+  robotTransformController: {fileID: 574285150}
   behaviorRecorder: {fileID: 59991470}
   debugText: {fileID: 1295470174}
 --- !u!4 &163239781
@@ -2697,6 +2698,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   inputField: {fileID: 1941479395}
   robotFacialRenderer: {fileID: 1053427238}
+  robotTransformController: {fileID: 574285150}
   messageTranslator: {fileID: 163239780}
 --- !u!114 &1581487840
 MonoBehaviour:

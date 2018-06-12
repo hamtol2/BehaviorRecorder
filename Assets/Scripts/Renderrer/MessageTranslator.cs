@@ -7,6 +7,7 @@ using System.Text.RegularExpressions;
 using UnityEngine;
 using UnityEngine.UI;
 using REEL.Recorder;
+using REEL.PoseAnimation;
 
 namespace REEL.Animation
 {
@@ -14,6 +15,7 @@ namespace REEL.Animation
     {
         public TextAsset riveScriptFile;
         public RobotFacialRenderer robotFacialRenderer;
+        public RobotTransformController robotTransformController;
         public BehaviorRecorder behaviorRecorder;
         public Text debugText;
 
@@ -42,9 +44,14 @@ namespace REEL.Animation
 
         public void SetMessage(string input)
         {   
-            string reply = riveScript.reply("default", input);
-            //Debug.Log(reply);
-            Process(reply);
+            //string reply = riveScript.reply("default", input);
+            //Process(reply);
+            Process(input);
+        }
+
+        private void RecordBehavior(int eventType, string eventValue)
+        {
+            behaviorRecorder.RecordBehavior(new RecordEvent(eventType, eventValue));
         }
 
         void Process(string reply)
@@ -74,13 +81,28 @@ namespace REEL.Animation
                                 {
                                     switch (detail[0])
                                     {
-                                        case "facial":
-                                            ShowDebugTest("Sub command facial with " + detail[1]);
-                                            //Debug.Log("Sub command facial with " + detail[1]);
-                                            robotFacialRenderer.Play(detail[1]);
-                                            // On Testing.
-                                            behaviorRecorder.RecordBehavior(new RecordEvent(1, detail[1]));
+                                        case "motion":
+                                            {
+                                                ShowDebugTest("Sub command motion with " + detail[1]);
+                                                if (robotTransformController.PlayGesture(detail[1]))
+                                                {
+                                                    // Record motion gesture.
+                                                    RecordBehavior(0, detail[1]);
+                                                }
+                                            }
                                             break;
+
+                                        case "facial":
+                                            {
+                                                ShowDebugTest("Sub command facial with " + detail[1]);
+                                                if (robotFacialRenderer.Play(detail[1]))
+                                                {
+                                                    // Record facial animation.
+                                                    RecordBehavior(1, detail[1]);
+                                                }
+                                            }
+                                            break;
+
                                         default:
                                             break;
                                     }
