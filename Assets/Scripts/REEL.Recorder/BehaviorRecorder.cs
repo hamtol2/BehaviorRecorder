@@ -59,12 +59,14 @@ namespace REEL.Recorder
                 return;
 
             string jsonString = SimpleJson.SimpleJson.SerializeObject(records);
-            Debug.Log(jsonString);
+            //Debug.Log(jsonString);
             File.WriteAllText(filePath, jsonString);
         }
 
         private void RecordBehavior()
         {
+            if (!isRecording) return;
+
             RecordFormat newRecord = new RecordFormat();
             newRecord.elapsedTime = mainTimer.GetElapsedTime;
             newRecord.markerPosition = new CustomVector2(Camera.main.ScreenToWorldPoint(Input.mousePosition));
@@ -74,6 +76,8 @@ namespace REEL.Recorder
 
         public void RecordBehavior(RecordEvent newEvent)
         {
+            if (!isRecording) return;
+
             RecordFormat newRecord = new RecordFormat();
             newRecord.elapsedTime = mainTimer.GetElapsedTime;
             newRecord.markerPosition = new CustomVector2(Camera.main.ScreenToWorldPoint(Input.mousePosition));

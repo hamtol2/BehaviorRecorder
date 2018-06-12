@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using REEL.Animation;
-using System.IO;
+using REEL.PoseAnimation;
 
 namespace REEL.Recorder
 {
@@ -11,6 +10,7 @@ namespace REEL.Recorder
     {
         public string fileName = "Behavior.json";
         public RobotFacialRenderer facialRenderer;
+        public RobotTransformController transformController;
         public GameObject marker;
 
         public RecordFormat[] records;
@@ -25,7 +25,7 @@ namespace REEL.Recorder
 
         private void OnEnable()
         {
-            InitState();
+            //InitState();
         }
 
         private void OnDisable()
@@ -45,9 +45,13 @@ namespace REEL.Recorder
                 markerPos.z = -5f;
                 marker.transform.position = markerPos;
 
-                if (records[currentIndex].recordEvent != null)
+                if (records[currentIndex].recordEvent != null && records[currentIndex].recordEvent.eventType != -1)
                 {
-                    facialRenderer.Play(records[currentIndex].recordEvent.eventValue);
+                    // -1 : none / 0 : motion / 1 : facial.
+                    int eventType = records[currentIndex].recordEvent.eventType;
+
+                    if (eventType == 0) transformController.PlayGesture(records[currentIndex].recordEvent.eventValue);
+                    else facialRenderer.Play(records[currentIndex].recordEvent.eventValue);
                 }
 
                 ++currentIndex;
@@ -62,9 +66,9 @@ namespace REEL.Recorder
 
         public void PlayReplay()
         {
-            InitState();
-            isReplaying = true;
-            marker.SetActive(true);
+            StartCoroutine("InitState");
+            //isReplaying = true;
+            //marker.SetActive(true);
         }
 
         public void StopReplay()
@@ -73,11 +77,25 @@ namespace REEL.Recorder
             ResetState();
         }
 
-        private void InitState()
-        {   
+        private IEnumerator InitState()
+        {
+            // Set file path.
             string filePath = Application.dataPath + "/" + fileName;
-            string jsonString = File.ReadAllText(filePath);
+
+            // Load json text file.
+            WWW www = new WWW("file://" + filePath);
+            yield return www;
+
+            // Read json data and convert it to certain format.
+            string jsonString = www.text;
             records = SimpleJson.SimpleJson.DeserializeObject<RecordFormat[]>(jsonString);
+
+            // Set active state.
+            isReplaying = true;
+            marker.SetActive(true);
+
+            // Set base robot face.
+            facialRenderer.Play(facialRenderer.baseFace);
         }
 
         private void ResetState()
@@ -91,6 +109,9 @@ namespace REEL.Recorder
 
             marker.SetActive(false);
             currentIndex = 0;
+
+            // Set base robot face.
+            facialRenderer.Play(facialRenderer.baseFace);
         }
     }
 }

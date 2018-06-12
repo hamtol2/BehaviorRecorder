@@ -1,4 +1,5 @@
-﻿using System;
+﻿using REEL.Recorder;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -9,6 +10,7 @@ namespace REEL.PoseAnimation
 	{
 		public JointSet[] jointInfo;
 		public bool breath = true;
+        public BehaviorRecorder behaviorRecorder;
 
 		string _gesture;
 		float duration = -1;
@@ -101,7 +103,8 @@ namespace REEL.PoseAnimation
 
         public void PlayGesture(string gesture)
         {
-			switch (gesture) {
+            behaviorRecorder.RecordBehavior(new RecordEvent(0, gesture));
+            switch (gesture) {
 				case "hi":
 					StartCoroutine("GestureProcess", hi_list);
 					break;

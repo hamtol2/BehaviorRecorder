@@ -3,6 +3,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace REEL.Animation
 {
@@ -10,11 +11,17 @@ namespace REEL.Animation
     {
         public RobotFacialData robotFacialData;
         public RobotFacialAnimator robotFacialAnimator;
+        public Text debugText;
+        public bool isDebug = true;
+        public string baseFace = "normal";
+        
 
         void Awake()
         {
             if (robotFacialData == null) GetComponent<RobotFacialData>();
             if (robotFacialAnimator == null) GetComponent<RobotFacialRenderer>();
+
+            Play(baseFace);
 
             //StartCoroutine("PlayAllForTest");
         }
@@ -55,6 +62,8 @@ namespace REEL.Animation
         // 표정 이름으로 캔버스에 있는 표정 설정하는 함수.
         private void SetFacialModel(string faceName)
         {
+            if (isDebug) debugText.text = "Sub command facial with " + faceName;
+
             for (int ix = 0; ix < robotFacialData.partData.Count; ++ix)
             {
                 if (CompareTwoStrings(faceName, robotFacialData.partData[ix].faceName))
