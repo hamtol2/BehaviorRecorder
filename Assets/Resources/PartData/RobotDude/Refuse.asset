@@ -14,62 +14,66 @@ MonoBehaviour:
   faceName: refuse
   faceParts:
   - facialPartEnum: 0
-    partSprite: {fileID: 21300000, guid: 5bffbaf11cee5874eb0eb42b076450fe, type: 3}
-    partPosition: {x: -3.26, y: 1.423}
-    partScale: {x: 1, y: 1}
+    partSprite: {fileID: 21300000, guid: 8d5a5a63ba26b4b42b8ebad1faf7ba8e, type: 3}
+    partPosition: {x: -2.72, y: 0.8219979}
+    partScale: {x: 0.85, y: 0.85}
+  - facialPartEnum: 1
+    partSprite: {fileID: 21300000, guid: b7dcef2294a204015addbae82d76e0c5, type: 3}
+    partPosition: {x: -2.675, y: 0.77}
+    partScale: {x: 0.7, y: 0.7}
   - facialPartEnum: 2
-    partSprite: {fileID: 21300000, guid: 93b94d9c64c2df64f95f692fd612a4a1, type: 3}
-    partPosition: {x: 3.26, y: 1.427}
-    partScale: {x: 1, y: 1}
-  - facialPartEnum: 4
-    partSprite: {fileID: 21300000, guid: 45354de4adf4fe94ca5265510755adf3, type: 3}
-    partPosition: {x: -3.271, y: -1.345}
-    partScale: {x: 1, y: 1}
-  - facialPartEnum: 5
-    partSprite: {fileID: 21300000, guid: 95887e8b70d0d174db61a3a9c7098b4d, type: 3}
-    partPosition: {x: 3.486, y: -1.34}
-    partScale: {x: 1, y: 1}
-  - facialPartEnum: 7
-    partSprite: {fileID: 21300000, guid: 4bd4a474952073b46965227fe9e7fa56, type: 3}
-    partPosition: {x: -0.02, y: -0.36}
-    partScale: {x: 1, y: 1}
+    partSprite: {fileID: 21300000, guid: 1d568a9d319104f66a1f0a7509d11d3b, type: 3}
+    partPosition: {x: 2.725, y: 0.8219979}
+    partScale: {x: 0.85, y: 0.85}
+  - facialPartEnum: 3
+    partSprite: {fileID: 21300000, guid: 5959f109a58c0444787df5042daae9b0, type: 3}
+    partPosition: {x: 2.68, y: 0.77}
+    partScale: {x: 0.7, y: 0.7}
   - facialPartEnum: 6
-    partSprite: {fileID: 21300000, guid: 2b839dbffc0aa884aa21e48099351629, type: 3}
-    partPosition: {x: -0.011, y: -2.686}
-    partScale: {x: 1, y: 1}
+    partSprite: {fileID: 21300000, guid: 1bde58bf59e644777b440f7022cbcff3, type: 3}
+    partPosition: {x: 0.01, y: -1.48}
+    partScale: {x: 0.4592525, y: 0.4903703}
+  - facialPartEnum: 12
+    partSprite: {fileID: 21300000, guid: c275ca38a16254d28a859859a14d7aca, type: 3}
+    partPosition: {x: -1.609, y: 2.68}
+    partScale: {x: 0.428078, y: 0.3121439}
+  - facialPartEnum: 13
+    partSprite: {fileID: 21300000, guid: 7237a5fca21844fb2bee9f01c9f42d00, type: 3}
+    partPosition: {x: 1.539, y: 2.579}
+    partScale: {x: 0.4031858, y: 0.409829}
   animDemensions:
-  - facePart: 0
-    type: 2
+  - facePart: 12
+    type: 4
     parameter:
       scale: 1
-      defaultValue: 0
-      amount: -10
+      defaultValue: 2.5
+      amount: 0.2
       changeSprite: {fileID: 0}
-  - facePart: 2
-    type: 2
+  - facePart: 13
+    type: 4
     parameter:
       scale: 1
-      defaultValue: 0
-      amount: -10
+      defaultValue: 2.8
+      amount: 0.2
       changeSprite: {fileID: 0}
-  - facePart: 4
+  - facePart: 1
     type: 1
     parameter:
       scale: 1
-      defaultValue: 0.9
-      amount: 0.2
+      defaultValue: 0.7
+      amount: 0.1
       changeSprite: {fileID: 0}
-  - facePart: 5
+  - facePart: 3
     type: 1
     parameter:
       scale: 1
-      defaultValue: 0.9
-      amount: 0.2
+      defaultValue: 0.7
+      amount: 0.1
       changeSprite: {fileID: 0}
   - facePart: 6
-    type: 0
+    type: 2
     parameter:
       scale: 1
-      defaultValue: -10
-      amount: 10
+      defaultValue: -6
+      amount: 12
       changeSprite: {fileID: 0}

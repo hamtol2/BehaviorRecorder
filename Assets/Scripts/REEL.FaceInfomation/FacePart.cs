@@ -18,6 +18,8 @@ namespace REEL.FaceInfomation
         Dark_Right,
         Tear_Left,
         Tear_Right,
+        Eyebrow_Left,
+        Eyebrow_Right,
         Length
     }
 

@@ -3,7 +3,7 @@
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 0}
   m_Enabled: 1
@@ -11,82 +11,50 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9e97845d4c99bb14e8759649f4886659, type: 3}
   m_Name: Normal
   m_EditorClassIdentifier: 
-  faceName: normal
+  faceName: happy
   faceParts:
   - facialPartEnum: 0
-    partSprite: {fileID: 21300000, guid: 7b2a2e2875d6eb14ca6396aa65e7d9c1, type: 3}
-    partPosition: {x: -3.51, y: 1.105}
+    partSprite: {fileID: 21300000, guid: e327e38d607cd4f1cb39d1de36818ff1, type: 3}
+    partPosition: {x: -2.72, y: 0.8219979}
     partScale: {x: 1, y: 1}
   - facialPartEnum: 1
-    partSprite: {fileID: 21300000, guid: a07ed8d617e518f45ad2e6eaa14049dc, type: 3}
-    partPosition: {x: -3.446, y: 0.861}
-    partScale: {x: 1, y: 1}
+    partSprite: {fileID: 21300000, guid: d6078b8060dca41faa4b3d078cf4ec2c, type: 3}
+    partPosition: {x: -2.675, y: 0.77}
+    partScale: {x: 0.7, y: 0.7}
   - facialPartEnum: 2
-    partSprite: {fileID: 21300000, guid: 4b7713e2a3c8df9419bf41dc57e5d9dd, type: 3}
-    partPosition: {x: 3.325, y: 1.112}
+    partSprite: {fileID: 21300000, guid: a1aa97d3a3a4f44a1b05b8a323c106b0, type: 3}
+    partPosition: {x: 2.725, y: 0.8219979}
     partScale: {x: 1, y: 1}
   - facialPartEnum: 3
-    partSprite: {fileID: 21300000, guid: 976c0a2129ede7241873afbc70f02c7a, type: 3}
-    partPosition: {x: 3.418, y: 0.867}
-    partScale: {x: 1, y: 1}
-  - facialPartEnum: 4
-    partSprite: {fileID: 21300000, guid: 1873359bc91d79843a73847661fbb36c, type: 3}
-    partPosition: {x: -3.339, y: -1.541}
-    partScale: {x: 1, y: 1}
-  - facialPartEnum: 5
-    partSprite: {fileID: 21300000, guid: 873493d9373726349bcd4cf6f10305c6, type: 3}
-    partPosition: {x: 3.473, y: -1.542}
-    partScale: {x: 1, y: 1}
-  - facialPartEnum: 7
-    partSprite: {fileID: 21300000, guid: 94285540b5d53a74d975c065cf5dd8bf, type: 3}
-    partPosition: {x: -0.065, y: -0.543}
-    partScale: {x: 1, y: 1}
+    partSprite: {fileID: 21300000, guid: 828024fa754fe468499850bde1d716a9, type: 3}
+    partPosition: {x: 2.68, y: 0.77}
+    partScale: {x: 0.7, y: 0.7}
   - facialPartEnum: 6
-    partSprite: {fileID: 21300000, guid: 3e3f79de5174c734f906662cd9814e25, type: 3}
-    partPosition: {x: -0.007, y: -2.718}
+    partSprite: {fileID: 21300000, guid: a5ae17d7b0e3a4a70b420990f1b852d2, type: 3}
+    partPosition: {x: -0.007, y: -2.5}
     partScale: {x: 1, y: 1}
+  - facialPartEnum: 12
+    partSprite: {fileID: 21300000, guid: 988f11c9ed7354f39b02f3d3dc1b4d72, type: 3}
+    partPosition: {x: 2.8, y: 3.42}
+    partScale: {x: 0.5310119, y: 0.6320899}
+  - facialPartEnum: 13
+    partSprite: {fileID: 21300000, guid: f5bf42cacf8444e9e95c6c6c5f5bc795, type: 3}
+    partPosition: {x: -2.67, y: 3.38}
+    partScale: {x: 0.5292386, y: 0.5711513}
   animDemensions:
-  - facePart: 0
-    type: 2
-    parameter:
-      scale: 1
-      defaultValue: -10
-      amount: 20
-      changeSprite: {fileID: 0}
   - facePart: 1
     type: 1
     parameter:
-      scale: 1
-      defaultValue: 0.9
-      amount: 0.2
-      changeSprite: {fileID: 0}
-  - facePart: 2
-    type: 2
-    parameter:
-      scale: 1
-      defaultValue: 10
-      amount: -20
+      scale: 0.9
+      defaultValue: 0.8
+      amount: 0.1
       changeSprite: {fileID: 0}
   - facePart: 3
     type: 1
     parameter:
-      scale: 1
-      defaultValue: 0.9
-      amount: 0.2
-      changeSprite: {fileID: 0}
-  - facePart: 4
-    type: 1
-    parameter:
-      scale: 1
-      defaultValue: 0.9
-      amount: 0.2
-      changeSprite: {fileID: 0}
-  - facePart: 5
-    type: 1
-    parameter:
-      scale: 1
-      defaultValue: 0.9
-      amount: 0.2
+      scale: 0.9
+      defaultValue: 0.8
+      amount: 0.1
       changeSprite: {fileID: 0}
   - facePart: 6
     type: 1
@@ -94,4 +62,18 @@ MonoBehaviour:
       scale: 1
       defaultValue: 0.9
       amount: 0.2
+      changeSprite: {fileID: 0}
+  - facePart: 12
+    type: 4
+    parameter:
+      scale: 1
+      defaultValue: 3.3
+      amount: 0.3
+      changeSprite: {fileID: 0}
+  - facePart: 13
+    type: 4
+    parameter:
+      scale: 1
+      defaultValue: 3.3
+      amount: 0.3
       changeSprite: {fileID: 0}

@@ -12,6 +12,8 @@ namespace REEL.PoseAnimation
 		public bool breath = true;
         public BehaviorRecorder behaviorRecorder;
 
+        public string currentGesture;
+
 		string _gesture;
 		float duration = -1;
 

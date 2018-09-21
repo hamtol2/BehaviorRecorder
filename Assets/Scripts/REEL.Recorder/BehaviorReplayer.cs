@@ -12,11 +12,15 @@ namespace REEL.Recorder
         public RobotFacialRenderer facialRenderer;
         public RobotTransformController transformController;
         public GameObject marker;
+        public RobotMovement robotMovement;
 
         public RecordFormat[] records;
+        public RecordJsonFormat recordData;
         private Timer mainTimer;
         private int currentIndex = 0;
         private bool isReplaying = false;
+
+        private float moveLerpSpeed = 10f;
 
         private void Awake()
         {
@@ -37,31 +41,33 @@ namespace REEL.Recorder
         {
             if (!isReplaying) return;
 
-            mainTimer.Update(Time.deltaTime);
+            PlayJsonData();
 
-            if (mainTimer.GetElapsedTime >= records[currentIndex].elapsedTime)
-            {
-                Vector3 markerPos = records[currentIndex].markerPosition.ToVector2();
-                markerPos.z = -5f;
-                marker.transform.position = markerPos;
+            //mainTimer.Update(Time.deltaTime);
 
-                if (records[currentIndex].recordEvent != null && records[currentIndex].recordEvent.eventType != -1)
-                {
-                    // -1 : none / 0 : motion / 1 : facial.
-                    int eventType = records[currentIndex].recordEvent.eventType;
+            //if (mainTimer.GetElapsedTime >= records[currentIndex].elapsedTime)
+            //{
+            //    Vector3 markerPos = records[currentIndex].markerPosition.ToVector2();
+            //    markerPos.z = -5f;
+            //    marker.transform.position = markerPos;
 
-                    if (eventType == 0) transformController.PlayGesture(records[currentIndex].recordEvent.eventValue);
-                    else facialRenderer.Play(records[currentIndex].recordEvent.eventValue);
-                }
+            //    if (records[currentIndex].recordEvent != null && records[currentIndex].recordEvent.eventType != -1)
+            //    {
+            //        // -1 : none / 0 : motion / 1 : facial.
+            //        int eventType = records[currentIndex].recordEvent.eventType;
 
-                ++currentIndex;
+            //        if (eventType == 0) transformController.PlayGesture(records[currentIndex].recordEvent.eventValue);
+            //        else facialRenderer.Play(records[currentIndex].recordEvent.eventValue);
+            //    }
 
-                if (currentIndex >= records.Length)
-                {
-                    StopReplay();
-                    return;
-                }
-            }
+            //    ++currentIndex;
+
+            //    if (currentIndex >= records.Length)
+            //    {
+            //        StopReplay();
+            //        return;
+            //    }
+            //}
         }
 
         public void PlayReplay()
@@ -88,27 +94,65 @@ namespace REEL.Recorder
 
             // Read json data and convert it to certain format.
             string jsonString = www.text;
-            records = SimpleJson.SimpleJson.DeserializeObject<RecordFormat[]>(jsonString);
+            //records = SimpleJson.SimpleJson.DeserializeObject<RecordFormat[]>(jsonString);
+            recordData = JsonUtility.FromJson<RecordJsonFormat>(jsonString);
 
             // Set active state.
             isReplaying = true;
             marker.SetActive(true);
 
+            // Disable EyePoint tracking.
+            TobbiTester.Instance.SetSimulationMode(false);
+
+            // Disable Robot movement.
+            robotMovement.SetSimulation(false);
+
             // Set base robot face.
             facialRenderer.Play(facialRenderer.baseFace);
+        }
+
+        private void PlayJsonData()
+        {
+            mainTimer.Update(Time.deltaTime);
+
+            //if (mainTimer.GetElapsedTime >= records[currentIndex].elapsedTime)
+            if (mainTimer.GetElapsedTime >= recordData[currentIndex].elapsedTime)
+            {
+                Vector3 markerPos = Camera.main.ScreenToWorldPoint(recordData[currentIndex].eyePosition);
+                markerPos.z = -5f;
+                //marker.transform.position = markerPos;
+                marker.transform.position = Vector3.Lerp(marker.transform.position, markerPos, Time.deltaTime * moveLerpSpeed);
+
+                robotMovement.transform.position
+                    = Vector3.Lerp(robotMovement.transform.position, recordData[currentIndex].robotPosition, Time.deltaTime * moveLerpSpeed);
+                //robotMovement.transform.position = recordData[currentIndex].robotPosition;
+
+                ++currentIndex;
+
+                if (currentIndex >= recordData.Length)
+                {
+                    StopReplay();
+                    return;
+                }
+            }
         }
 
         private void ResetState()
         {
             mainTimer.Reset();
-            if (records != null && records.Length > 0)
+            if (recordData != null && recordData.Length > 0)
             {
-                Array.Clear(records, 0, records.Length);
-                //records = null;
+                recordData = new RecordJsonFormat();
             }
 
             marker.SetActive(false);
             currentIndex = 0;
+
+            // Enable EyePoint tracking.
+            TobbiTester.Instance.SetSimulationMode(true);
+
+            // Move robot to origin.
+            robotMovement.MoveToOrigin();
 
             // Set base robot face.
             facialRenderer.Play(facialRenderer.baseFace);

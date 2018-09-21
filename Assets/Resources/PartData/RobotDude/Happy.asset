@@ -3,7 +3,7 @@
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 0}
   m_Enabled: 1
@@ -11,38 +11,69 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9e97845d4c99bb14e8759649f4886659, type: 3}
   m_Name: Happy
   m_EditorClassIdentifier: 
-  faceName: happy
+  faceName: normal
   faceParts:
   - facialPartEnum: 0
-    partSprite: {fileID: 21300000, guid: cef18dbab1a95234284366f1b1137975, type: 3}
-    partPosition: {x: -3.46, y: 1.08}
-    partScale: {x: 1, y: 1}
+    partSprite: {fileID: 21300000, guid: e8cc7ec591d6f435390debbc0b398c07, type: 3}
+    partPosition: {x: -2.72, y: 0.8219979}
+    partScale: {x: 0.85, y: 0.85}
   - facialPartEnum: 1
-    partSprite: {fileID: 21300000, guid: 9fd7722bee3b9ac43a86ebdaf6e3ac5b, type: 3}
-    partPosition: {x: -3.35, y: 0.861}
-    partScale: {x: 1, y: 1}
+    partSprite: {fileID: 21300000, guid: 8c125a87355bb4b57a2d3d6bb8139097, type: 3}
+    partPosition: {x: -2.675, y: 0.77}
+    partScale: {x: 0.7, y: 0.7}
   - facialPartEnum: 2
-    partSprite: {fileID: 21300000, guid: 8acf711e6926dd64780fa7c4ec3205c4, type: 3}
-    partPosition: {x: 3.28, y: 1.08}
-    partScale: {x: 1, y: 1}
+    partSprite: {fileID: 21300000, guid: 3bf367cf0033a46e4ba9fe6d5ae268d8, type: 3}
+    partPosition: {x: 2.725, y: 0.8219979}
+    partScale: {x: 0.85, y: 0.85}
   - facialPartEnum: 3
-    partSprite: {fileID: 21300000, guid: 09b8ce63361701544a90f6afde68c178, type: 3}
-    partPosition: {x: 3.38, y: 0.858}
-    partScale: {x: 1, y: 1}
-  - facialPartEnum: 4
-    partSprite: {fileID: 21300000, guid: 89a4c2a58a208ef49a501bb21550710d, type: 3}
-    partPosition: {x: -3.3, y: -1.499}
-    partScale: {x: 1, y: 1}
-  - facialPartEnum: 5
-    partSprite: {fileID: 21300000, guid: 3d9d3f48f5e7beb4c912909b04866301, type: 3}
-    partPosition: {x: 3.44, y: -1.517}
-    partScale: {x: 1, y: 1}
-  - facialPartEnum: 7
-    partSprite: {fileID: 21300000, guid: ed346ef56a05bcb468927fef9e3513ca, type: 3}
-    partPosition: {x: -0.05, y: -0.535}
-    partScale: {x: 1, y: 1}
+    partSprite: {fileID: 21300000, guid: 75a64aca27f064f289bc882daaeb9401, type: 3}
+    partPosition: {x: 2.68, y: 0.77}
+    partScale: {x: 0.7, y: 0.7}
+  - facialPartEnum: 12
+    partSprite: {fileID: 21300000, guid: 531b5729de5424a45a256036a98fb06a, type: 3}
+    partPosition: {x: -2.8, y: 3.21}
+    partScale: {x: 0.4626025, y: 0.4717012}
+  - facialPartEnum: 13
+    partSprite: {fileID: 21300000, guid: da4a1a3a8c2a048bb9e95dd5f0c67ae7, type: 3}
+    partPosition: {x: 2.784, y: 3.169}
+    partScale: {x: 0.4894978, y: 0.5079075}
   - facialPartEnum: 6
-    partSprite: {fileID: 21300000, guid: d24e77f956908fb46a9b4843c0c2c35d, type: 3}
-    partPosition: {x: 0.065, y: -2.1947}
-    partScale: {x: 0.8983671, y: 0.979037}
-  animDemensions: []
+    partSprite: {fileID: 21300000, guid: 590971d6f7c7a42f581938dc0d136732, type: 3}
+    partPosition: {x: 0.02, y: -2.41}
+    partScale: {x: 0.8217614, y: 0.7952092}
+  animDemensions:
+  - facePart: 1
+    type: 1
+    parameter:
+      scale: 1
+      defaultValue: 0.8
+      amount: 0.1
+      changeSprite: {fileID: 0}
+  - facePart: 3
+    type: 1
+    parameter:
+      scale: 1
+      defaultValue: 0.8
+      amount: 0.1
+      changeSprite: {fileID: 0}
+  - facePart: 12
+    type: 4
+    parameter:
+      scale: 1
+      defaultValue: 3.21
+      amount: 0.2
+      changeSprite: {fileID: 0}
+  - facePart: 13
+    type: 4
+    parameter:
+      scale: 1
+      defaultValue: 3.21
+      amount: 0.2
+      changeSprite: {fileID: 0}
+  - facePart: 6
+    type: 1
+    parameter:
+      scale: 1
+      defaultValue: 0.9
+      amount: 0.1
+      changeSprite: {fileID: 0}

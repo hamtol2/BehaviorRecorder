@@ -14,7 +14,8 @@ namespace REEL.Animation
         public Text debugText;
         public bool isDebug = true;
         public string baseFace = "normal";
-        
+
+        public string currentFace = "normal";
 
         void Awake()
         {

@@ -51,7 +51,7 @@ namespace REEL.Animation
 
         private void RecordBehavior(int eventType, string eventValue)
         {
-            behaviorRecorder.RecordBehavior(new RecordEvent(eventType, eventValue));
+            //behaviorRecorder.RecordBehavior(new RecordEvent(eventType, eventValue));
         }
 
         void Process(string reply)
