@@ -76,5 +76,21 @@ namespace REEL.Recorder
         public Vector3 robotPosition;
         public string face;
         public string gesture;
+        public RecordEvent recordEvent;
+    }
+
+    [Serializable]
+    public class RecordEvent
+    {
+        // 0: motion, 1: facial.
+        public int eventType = -1;
+        public string eventValue = string.Empty;
+
+        public RecordEvent() { }
+        public RecordEvent(int eventType, string eventValue)
+        {
+            this.eventType = eventType;
+            this.eventValue = eventValue;
+        }
     }
 }

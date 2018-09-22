@@ -28,15 +28,34 @@ namespace REEL.Recorder
             if (!isSimulation) return;
 
             if (isMouseTracking)
+            {
                 MoveMarkerWithMouse();
-
+                RaycastCheck(Input.mousePosition);
+            }
             else
+            {
                 MoveMarkerWithTobii();
+                GazePoint gazePoint = TobiiAPI.GetGazePoint();
+                RaycastCheck(gazePoint.Screen);
+            }
+
+            
         }
 
         public void SetSimulationMode(bool isSimulation)
         {
             this.isSimulation = isSimulation;
+        }
+
+        void RaycastCheck(Vector2 screenPos)
+        {
+            //Ray ray = Camera.main.ScreenPointToRay(screenPos);
+            //RaycastHit hit;
+
+            //if (Physics.Raycast(ray, out hit, 100f))
+            //{
+            //    Debug.Log(hit.transform.gameObject.tag);
+            //}
         }
 
         void MoveMarkerWithMouse()
@@ -75,6 +94,15 @@ namespace REEL.Recorder
         bool CanMove(Vector3 screenPos)
         {
             return !float.IsNaN(screenPos.x) && !float.IsNaN(screenPos.y);
+        }
+
+        public Vector2 GetEyePoint
+        {
+            get
+            {
+                GazePoint point = TobiiAPI.GetGazePoint();
+                return isMouseTracking ? new Vector2(Input.mousePosition.x, Input.mousePosition.y) : point.Screen;
+            }
         }
     }
 }

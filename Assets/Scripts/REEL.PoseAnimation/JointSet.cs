@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 
 namespace REEL.PoseAnimation
 {
@@ -14,17 +15,34 @@ namespace REEL.PoseAnimation
         public Vector3 baseRotation;
         public JointAxis jointRotAxis;
         public bool isFixed = false;
-        float _angle;
+        private float angle;
 
         public void SetAngle(float angle)
         {
-            _angle = angle;
+            this.angle = angle;
             Vector3 rot = isFixed ? GetFixedEulerAngle(angle) : GetEulerAngle(angle);
             joint.localRotation = Quaternion.Euler(rot);
         }
-        public float GetAngle ()
+
+        public IEnumerator SetAngleLerp(float angle, float duration)
         {
-            return _angle;
+            float elapsedTime = 0f;
+            this.angle = angle;
+            Vector3 rot = isFixed ? GetFixedEulerAngle(angle) : GetEulerAngle(angle);
+            Quaternion targetRot = Quaternion.Euler(rot);
+
+            while (elapsedTime <= duration)
+            {
+                elapsedTime += Time.deltaTime;
+                joint.localRotation = Quaternion.Lerp(joint.localRotation, targetRot, elapsedTime);
+
+                yield return null;
+            }
+        }
+
+        public float GetAngle()
+        {
+            return angle;
         }
 
         public void SetBaseAngle()

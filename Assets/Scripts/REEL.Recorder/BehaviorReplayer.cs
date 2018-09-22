@@ -14,7 +14,6 @@ namespace REEL.Recorder
         public GameObject marker;
         public RobotMovement robotMovement;
 
-        public RecordFormat[] records;
         public RecordJsonFormat recordData;
         private Timer mainTimer;
         private int currentIndex = 0;

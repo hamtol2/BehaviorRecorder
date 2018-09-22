@@ -50,6 +50,9 @@ namespace REEL.Animation
             bool retValue = SetFacialModel(splitString[0]);
             robotFacialAnimator.PlayFacialAnim(splitString[0], 1f);
 
+            // 현재 표정 저장.
+            currentFace = name;
+
             return retValue;
         }
 

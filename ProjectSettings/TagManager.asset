@@ -3,7 +3,26 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - Tear_Left
+  - EyeLeft
+  - Dark_Left
+  - Chick_Left
+  - Chick_Right
+  - Eyeball_Right
+  - Eyebrow_Left
+  - EyeRight
+  - Mouth
+  - Eyebrow_Right
+  - Tear_Right
+  - Eyeball_Left
+  - Dark_Right
+  - Nose
+  - Arm
+  - Finger
+  - Body
+  - Face
+  - Background
   layers:
   - Default
   - TransparentFX

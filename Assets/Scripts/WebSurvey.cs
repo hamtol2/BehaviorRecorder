@@ -61,7 +61,7 @@ public class WebSurvey : MonoBehaviour {
 			received_facial = "";
 		}
 		if (received_motion.Length > 0) {
-			REEL.PoseAnimation.RobotTransformController.Instance.PlayGesture(received_motion);
+			REEL.PoseAnimation.RobotTransformController.Instance.PlayMotion(received_motion);
 			received_motion = "";
 		}
 	}

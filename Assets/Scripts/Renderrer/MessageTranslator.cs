@@ -84,11 +84,13 @@ namespace REEL.Animation
                                         case "motion":
                                             {
                                                 ShowDebugTest("Sub command motion with " + detail[1]);
-                                                if (robotTransformController.PlayGesture(detail[1]))
-                                                {
-                                                    // Record motion gesture.
-                                                    RecordBehavior(0, detail[1]);
-                                                }
+                                                StartCoroutine(robotTransformController.PlayMotion(detail[1]));
+                                                RecordBehavior(0, detail[1]);
+                                                //if (robotTransformController.PlayMotion(detail[1]))
+                                                //{
+                                                //    // Record motion gesture.
+                                                //    RecordBehavior(0, detail[1]);
+                                                //}
                                             }
                                             break;
 

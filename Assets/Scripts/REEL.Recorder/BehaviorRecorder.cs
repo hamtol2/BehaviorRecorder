@@ -80,7 +80,7 @@ namespace REEL.Recorder
             newData.contentState = QuizManager.Instance.quizState;
             newData.answer = QuizManager.Instance.answerState;
             newData.modelType = QuizManager.Instance.robotModelType;
-            newData.eyePosition = EyePoint;
+            newData.eyePosition = TobbiTester.Instance.GetEyePoint;
             newData.robotPosition = robotTransform.position;
             newData.targetRegion = GetTargetRegion;
             newData.face = facialRenderer.currentFace;
@@ -89,21 +89,37 @@ namespace REEL.Recorder
             saveData.AddData(newData);
         }
 
-        public Vector2 EyePoint
-        {
-            get
-            {
-                GazePoint gazePoint = TobiiAPI.GetGazePoint();
-                return TobbiTester.Instance.isMouseTracking ? new Vector2(Input.mousePosition.x, Input.mousePosition.y) : gazePoint.Screen;
-            }
-        }
-
-        // todo : 마우스 위치 기준으로 로봇의 위치 정보 반환하도록 기능 추가해야 함.
+        // 마우스/토비 위치 기준으로 로봇 파츠 위치 정보 반환.
         public TargetRegion GetTargetRegion
         {
             get
             {
-                return TargetRegion.Eye;
+                Ray ray = Camera.main.ScreenPointToRay(TobbiTester.Instance.GetEyePoint);
+                RaycastHit hit;
+
+                if (Physics.Raycast(ray, out hit, 100f))
+                {
+                    string tag = hit.transform.gameObject.tag.ToLower();
+
+                    if (tag.StartsWith("eye"))
+                        return TargetRegion.Eye;
+                    else if (tag.StartsWith("mouth"))
+                        return TargetRegion.Mouth;
+                    else if (tag.StartsWith("face"))
+                        return TargetRegion.Face;
+                    else if (tag.StartsWith("arm"))
+                        return TargetRegion.Arm;
+                    else if (tag.StartsWith("finger"))
+                        return TargetRegion.FingerTip;
+                    else if (tag.StartsWith("body"))
+                        return TargetRegion.Body;
+                    else if (tag.StartsWith("background"))
+                        return TargetRegion.Background;
+                    else
+                        return TargetRegion.OffSight;
+                }
+
+                return TargetRegion.OffSight;
             }
         }
 
