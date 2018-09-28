@@ -89,6 +89,7 @@ namespace REEL.PoseAnimation
         };
 
         Dictionary<string, float[][]> motionTable;
+        IEnumerator currentAnimation = null;
 
         private IEnumerator Start()
         {
@@ -103,8 +104,24 @@ namespace REEL.PoseAnimation
 
             //StartCoroutine(PlayMotion("happy"));
 
-            yield return StartCoroutine("TestAllMotion");
-            StartCoroutine(Breath());
+            //AnimationRunner(TestAllMotion());
+            //AnimationRunner(Breath());
+
+            //yield return StartCoroutine("TestAllMotion");
+            //StartCoroutine(Breath());
+        }
+
+        public void AnimationRunner(string motion)
+        {
+            if (currentAnimation != null)
+            {
+                StopCoroutine(currentAnimation);
+                currentAnimation = null;
+                return;
+            }
+
+            currentAnimation = PlayMotion(motion);
+            StartCoroutine(currentAnimation);
         }
 
         IEnumerator TestAllMotion()
@@ -152,11 +169,13 @@ namespace REEL.PoseAnimation
             {
                 currentGesture = gesture;
                 yield return StartCoroutine("GestureProcess", gestureInfo);
+                currentAnimation = null;
                 //return true;
             }
             else
             {
                 currentGesture = string.Empty;
+                currentAnimation = null;
                 //return false;
             }
         }
@@ -208,7 +227,7 @@ namespace REEL.PoseAnimation
 
             yield return StartCoroutine(SetBasePos());
 
-            breatheEnable = true;
+            //breatheEnable = true;
         }
 
         IEnumerator WaitUntilNextCoroutine(float time)

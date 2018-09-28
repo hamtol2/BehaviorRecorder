@@ -89,6 +89,27 @@ namespace REEL.Recorder
             saveData.AddData(newData);
         }
 
+        public void RecordBehavior(RecordEvent newEvent)
+        {
+            if (!isRecording) return;
+
+            RecordData newData = new RecordData();
+            newData.quizTitle = QuizManager.Instance.quizTitle;
+            newData.quizNumber = QuizManager.Instance.quizNumber;
+            newData.elapsedTime = mainTimer.GetElapsedTime;
+            newData.contentState = QuizManager.Instance.quizState;
+            newData.answer = QuizManager.Instance.answerState;
+            newData.modelType = QuizManager.Instance.robotModelType;
+            newData.eyePosition = TobbiTester.Instance.GetEyePoint;
+            newData.robotPosition = robotTransform.position;
+            newData.targetRegion = GetTargetRegion;
+            newData.face = facialRenderer.currentFace;
+            newData.gesture = gestureController.currentGesture;
+            newData.recordEvent = newEvent;
+
+            saveData.AddData(newData);
+        }
+
         // 마우스/토비 위치 기준으로 로봇 파츠 위치 정보 반환.
         public TargetRegion GetTargetRegion
         {

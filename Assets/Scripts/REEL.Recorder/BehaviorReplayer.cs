@@ -126,6 +126,15 @@ namespace REEL.Recorder
                     = Vector3.Lerp(robotMovement.transform.position, recordData[currentIndex].robotPosition, Time.deltaTime * moveLerpSpeed);
                 //robotMovement.transform.position = recordData[currentIndex].robotPosition;
 
+                if (HasRecordEvent(recordData[currentIndex]))
+                {
+                    // -1 : none / 0 : motion / 1 : facial.
+                    int eventType = recordData[currentIndex].recordEvent.eventType;
+
+                    if (eventType == 0) transformController.AnimationRunner(recordData[currentIndex].recordEvent.eventValue);
+                    else facialRenderer.Play(recordData[currentIndex].recordEvent.eventValue);
+                }
+
                 ++currentIndex;
 
                 if (currentIndex >= recordData.Length)
@@ -134,6 +143,11 @@ namespace REEL.Recorder
                     return;
                 }
             }
+        }
+
+        bool HasRecordEvent(RecordData record)
+        {
+            return record.recordEvent != null && record.recordEvent.eventType != -1;
         }
 
         private void ResetState()

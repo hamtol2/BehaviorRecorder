@@ -34,7 +34,8 @@ namespace REEL.PoseAnimation
             while (elapsedTime <= duration)
             {
                 elapsedTime += Time.deltaTime;
-                joint.localRotation = Quaternion.Lerp(joint.localRotation, targetRot, elapsedTime);
+                float normalTime = elapsedTime / duration;
+                joint.localRotation = Quaternion.Lerp(joint.localRotation, targetRot, normalTime);
 
                 yield return null;
             }

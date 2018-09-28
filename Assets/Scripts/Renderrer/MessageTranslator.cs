@@ -43,7 +43,7 @@ namespace REEL.Animation
         }
 
         public void SetMessage(string input)
-        {   
+        {
             //string reply = riveScript.reply("default", input);
             //Process(reply);
             Process(input);
@@ -51,7 +51,7 @@ namespace REEL.Animation
 
         private void RecordBehavior(int eventType, string eventValue)
         {
-            //behaviorRecorder.RecordBehavior(new RecordEvent(eventType, eventValue));
+            behaviorRecorder.RecordBehavior(new RecordEvent(eventType, eventValue));
         }
 
         void Process(string reply)
@@ -84,8 +84,9 @@ namespace REEL.Animation
                                         case "motion":
                                             {
                                                 ShowDebugTest("Sub command motion with " + detail[1]);
-                                                StartCoroutine(robotTransformController.PlayMotion(detail[1]));
+                                                robotTransformController.AnimationRunner(detail[1]);
                                                 RecordBehavior(0, detail[1]);
+                                                //yield return StartCoroutine(robotTransformController.PlayMotion(detail[1]));
                                                 //if (robotTransformController.PlayMotion(detail[1]))
                                                 //{
                                                 //    // Record motion gesture.
