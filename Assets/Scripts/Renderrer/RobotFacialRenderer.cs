@@ -15,7 +15,7 @@ namespace REEL.Animation
         public bool isDebug = true;
         public string baseFace = "normal";
 
-        public string currentFace = "normal";
+        public string currentFace = "";
 
         void Awake()
         {
@@ -42,9 +42,8 @@ namespace REEL.Animation
                 Play(data.faceName);
             }
         }
-
-        //public void Play(string name)
-        public bool Play(string name)
+        
+        public void Play(string name)
         {
             string[] splitString = name.Split('(');
             bool retValue = SetFacialModel(splitString[0]);
@@ -53,8 +52,21 @@ namespace REEL.Animation
             // 현재 표정 저장.
             currentFace = name;
 
-            return retValue;
+            WebSurvey.Instance.behaviorRecorder.RecordBehavior(new Recorder.RecordEvent(1, name));
         }
+
+        //public void Play(string name)
+        //public bool Play(string name)
+        //{
+        //    string[] splitString = name.Split('(');
+        //    bool retValue = SetFacialModel(splitString[0]);
+        //    robotFacialAnimator.PlayFacialAnim(splitString[0], 1f);
+
+        //    // 현재 표정 저장.
+        //    currentFace = name;
+
+        //    return retValue;
+        //}
 
         public void Stop()
         {

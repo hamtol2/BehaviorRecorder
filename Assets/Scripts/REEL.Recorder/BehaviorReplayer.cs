@@ -131,7 +131,7 @@ namespace REEL.Recorder
                     // -1 : none / 0 : motion / 1 : facial.
                     int eventType = recordData[currentIndex].recordEvent.eventType;
 
-                    if (eventType == 0) transformController.AnimationRunner(recordData[currentIndex].recordEvent.eventValue);
+                    if (eventType == 0) transformController.PlayMotion(recordData[currentIndex].recordEvent.eventValue);
                     else facialRenderer.Play(recordData[currentIndex].recordEvent.eventValue);
                 }
 

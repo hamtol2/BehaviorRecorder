@@ -4,139 +4,177 @@ using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using UnityEngine;
 using UnityEngine.UI;
+using REEL.Animation;
+using REEL.PoseAnimation;
 
+public class Arbitor : Singleton<Arbitor>
+{
+    class RobotMessage
+    {   
+        private string messageType = string.Empty;      // facial / motion.
+        private string message = string.Empty;          //  표정 or 모션 이름.
 
-public class Arbitor : MonoBehaviour {
+        public RobotMessage() { }
+        public RobotMessage(string[] robotMessage)
+        {
+            SetMessage(robotMessage);
+        }
 
-	public Toggle automaticExpression;
+        public string GetMessageType { get { return messageType; } }
+        public string GetMessage { get { return message; } }
 
-	List<String> _items = new List<String> ();
-	bool _isSpeaking;
+        public void SetMessage(string[] robotMessage)
+        {
+            messageType = robotMessage[0];
+            message = robotMessage[1];
+        }
 
-	private IEnumerator coroutine;
+        public override string ToString()
+        {
+            return "messageType: " + messageType + ", message: " + message;
+        }
+    }
 
-	public void Insert (String item) {
-		_items.Add(item);
-	}
+    public Toggle automaticExpression;
+    public RobotFacialRenderer robotFacialRenderer;
 
-	void Start () {
-		SpeechRenderrer.Instance.Init();
+    List<string> items = new List<string>();
+    bool _isSpeaking;
 
-		coroutine = Process(0.1f);
-		StartCoroutine(coroutine);
-	}
+    private IEnumerator coroutine;
 
+    delegate void MessageProcessor(string message);
+    Dictionary<string, MessageProcessor> messageProcessors = new Dictionary<string, MessageProcessor>();
 
-	// every 0.1 seconds perform
-	private IEnumerator Process(float waitTime)
-	{
-		Debug.Log ("Arbitor::Process");
-		while (true)
-		{
-			yield return new WaitForSeconds(waitTime);
+    void Start()
+    {
+        SpeechRenderrer.Instance.Init();
+        InitMessageProcessor();
 
-			if (_items.Count > 0) {
-				String reply = _items[0];
-				Debug.Log ("Arbitor::Input " + reply);
+        coroutine = Process(0.1f);
+        StartCoroutine(coroutine);
+    }
 
-				Regex rx = new Regex("(<[^>]+>)");
-				MatchCollection matches = rx.Matches(reply);
-				// Debug.Log("Match found " + matches.Count);
-				if (matches.Count > 0) {
-					foreach (Match match in matches)
-					{
-						GroupCollection groupCollection = match.Groups;
-						String command = groupCollection[1].ToString();
-						reply = reply.Replace(command, "");
-						// Debug.Log("command: " + command);
-						command = command.Substring(1).Substring(0,command.Length-2);
-						// Debug.Log("command: " + command);
+    // every 0.1 seconds perform
+    private IEnumerator Process(float waitTime)
+    {
+        Debug.Log("Arbitor::Process");
+        while (true)
+        {
+            yield return new WaitForSeconds(waitTime);
 
-						int index = command.IndexOf("=");
-						if (index > 0) {
-							String tag = command.Substring(0, index);
-							command = command.Substring(index+1);
+            ParseMessage();
+        }
+    }
 
-							switch (tag) {
-								case "sm":
-									String[] detail = Regex.Split(command, ":");
-									if (detail.Length > 0) {
-										switch (detail[0]) {
-											case "facial":
-												Debug.Log("Sub command facial with " + detail[1]);
-												REEL.Animation.FacialRenderrer.Instance.Play(detail[1]);
-												break;
-											case "motion":
-												Debug.Log("Sub command motion with " + detail[1]);
-												BluetoothManager.Instance.Send(detail[1]);
-												break;
-											case "mobility":
-												Debug.Log("Sub command mobility with " + detail[1]);
-												BluetoothManager.Instance.Send(detail[1]);
-												break;
-											default:
-												break;
-										}
-									}
-									break;
-								default:
-									Debug.Log("No matched command with " + tag);
-									break;
-							}
-						}
-					}
-				}
-				else if (automaticExpression.isOn) {
-					switch (UnityEngine.Random.Range(0, 5)) {
-						case 0:
-							REEL.Animation.FacialRenderrer.Instance.Play("normal");
-							BluetoothManager.Instance.Send("normal");
-							break;
-						case 1:
-							REEL.Animation.FacialRenderrer.Instance.Play("normal");
-							BluetoothManager.Instance.Send("hi");
-							break;
-						case 2:
-							REEL.Animation.FacialRenderrer.Instance.Play("normal");
-							BluetoothManager.Instance.Send("hello");
-							break;
-						case 3:
-							REEL.Animation.FacialRenderrer.Instance.Play("surprised");
-							BluetoothManager.Instance.Send("hi");
-							break;
-						case 4:
-							REEL.Animation.FacialRenderrer.Instance.Play("surprised");
-							BluetoothManager.Instance.Send("angry");
-							break;
-					}
-				}
+    public void Insert(string item)
+    {
+        items.Add(item);
+    }
 
-				if (!SpeechRenderrer.Instance.IsRunning()) {
-					SpeechRecognition.Instance.Disable();
-					SpeechRenderrer.Instance.Play(reply);
-					_items.RemoveAt(0);
-				}
-			}
+    void InitMessageProcessor()
+    {
+        messageProcessors.Add("facial", robotFacialRenderer.Play);
+        messageProcessors.Add("motion", RobotTransformController.Instance.PlayMotion);
+        //messageProcessors.Add("mobility", BluetoothManager.Instance.Send);
+    }
 
-			if (_isSpeaking && !SpeechRenderrer.Instance.IsRunning()) {
-				Debug.Log ("Speaking finished");
-				SpeechRecognition.Instance.Enable();
-			}
-			_isSpeaking = SpeechRenderrer.Instance.IsRunning();
+    bool CheckIfAnswerYes(string reply)
+    {
+        return reply.Contains("오") || reply.Contains("어") || reply.Contains("아") || reply.Contains("우");
+    }
 
-		}
-	}
+    bool CheckIfAnswerNo(string reply)
+    {
+        return reply.Contains("엑") || reply.Contains("액") || reply.Contains("악") || reply.Contains("윽");
+    }
 
-	private static Arbitor _instance = null;
-	public static Arbitor Instance
-	{
-		get
-		{
-			if (_instance == null)
-			{
-				_instance = FindObjectOfType(typeof(Arbitor)) as Arbitor;
-			}
-			return _instance;
-		}
-	}
+    void ParseMessage()
+    {
+        if (items.Count > 0)
+        {
+            string reply = items[0];
+            Debug.Log("Arbitor::Input " + reply);
+            bool isCorrect = reply.Contains("정답");
+
+            if (SpeechRenderrer.Instance.IsSpeaking())
+            {
+                //Debug.Log("Speaking");
+                return;
+            }   
+
+            Regex rx = new Regex("(<[^>]+>)");
+            MatchCollection matches = rx.Matches(reply);
+            // Debug.Log("Match found " + matches.Count);
+            if (matches.Count > 0)
+            {
+                foreach (Match match in matches)
+                {
+                    GroupCollection groupCollection = match.Groups;
+                    string command = groupCollection[1].ToString();
+                    reply = reply.Replace(command, "");
+                    command = command.Substring(1).Substring(0, command.Length - 2);
+
+                    // 메시지 처리.
+                    ProcessCommand(command);
+                }
+            }
+
+            // Check if quiz start.
+            if (WebSurvey.Instance.GetCurrentStep() == 0 && reply.Contains("시작"))
+            {
+                WebSurvey.Instance.StartQuiz();
+                items.RemoveAt(0);
+            }
+
+            if (!SpeechRenderrer.Instance.IsSpeaking())
+            {
+                Debug.Log("Start Speaking: " + reply);
+                SpeechRenderrer.Instance.Play(reply);
+                Debug.Log("clip length: " + SpeechRenderrer.Instance.GetComponent<AudioSource>().clip.length);
+                items.RemoveAt(0);
+
+                if (isCorrect) WebSurvey.Instance.GainScore();
+            }
+        }
+
+        if (_isSpeaking && !SpeechRenderrer.Instance.IsSpeaking())
+        {
+            Debug.Log("Speaking finished");
+            //SpeechRecognition.Instance.Enable();
+            WebSurvey.Instance.NextStep();
+
+            if (WebSurvey.Instance.GetCurrentScore() == 3)
+            {
+                WebSurvey.Instance.FinishQuiz();
+            }
+        }
+        _isSpeaking = SpeechRenderrer.Instance.IsSpeaking();
+    }
+
+    void ProcessCommand(string command)
+    {
+        int index = command.IndexOf("=");
+        if (index > 0)
+        {
+            string tag = command.Substring(0, index);
+            command = command.Substring(index + 1);
+
+            if (tag.Equals("sm"))
+            {
+                string[] detail = command.Split(new char[] { ':' }, StringSplitOptions.RemoveEmptyEntries);
+                if (detail.Length > 0)
+                {
+                    RobotMessage robotMessage = new RobotMessage(detail);
+
+                    MessageProcessor processor;
+                    if (messageProcessors.TryGetValue(robotMessage.GetMessageType, out processor))
+                    {
+                        //Debug.Log(robotMessage);
+                        processor(robotMessage.GetMessage);
+                    }
+                }
+            }
+        }
+    }
 }

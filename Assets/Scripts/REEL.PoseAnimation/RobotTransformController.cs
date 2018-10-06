@@ -90,6 +90,13 @@ namespace REEL.PoseAnimation
 
         Dictionary<string, float[][]> motionTable;
         IEnumerator currentAnimation = null;
+        private bool isPlaying = false;
+
+        
+
+        // Test.
+        //Queue<IEnumerator> animationQueue = new Queue<IEnumerator>();
+        Queue<MotionAnimInfo> animationQueue = new Queue<MotionAnimInfo>();
 
         private IEnumerator Start()
         {
@@ -111,24 +118,36 @@ namespace REEL.PoseAnimation
             //StartCoroutine(Breath());
         }
 
-        public void AnimationRunner(string motion)
+        public void PlayMotion(string motion)
         {
-            if (currentAnimation != null)
+            //Debug.Log("PlayMotion: " + motion);
+
+            animationQueue.Enqueue(new MotionAnimInfo(motion, PlayMotionCoroutine(motion)));
+            if (!isPlaying && animationQueue.Count > 0)
             {
-                StopCoroutine(currentAnimation);
-                currentAnimation = null;
-                return;
+                StartCoroutine(animationQueue.Dequeue().motionCoroutine);
             }
 
-            currentAnimation = PlayMotion(motion);
-            StartCoroutine(currentAnimation);
+            //Debug.Log("PlayMotion: " + motion);
+
+            //animationQueue.Enqueue(PlayMotionCoroutine(motion));
+
+            //if (currentAnimation != null)
+            //{
+            //    StopCoroutine(currentAnimation);
+            //    currentAnimation = null;
+            //    return;
+            //}
+
+            //currentAnimation = PlayMotionCoroutine(motion);
+            //StartCoroutine(currentAnimation);
         }
 
         IEnumerator TestAllMotion()
         {
             foreach (KeyValuePair<string, float[][]> motion in motionTable)
             {
-                yield return PlayMotion(motion.Key);
+                yield return PlayMotionCoroutine(motion.Key);
             }
         }
 
@@ -162,12 +181,13 @@ namespace REEL.PoseAnimation
         //}
 
         //public bool PlayMotion(string gesture)
-        public IEnumerator PlayMotion(string gesture)
+        public IEnumerator PlayMotionCoroutine(string gesture)
         {
             float[][] gestureInfo;
             if (motionTable.TryGetValue(gesture, out gestureInfo))
             {
                 currentGesture = gesture;
+                behaviorRecorder.RecordBehavior(new RecordEvent(0, gesture));
                 yield return StartCoroutine("GestureProcess", gestureInfo);
                 currentAnimation = null;
                 //return true;
@@ -198,7 +218,9 @@ namespace REEL.PoseAnimation
             motionTable.Add("angry", angryList);
             motionTable.Add("sad", sadList);
             motionTable.Add("ok", okList);
+            motionTable.Add("clap", okList);
             motionTable.Add("no", noList);
+            motionTable.Add("wrong", noList);
             motionTable.Add("happy", happyList);
         }
 
@@ -214,6 +236,8 @@ namespace REEL.PoseAnimation
 
         IEnumerator GestureProcess(float[][] motionInfo)
         {
+            isPlaying = true;
+
             for (int ix = 0; ix < motionInfo.Length; ++ix)
             {
                 for (int jx = 0; jx < jointInfo.Length; ++jx)
@@ -226,6 +250,16 @@ namespace REEL.PoseAnimation
             }
 
             yield return StartCoroutine(SetBasePos());
+
+            isPlaying = false;
+
+            //Debug.Log("Motion Finished, queue count: " + animationQueue.Count);
+            if (animationQueue.Count > 0)
+            {
+                MotionAnimInfo info = animationQueue.Dequeue();
+                //Debug.Log("Play Next motion: " + info.motion);
+                StartCoroutine(info.motionCoroutine);
+            }
 
             //breatheEnable = true;
         }
@@ -328,6 +362,19 @@ namespace REEL.PoseAnimation
         public float GetAngle(int JointID)
         {
             return jointInfo[JointID].GetAngle();
+        }
+
+        class MotionAnimInfo
+        {
+            public string motion;
+            public IEnumerator motionCoroutine;
+
+            public MotionAnimInfo() { }
+            public MotionAnimInfo(string motion, IEnumerator coroutine)
+            {
+                this.motion = motion;
+                motionCoroutine = coroutine;
+            }
         }
 
         [Serializable]

@@ -37,7 +37,7 @@ public class BluetoothManager : MonoBehaviour {
 		}
 	}
 
-	public void Send (String message) {
+	public void Send (string message) {
 		try {
 			btPlugin.CallStatic ("send", message + System.Environment.NewLine);
 		} catch (Exception ex) {

@@ -74,12 +74,12 @@ namespace REEL.Recorder
             if (!isRecording) return;
 
             RecordData newData = new RecordData();
-            newData.quizTitle = QuizManager.Instance.quizTitle;
-            newData.quizNumber = QuizManager.Instance.quizNumber;
+            newData.quizTitle = WebSurvey.Instance.QuizTitle;
+            newData.quizNumber = WebSurvey.Instance.GetCurrentStep();
             newData.elapsedTime = mainTimer.GetElapsedTime;
-            newData.contentState = QuizManager.Instance.quizState;
-            newData.answer = QuizManager.Instance.answerState;
-            newData.modelType = QuizManager.Instance.robotModelType;
+            newData.contentState = WebSurvey.Instance.GetCurrentState();
+            newData.answer = WebSurvey.Instance.GetAnswerState;
+            newData.modelType = WebSurvey.Instance.GetModelType;
             newData.eyePosition = TobbiTester.Instance.GetEyePoint;
             newData.robotPosition = robotTransform.position;
             newData.targetRegion = GetTargetRegion;
@@ -94,12 +94,12 @@ namespace REEL.Recorder
             if (!isRecording) return;
 
             RecordData newData = new RecordData();
-            newData.quizTitle = QuizManager.Instance.quizTitle;
-            newData.quizNumber = QuizManager.Instance.quizNumber;
+            newData.quizTitle = WebSurvey.Instance.QuizTitle;
+            newData.quizNumber = WebSurvey.Instance.GetCurrentStep();
             newData.elapsedTime = mainTimer.GetElapsedTime;
-            newData.contentState = QuizManager.Instance.quizState;
-            newData.answer = QuizManager.Instance.answerState;
-            newData.modelType = QuizManager.Instance.robotModelType;
+            newData.contentState = WebSurvey.Instance.GetCurrentState();
+            newData.answer = WebSurvey.Instance.GetAnswerState;
+            newData.modelType = WebSurvey.Instance.GetModelType;
             newData.eyePosition = TobbiTester.Instance.GetEyePoint;
             newData.robotPosition = robotTransform.position;
             newData.targetRegion = GetTargetRegion;

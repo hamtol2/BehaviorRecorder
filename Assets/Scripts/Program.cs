@@ -9,9 +9,6 @@ using uPLibrary.Networking.M2Mqtt;
 using uPLibrary.Networking.M2Mqtt.Messages;
 using uPLibrary.Networking.M2Mqtt.Utility;
 using uPLibrary.Networking.M2Mqtt.Exceptions;
-using ApiAiSDK;
-using ApiAiSDK.Model;
-using ApiAiSDK.Unity;
 using Newtonsoft.Json;
 
 public class SimsimiResult {
@@ -43,9 +40,6 @@ public class Program : MonoBehaviour {
 	// static HttpClient _simsimi = new HttpClient();
 
 	private MqttClient mqttClient;
-
-	private ApiAiUnity apiAiUnity= new ApiAiUnity();
-	const string ACCESS_TOKEN = "71e808383e06477ba559866596e6b71b";
 
 //	PreProcess proc = new PreProcess ();
 
@@ -108,57 +102,6 @@ public class Program : MonoBehaviour {
 		}
 	}
 
-	private readonly JsonSerializerSettings jsonSettings = new JsonSerializerSettings
-	{ 
-		NullValueHandling = NullValueHandling.Ignore,
-	};
-	public string GetApiAi (string input) {
-		Debug.Log("GetApiAi: " + input);
-
-		AIResponse response = apiAiUnity.TextRequest(input);
-
-		if (response != null)
-		{
-			Debug.Log("Resolved query: " + response.Result.ResolvedQuery);
-			var outText = JsonConvert.SerializeObject(response, jsonSettings);
-
-			Debug.Log("Result: " + response.Result.Fulfillment.Speech);
-			return response.Result.Fulfillment.Speech;
-		} else
-		{
-			Debug.LogError("Response is null");
-			return "";
-		}
-	}
-
-	void HandleOnResult(object sender, AIResponseEventArgs e)
-	{
-//		RunInMainThread(() => {
-			var aiResponse = e.Response;
-			if (aiResponse != null)
-			{
-				Debug.Log(aiResponse.Result.ResolvedQuery);
-				var outText = JsonConvert.SerializeObject(aiResponse, jsonSettings);
-
-				Debug.Log(outText);
-
-//				answerTextField.text = outText;
-
-			} else
-			{
-				Debug.LogError("Response is null");
-			}
-//		});
-	}
-
-	void HandleOnError(object sender, AIErrorEventArgs e)
-	{
-//		RunInMainThread(() => {
-			Debug.LogException(e.Exception);
-			Debug.Log(e.ToString());
-//			answerTextField.text = e.Exception.Message;
-//		});
-	}
 
 
 	// Use this for initialization
@@ -211,13 +154,6 @@ public class Program : MonoBehaviour {
 			return true;
 		};
 
-		var config = new AIConfiguration(ACCESS_TOKEN, SupportedLanguage.English);
-		apiAiUnity.Initialize(config);
-
-		apiAiUnity.OnError += HandleOnError;
-		apiAiUnity.OnResult += HandleOnResult;
-
-//		GetApiAi ("안녕");
 		Parse ("안녕");
 	}
 
@@ -255,7 +191,6 @@ public class Program : MonoBehaviour {
 				Debug.Log("reply: " + reply);
 				if (reply.Contains("NOT_MATCHED")) {
 					Debug.Log("Not matched. Request to API.AI");
-					Arbitor.Instance.Insert (GetApiAi (input));
 				}
 				else {
 					Arbitor.Instance.Insert(reply);
@@ -266,11 +201,10 @@ public class Program : MonoBehaviour {
 			var reply = _rs.reply ("default", input);
 			Debug.Log("reply: " + reply);
 			if (reply.Contains("NOT_MATCHED")) {
-			Debug.Log("Not matched. Request to API.AI");
-			Arbitor.Instance.Insert (GetApiAi (input));
+    			Debug.Log("Not matched. Request to API.AI");
 			}
 			else {
-			Arbitor.Instance.Insert(reply);
+	    		Arbitor.Instance.Insert(reply);
 			}
 		}
 	}
