@@ -96,12 +96,13 @@ public class Arbitor : Singleton<Arbitor>
             string reply = items[0];
             Debug.Log("Arbitor::Input " + reply);
             bool isCorrect = reply.Contains("정답");
+            bool isAnswer = reply.Contains("땡");
 
             if (SpeechRenderrer.Instance.IsSpeaking())
             {
                 //Debug.Log("Speaking");
                 return;
-            }   
+            }
 
             Regex rx = new Regex("(<[^>]+>)");
             MatchCollection matches = rx.Matches(reply);
@@ -131,7 +132,7 @@ public class Arbitor : Singleton<Arbitor>
             {
                 Debug.Log("Start Speaking: " + reply);
                 SpeechRenderrer.Instance.Play(reply);
-                Debug.Log("clip length: " + SpeechRenderrer.Instance.GetComponent<AudioSource>().clip.length);
+                //Debug.Log("clip length: " + SpeechRenderrer.Instance.GetComponent<AudioSource>().clip.length);
                 items.RemoveAt(0);
 
                 if (isCorrect) WebSurvey.Instance.GainScore();
@@ -142,6 +143,8 @@ public class Arbitor : Singleton<Arbitor>
         {
             Debug.Log("Speaking finished");
             //SpeechRecognition.Instance.Enable();
+
+            // check if on normal dialogue state.
             WebSurvey.Instance.NextStep();
 
             if (WebSurvey.Instance.GetCurrentScore() == 3)
