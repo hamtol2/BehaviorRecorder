@@ -98,11 +98,11 @@ public class Arbitor : Singleton<Arbitor>
             bool isCorrect = reply.Contains("정답");
             bool isAnswer = reply.Contains("땡");
 
-            if (SpeechRenderrer.Instance.IsSpeaking())
-            {
-                //Debug.Log("Speaking");
-                return;
-            }
+            //if (SpeechRenderrer.Instance.IsSpeaking())
+            //{
+            //    //Debug.Log("Speaking");
+            //    return;
+            //}
 
             Regex rx = new Regex("(<[^>]+>)");
             MatchCollection matches = rx.Matches(reply);
@@ -139,20 +139,20 @@ public class Arbitor : Singleton<Arbitor>
             }
         }
 
-        if (_isSpeaking && !SpeechRenderrer.Instance.IsSpeaking())
-        {
-            Debug.Log("Speaking finished");
-            //SpeechRecognition.Instance.Enable();
+        //if (_isSpeaking && !SpeechRenderrer.Instance.IsSpeaking())
+        //{
+        //    Debug.Log("Speaking finished");
+        //    //SpeechRecognition.Instance.Enable();
 
-            // check if on normal dialogue state.
-            WebSurvey.Instance.NextStep();
+        //    // check if on normal dialogue state.
+        //    WebSurvey.Instance.NextStep();
 
-            if (WebSurvey.Instance.GetCurrentScore() == 3)
-            {
-                WebSurvey.Instance.FinishQuiz();
-            }
-        }
-        _isSpeaking = SpeechRenderrer.Instance.IsSpeaking();
+        //    if (WebSurvey.Instance.GetCurrentScore() == 3)
+        //    {
+        //        WebSurvey.Instance.FinishQuiz();
+        //    }
+        //}
+        //_isSpeaking = SpeechRenderrer.Instance.IsSpeaking();
     }
 
     void ProcessCommand(string command)

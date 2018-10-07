@@ -79,7 +79,6 @@ public class WebSurvey : Singleton<WebSurvey>
         Debug.Log("StartQuiz");
         SpeechRenderrer.Instance.QuizStart();
         behaviorRecorder.StartRecording();
-        //NextStep();
     }
 
     public void FinishQuiz()

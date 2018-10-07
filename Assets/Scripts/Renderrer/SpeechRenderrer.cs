@@ -8,13 +8,16 @@ using UnityEngine;
 
 public class SpeechRenderrer : Singleton<SpeechRenderrer>, Renderrer
 {
-    public AudioClip quizStartClip;
+    [SerializeField] private AudioClip quizStartClip;
+    [SerializeField] private AudioClip tryAgainClip;
 
-    bool isPlaying = false;
+    private bool isPlaying = false;
     AndroidJavaClass ttsPlugin;
     List<string> _speeches = new List<string>();
 
     private AudioSource audioSource;
+    private Queue<SpeechInfo> speechQueue = new Queue<SpeechInfo>();
+    private SpeechInfo currentSpeechInfo;
 
     // Test.
     int fileIndex = 1;
@@ -32,8 +35,22 @@ public class SpeechRenderrer : Singleton<SpeechRenderrer>, Renderrer
 
     public void QuizStart()
     {
-        audioSource.clip = quizStartClip;
+        currentSpeechInfo = new SpeechInfo("시작", quizStartClip);
+        ImmediatePlay(currentSpeechInfo);
+    }
+
+    public void TryAgain()
+    {
+        currentSpeechInfo = new SpeechInfo("다시 말씀해주세요.", tryAgainClip);
+        ImmediatePlay(currentSpeechInfo);
+    }
+
+    void ImmediatePlay(SpeechInfo info)
+    {
+        audioSource.clip = info.speechClip;
         audioSource.Play();
+
+        isPlaying = true;
     }
 
     public void Play(string speech)
@@ -99,36 +116,76 @@ public class SpeechRenderrer : Singleton<SpeechRenderrer>, Renderrer
         st.Close();
         HttpWebResponse response = (HttpWebResponse)request.GetResponse();
         string status = response.StatusCode.ToString();
-        Console.WriteLine("status=" + status);
-        string filePath = Application.dataPath + "/AudioClip/tts.mp3";
+        //Debug.Log("status=" + status);
+
+        string filePath = Application.dataPath + "/AudioClip/tts" + fileIndex + ".mp3";
         ++fileIndex;
-        //using (Stream output = File.OpenWrite(Application.dataPath + "/tts.mp3"))
         using (Stream output = File.OpenWrite(filePath))
         using (Stream input = response.GetResponseStream())
         {
             input.CopyTo(output);
         }
-        //Console.WriteLine(Application.dataPath + "/AudioClip/FinalAnswer.mp3 was created");
-        Console.WriteLine(filePath + " was created");
 
-        //WWW www = new WWW("file://" + Application.dataPath + "/tts.mp3");
+        //Debug.Log(filePath + " was created");
+
         WWW www = new WWW("file://" + filePath);
         while (www.isDone)
         {
             yield return null;
         }
 
-        //byte[] mp3bytes = File.ReadAllBytes(Application.dataPath + "/tts.mp3");
         byte[] mp3bytes = File.ReadAllBytes(filePath);
-        //Debug.Log("mp3 bype length: " + mp3bytes.Length);
-        audioSource.clip = GetAudioClipFromMP3ByteArray(mp3bytes);
-        audioSource.Play();
-        //GetComponent<AudioSource>().clip = GetAudioClipFromMP3ByteArray(mp3bytes);
-        //GetComponent<AudioSource>().Play();
+        //audioSource.clip = GetAudioClipFromMP3ByteArray(mp3bytes);
+        //audioSource.Play();
+
+        //SpeechInfo newSpeech = new SpeechInfo()
+        AudioClip mp3Clip = GetAudioClipFromMP3ByteArray(mp3bytes);
+        SpeechInfo newSpeech = new SpeechInfo(speech, mp3Clip);
+        AddToAudioQueue(newSpeech);
 
         yield return null;
     }
 
+    void Update()
+    {
+        // check audio play state.
+        if (isPlaying && !audioSource.isPlaying)
+        {
+            isPlaying = audioSource.isPlaying;
+
+            if (currentSpeechInfo.shouldGoNext)
+                WebSurvey.Instance.NextStep();
+
+            if (WebSurvey.Instance.GetCurrentStep() == 4)
+                WebSurvey.Instance.FinishQuiz();
+
+            if (speechQueue.Count > 0)
+            {
+                currentSpeechInfo = speechQueue.Dequeue();
+                audioSource.clip = currentSpeechInfo.speechClip;
+                audioSource.Play();
+
+                isPlaying = true;
+            }
+        }
+    }
+
+    private void AddToAudioQueue(SpeechInfo newClip)
+    {
+        Debug.Log("AddToAudioQueue: " + newClip.speechScript);
+        speechQueue.Enqueue(newClip);
+
+        if (isPlaying)
+        {   
+            return;
+        }
+
+        currentSpeechInfo = speechQueue.Dequeue();
+        audioSource.clip = currentSpeechInfo.speechClip;
+        audioSource.Play();
+
+        isPlaying = true;
+    }
 
     private AudioClip GetAudioClipFromMP3ByteArray(byte[] in_aMP3Data)
     {
@@ -149,10 +206,10 @@ public class SpeechRenderrer : Singleton<SpeechRenderrer>, Renderrer
             l_nTotalBytesReturned += l_nBytesReturned;
         }
 
-        Debug.Log("MP3 file has " + l_oMP3Stream.ChannelCount + " channels with a frequency of " + l_oMP3Stream.Frequency);
+        //Debug.Log("MP3 file has " + l_oMP3Stream.ChannelCount + " channels with a frequency of " + l_oMP3Stream.Frequency);
 
         byte[] l_aConvertedAudioData = l_oConvertedAudioData.ToArray();
-        Debug.Log("Converted Data has " + l_aConvertedAudioData.Length + " bytes of data");
+        //Debug.Log("Converted Data has " + l_aConvertedAudioData.Length + " bytes of data");
 
         //Convert the byte converted byte data into float form in the range of 0.0-1.0
         float[] l_aFloatArray = new float[l_aConvertedAudioData.Length / 2];
@@ -171,9 +228,26 @@ public class SpeechRenderrer : Singleton<SpeechRenderrer>, Renderrer
 
         //For some reason the MP3 header is readin as single channel despite it containing 2 channels of data (investigate later)
         //l_oAudioClip = AudioClip.Create("MySound", (int)(l_aFloatArray.Length), 2, l_oMP3Stream.Frequency, false);
-        l_oAudioClip = AudioClip.Create("MySound", (int)(l_aFloatArray.Length * 0.52f), 2, l_oMP3Stream.Frequency, false);
+        l_oAudioClip = AudioClip.Create("MySound" + fileIndex, (int)(l_aFloatArray.Length * 0.52f), 2, l_oMP3Stream.Frequency, false);
         l_oAudioClip.SetData(l_aFloatArray, 0);
 
         return l_oAudioClip;
+    }
+
+    class SpeechInfo
+    {
+        public string speechScript;
+        public bool shouldGoNext;
+        public AudioClip speechClip;
+
+        public SpeechInfo(string speechScript, AudioClip speechClip)
+        {
+            this.speechScript = speechScript;
+            shouldGoNext = speechScript.Contains("정답") 
+                || speechScript.Contains("땡") 
+                || speechScript.Contains("시작")
+                || speechScript.Contains("안녕");
+            this.speechClip = speechClip;
+        }
     }
 }
