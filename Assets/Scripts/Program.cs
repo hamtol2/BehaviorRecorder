@@ -107,55 +107,56 @@ public class Program : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 
-		btAddress.text = PlayerPrefs.GetString("BTDeviceAddress", "DB:E7:DF:00:C0:0E");
+        btAddress.text = PlayerPrefs.GetString("BTDeviceAddress", "DB:E7:DF:00:C0:0E");
 
-		#if UNITY_EDITOR || UNITY_WEBGL
-		Debug.Log("UNITY_EDITOR");
-		if (_rs.loadFile (Application.dataPath + FILENAME))
-		#elif UNITY_ANDROID
+#if UNITY_EDITOR || UNITY_WEBGL || UNITY_STANDALONE
+        Debug.Log("UNITY_EDITOR");
+        if (_rs.loadFile(Application.dataPath + FILENAME))
+#elif UNITY_ANDROID
 		Debug.Log("UNITY_ANDROID");
 		if (_rs.loadFile (Application.persistentDataPath + FILENAME))
-		#elif UNITY_IOS
+#elif UNITY_IOS
 		Debug.Log("UNITY_IOS");
 		if (_rs.loadFile (Application.persistentDataPath + FILENAME))
-		#endif
-		{
-			_rs.sortReplies ();
-			Debug.Log ("Successfully load file");
+#endif
+        {
+            _rs.sortReplies();
+            Debug.Log("Successfully load file");
 
-			// try {
-			// 	var r1 = _rs.reply("default", "안녕");
-			// 	text.text = r1;
-			// }
-			// catch (System.Exception ex) {
-			// 	Debug.Log (string.Format ("{0}", ex));
-			// 	text.text = string.Format ("{0}", ex);
-			// }
-		}
-		else {
-			Debug.Log ("Fail to load " + Application.persistentDataPath + FILENAME + " file");
-		}
+            // try {
+            // 	var r1 = _rs.reply("default", "안녕");
+            // 	text.text = r1;
+            // }
+            // catch (System.Exception ex) {
+            // 	Debug.Log (string.Format ("{0}", ex));
+            // 	text.text = string.Format ("{0}", ex);
+            // }
+        }
+        else
+        {
+            Debug.Log("Fail to load " + Application.persistentDataPath + FILENAME + " file");
+        }
 
-		mqttClient = new MqttClient("iot.onairsoft.com", 1883, false , null); 
+        mqttClient = new MqttClient("iot.onairsoft.com", 1883, false, null);
 
-		// register to message received 
-		//		mqttClient.MqttMsgSubscribed += Client_MqttMsgSubscribed;
-		mqttClient.MqttMsgPublishReceived += client_MqttMsgPublishReceived; 
+        // register to message received 
+        //		mqttClient.MqttMsgSubscribed += Client_MqttMsgSubscribed;
+        mqttClient.MqttMsgPublishReceived += client_MqttMsgPublishReceived;
 
-		string clientId = Guid.NewGuid().ToString(); 
-		mqttClient.Connect(clientId, "powerst", "actech88"); 
-		Debug.Log("MQTT IsConnected: " + mqttClient.IsConnected);
+        string clientId = Guid.NewGuid().ToString();
+        mqttClient.Connect(clientId, "powerst", "actech88");
+        Debug.Log("MQTT IsConnected: " + mqttClient.IsConnected);
 
-		// subscribe to the topic "/home/temperature" with QoS 2 
-		// mqttClient.Subscribe (new string[] { "mindslab" }, new byte[] { MqttMsgBase.QOS_LEVEL_EXACTLY_ONCE });
+        // subscribe to the topic "/home/temperature" with QoS 2 
+        // mqttClient.Subscribe (new string[] { "mindslab" }, new byte[] { MqttMsgBase.QOS_LEVEL_EXACTLY_ONCE });
 
-		ServicePointManager.ServerCertificateValidationCallback = (a, b, c, d) =>
-		{
-			return true;
-		};
+        ServicePointManager.ServerCertificateValidationCallback = (a, b, c, d) =>
+        {
+            return true;
+        };
 
-		Parse ("안녕");
-	}
+        Parse("안녕");
+    }
 
 	void client_MqttMsgPublishReceived(object sender, MqttMsgPublishEventArgs e) 
 	{ 

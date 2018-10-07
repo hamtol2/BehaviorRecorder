@@ -5,11 +5,15 @@ using System.Text;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+
+using REEL.Recorder;
 
 public class SpeechRenderrer : Singleton<SpeechRenderrer>, Renderrer
 {
     [SerializeField] private AudioClip quizStartClip;
     [SerializeField] private AudioClip tryAgainClip;
+    [SerializeField] private Button speechRecognitionButton;
 
     private bool isPlaying = false;
     AndroidJavaClass ttsPlugin;
@@ -26,6 +30,10 @@ public class SpeechRenderrer : Singleton<SpeechRenderrer>, Renderrer
     {
         if (!audioSource)
             audioSource = GetComponent<AudioSource>();
+
+        //Debug.Log(PlayerPrefs.GetString(SurveyStart.ageKey));
+        //Debug.Log(PlayerPrefs.GetString(SurveyStart.genderKey));
+        //Debug.Log(PlayerPrefs.GetInt(SurveyStart.countKey));
     }
 
     public void Init()
@@ -51,6 +59,7 @@ public class SpeechRenderrer : Singleton<SpeechRenderrer>, Renderrer
         audioSource.Play();
 
         isPlaying = true;
+        speechRecognitionButton.interactable = false;
     }
 
     public void Play(string speech)
@@ -152,6 +161,7 @@ public class SpeechRenderrer : Singleton<SpeechRenderrer>, Renderrer
         if (isPlaying && !audioSource.isPlaying)
         {
             isPlaying = audioSource.isPlaying;
+            speechRecognitionButton.interactable = true;
 
             if (currentSpeechInfo.shouldGoNext)
                 WebSurvey.Instance.NextStep();
@@ -162,10 +172,11 @@ public class SpeechRenderrer : Singleton<SpeechRenderrer>, Renderrer
             if (speechQueue.Count > 0)
             {
                 currentSpeechInfo = speechQueue.Dequeue();
-                audioSource.clip = currentSpeechInfo.speechClip;
-                audioSource.Play();
+                ImmediatePlay(currentSpeechInfo);
+                //audioSource.clip = currentSpeechInfo.speechClip;
+                //audioSource.Play();
 
-                isPlaying = true;
+                //isPlaying = true;
             }
         }
     }

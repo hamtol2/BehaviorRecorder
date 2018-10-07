@@ -5,6 +5,7 @@ using UnityEngine;
 using REEL.FaceInfomation;
 using REEL.PoseAnimation;
 using REEL.Animation;
+using System;
 
 namespace REEL.Recorder
 {
@@ -66,6 +67,7 @@ namespace REEL.Recorder
             if (saveData == null || saveData.Length == 0) return;
 
             string jsonString = JsonUtility.ToJson(saveData);
+
             File.WriteAllText(filePath, jsonString);
         }
 
@@ -144,18 +146,6 @@ namespace REEL.Recorder
             }
         }
 
-        //public void RecordBehavior(RecordEvent newEvent)
-        //{
-        //    if (!isRecording) return;
-
-        //    RecordFormat newRecord = new RecordFormat();
-        //    newRecord.elapsedTime = mainTimer.GetElapsedTime;
-        //    newRecord.markerPosition = new CustomVector2(Camera.main.ScreenToWorldPoint(Input.mousePosition));
-        //    newRecord.recordEvent = newEvent;
-
-        //    records.Add(newRecord);
-        //}
-
         private void InitState()
         {
             fps = 1f / frame;
@@ -163,7 +153,11 @@ namespace REEL.Recorder
             mainTimer = new Timer();
             mainTimer.SetTimer(fps, RecordBehavior);
 
-            filePath = Application.dataPath + "/" + fileName;
+            //filePath = Application.dataPath + "/" + fileName;
+            if (!Directory.Exists(Application.dataPath + "/SurveyData"))
+                Directory.CreateDirectory(Application.dataPath + "/SurveyData");
+
+            filePath = Application.dataPath + "/SurveyData/" + GetFileName;
         }
 
         public void ResetState()
@@ -171,6 +165,20 @@ namespace REEL.Recorder
             //records = new List<RecordFormat>();
             saveData = new RecordJsonFormat();
             mainTimer.Reset();
+        }
+
+        string GetFileName
+        {
+            get
+            {
+                string age = PlayerPrefs.GetString(SurveyStart.ageKey);
+                string gender = PlayerPrefs.GetString(SurveyStart.genderKey);
+                string today = string.Format("{0:yyyy_MM_dd}", DateTime.Now);
+                string fileCount = PlayerPrefs.GetInt(SurveyStart.countKey).ToString();
+                string underscore = "_";
+
+                return age + underscore + gender + underscore + today + underscore + fileCount + ".json";
+            }
         }
     }
 }

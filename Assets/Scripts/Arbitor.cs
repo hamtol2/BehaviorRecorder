@@ -95,14 +95,18 @@ public class Arbitor : Singleton<Arbitor>
         {
             string reply = items[0];
             Debug.Log("Arbitor::Input " + reply);
+
+            if (reply.Contains("No Reply"))
+            {
+                Debug.Log("오류");
+                items.RemoveAt(0);
+
+                SpeechRenderrer.Instance.TryAgain();
+                return;
+            }
+
             bool isCorrect = reply.Contains("정답");
             bool isAnswer = reply.Contains("땡");
-
-            //if (SpeechRenderrer.Instance.IsSpeaking())
-            //{
-            //    //Debug.Log("Speaking");
-            //    return;
-            //}
 
             Regex rx = new Regex("(<[^>]+>)");
             MatchCollection matches = rx.Matches(reply);

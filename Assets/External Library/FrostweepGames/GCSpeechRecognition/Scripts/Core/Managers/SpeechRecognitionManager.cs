@@ -119,7 +119,6 @@ namespace FrostweepGames.Plugins.GoogleCloud.SpeechRecognition
             if (GCSpeechRecognition.Instance.isFullDebugLogIfError)
             {
                 Debug.Log(response.error + "\n" + response.response);
-                SpeechRenderrer.Instance.TryAgain();
             }   
 
             switch (response.recognitionType)

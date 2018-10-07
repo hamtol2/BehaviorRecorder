@@ -35,7 +35,8 @@ public class WebSurvey : Singleton<WebSurvey>
 
     private Hashtable session_ident = new Hashtable();
 
-    RiveScript.RiveScript _rs = new RiveScript.RiveScript(utf8: true, debug: true);
+    //RiveScript.RiveScript _rs = new RiveScript.RiveScript(utf8: true, debug: true);
+    RiveScript.RiveScript _rs;
 
     private GCSpeechRecognition _speechRecognition;
 
@@ -184,6 +185,8 @@ public class WebSurvey : Singleton<WebSurvey>
     private bool speechRecognitionStart;
     public void OnClickedSpeechRec(Text text)
     {
+        if (!CanClick) return;
+
         if (!speechRecognitionStart)
         {
             _speechRecognition.StartRecord(false);
@@ -203,12 +206,19 @@ public class WebSurvey : Singleton<WebSurvey>
         }
     }
 
+    bool CanClick
+    {
+        get { return !SpeechRenderrer.Instance.IsSpeaking(); }
+    }
+
     private void Awake()
     {
         if (!PlayerPrefs.HasKey("UUID"))
         {
             PlayerPrefs.SetString("UUID", System.Guid.NewGuid().ToString());
         }
+
+        _rs = new RiveScript.RiveScript(utf8: true, debug: true);
     }
 
     // Use this for initialization
@@ -224,7 +234,7 @@ public class WebSurvey : Singleton<WebSurvey>
         _speechRecognition.LongRecognitionSuccessEvent += LongRecognitionSuccessEventHandler;
 
         // rivescript
-#if UNITY_EDITOR || UNITY_WEBGL
+#if UNITY_EDITOR || UNITY_WEBGL || UNITY_STANDALONE
         Debug.Log("UNITY_EDITOR");
         string filepath = Application.dataPath + FILENAME;
 #elif UNITY_ANDROID
@@ -234,21 +244,21 @@ public class WebSurvey : Singleton<WebSurvey>
         Debug.Log("UNITY_IOS");
         string filepath = Application.persistentDataPath + FILENAME;
 #endif
-        Debug.Log("filepath: " + filepath);
+        //Debug.Log("filepath: " + filepath);
         if (_rs.loadFile(filepath))
         {
             _rs.sortReplies();
             Debug.Log("Successfully load file");
 
-            try
-            {
-                var r1 = _rs.reply("default", "init");
-                Debug.Log(string.Format("{0}", r1));
-            }
-            catch (System.Exception ex)
-            {
-                Debug.Log(string.Format("{0}", ex));
-            }
+            //try
+            //{
+            //    var r1 = _rs.reply("default", "init");
+            //    Debug.Log(string.Format("{0}", r1));
+            //}
+            //catch (System.Exception ex)
+            //{
+            //    Debug.Log(string.Format("{0}", ex));
+            //}
         }
         else
         {
@@ -313,6 +323,7 @@ public class WebSurvey : Singleton<WebSurvey>
     private void SpeechRecognizedFailedEventHandler(string obj, long requestIndex)
     {
         Debug.Log("SpeechRecognizedFailedEventHandler: " + obj);
+        SpeechRenderrer.Instance.TryAgain();
     }
 
     private void RecognitionSuccessEventHandler(RecognitionResponse obj, long requestIndex)

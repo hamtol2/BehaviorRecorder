@@ -2787,6 +2787,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   quizStartClip: {fileID: 8300000, guid: 124ec421dbfe79349be45ff293bab7af, type: 3}
   tryAgainClip: {fileID: 8300000, guid: 478c777015c0dc941af314e3cf7d2db4, type: 3}
+  speechRecognitionButton: {fileID: 357561500}
 --- !u!82 &1345046812
 AudioSource:
   m_ObjectHideFlags: 0
