@@ -66,16 +66,6 @@ public class Arbitor : Singleton<Arbitor>
         //messageProcessors.Add("mobility", BluetoothManager.Instance.Send);
     }
 
-    bool CheckIfAnswerYes(string reply)
-    {
-        return reply.Contains("오") || reply.Contains("어") || reply.Contains("아") || reply.Contains("우");
-    }
-
-    bool CheckIfAnswerNo(string reply)
-    {
-        return reply.Contains("엑") || reply.Contains("액") || reply.Contains("악") || reply.Contains("윽");
-    }
-
     void ParseMessage(string reply)
     {
         Debug.Log("Arbitor::Input " + reply);

@@ -15,6 +15,8 @@ class SpeechInfo
 {
     public string speechScript;
     public bool shouldGoNext;
+    public bool shouldWaitForAnswer;
+    public bool isTryAgain;
 
     public SpeechInfo(string speechScript)
     {
@@ -23,6 +25,10 @@ class SpeechInfo
             || speechScript.Contains("땡")
             || speechScript.Contains("시작")
             || speechScript.Contains("안녕");
+        shouldWaitForAnswer = speechScript.Contains("문제")
+            || speechScript.Contains("난이도");
+        isTryAgain = speechScript.Contains("다시 말씀해 주세요")
+            || speechScript.Contains("대답해주세요");
     }
 }
 
@@ -39,11 +45,14 @@ public class SpeechRenderrer : Singleton<SpeechRenderrer>, Renderrer
     private string tryAgainScript = "잘 못알아 들었습니다. 다시 말씀해 주세요.";
     private bool isTTSStarted = false;
     [SerializeField] private SpeechInfo currentSpeech;
-    private Timer timer;
+    private Timer timer = null;
+    private float timeOutTime = 10f;
+    private string timeoutReply = "timeout";
 
     void Awake()
     {
         voice = new SpVoiceClass();
+        timer = null;
 
         //Debug.Log(PlayerPrefs.GetString(SurveyStart.ageKey));
         //Debug.Log(PlayerPrefs.GetString(SurveyStart.genderKey));
@@ -58,6 +67,7 @@ public class SpeechRenderrer : Singleton<SpeechRenderrer>, Renderrer
     void Update()
     {
         CheckAudioPlayState();
+        CheckAnswerTimer();
     }
 
     public void Init()
@@ -123,14 +133,33 @@ public class SpeechRenderrer : Singleton<SpeechRenderrer>, Renderrer
         // check audio play state.
         if (IsFinished)
         {
+            Debug.Log("Speak Finished");
+
             isTTSStarted = false;
             speechRecognitionButton.interactable = true;
 
+            if (currentSpeech.isTryAgain)
+            {
+                Debug.Log("isTryAgain");
+                timer = new Timer(timeOutTime, TimeOut);
+                currentSpeech = null;
+                return;
+            }
+
             if (currentSpeech.shouldGoNext)
+            {
                 WebSurvey.Instance.NextStep();
+                timer = null;
+            }
+
+            if (currentSpeech.shouldWaitForAnswer)
+                timer = new Timer(timeOutTime, TimeOut);
 
             if (WebSurvey.Instance.GetCurrentScore() == 4)
+            {
                 WebSurvey.Instance.FinishQuiz();
+                timer = null;
+            }
 
             currentSpeech = null;
         }
@@ -138,15 +167,17 @@ public class SpeechRenderrer : Singleton<SpeechRenderrer>, Renderrer
 
     private void CheckAnswerTimer()
     {
-        if (isTTSStarted)
+        if (timer != null)
         {
-            if (timer != null)
-                timer.Update(Time.deltaTime);
+            Debug.Log("CheckAnswerTimer");
+            timer.Update(Time.deltaTime);
         }
     }
 
     private void TimeOut()
     {
-        Debug.Log("30초 지남. 문제 틀림");
+        Debug.Log(timeOutTime + "초 지남. 문제 틀림");
+        timer = null;
+        WebSurvey.Instance.GetReply(timeoutReply);
     }
 }

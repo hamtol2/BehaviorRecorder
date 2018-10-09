@@ -7,6 +7,17 @@ using UnityEngine.UI;
 
 namespace REEL.Animation
 {
+    class RobotFacialInfo
+    {
+        public string faceName;
+        public float animPeriod;
+        public RobotFacialInfo(string faceName, float animPeriod)
+        {
+            this.faceName = faceName;
+            this.animPeriod = animPeriod;
+        }
+    }
+
     public class RobotFacialRenderer : MonoBehaviour
     {
         public RobotFacialData robotFacialData;
@@ -16,6 +27,10 @@ namespace REEL.Animation
         public string baseFace = "normal";
 
         public string currentFace = "";
+
+        Queue<RobotFacialInfo> facialQueue = new Queue<RobotFacialInfo>();
+        private float defaultAnimPeriod = 2f;
+        private RobotFacialInfo currentFacialInfo;
 
         void Awake()
         {
@@ -42,17 +57,52 @@ namespace REEL.Animation
                 Play(data.faceName);
             }
         }
-        
-        public void Play(string name)
+
+        private void Play(RobotFacialInfo info)
         {
-            string[] splitString = name.Split('(');
-            bool retValue = SetFacialModel(splitString[0]);
-            robotFacialAnimator.PlayFacialAnim(splitString[0], 1f);
+            Debug.Log("Added to facial queue: " + info.faceName);
+
+            // Test.
+            if (currentFacialInfo != null)
+            {
+                facialQueue.Enqueue(info);
+                return;
+            }
+
+            currentFacialInfo = info;
+            SetFacialModel(info.faceName);
+            robotFacialAnimator.PlayFacialAnim(info.faceName, info.animPeriod);
+
+            StartCoroutine(CheckFacialAnimFinished(defaultAnimPeriod));
 
             // 현재 표정 저장.
-            currentFace = name;
+            currentFace = info.faceName;
 
-            WebSurvey.Instance.behaviorRecorder.RecordBehavior(new Recorder.RecordEvent(1, name));
+            WebSurvey.Instance.behaviorRecorder.RecordBehavior(new Recorder.RecordEvent(1, info.faceName));
+        }
+        
+        public void Play(string name)
+        {   
+            string[] splitString = name.Split('(');
+
+            Play(new RobotFacialInfo(splitString[0], 1f));
+        }
+        
+        IEnumerator CheckFacialAnimFinished(float animPeriod)
+        {
+            float elapsedTime = 0f;
+
+            while (elapsedTime <= animPeriod)
+            {
+                elapsedTime += Time.deltaTime;
+                yield return null;
+            }
+
+            currentFacialInfo = null;
+            if (facialQueue.Count > 0)
+            {
+                Play(facialQueue.Dequeue());
+            }
         }
 
         //public void Play(string name)

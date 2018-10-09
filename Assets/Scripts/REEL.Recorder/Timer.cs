@@ -1,5 +1,6 @@
 ﻿namespace REEL.Recorder
 {
+    [System.Serializable]
     public class Timer
     {
         public delegate void IntervalDelegate();
@@ -7,7 +8,7 @@
 
         private float interval = 0f;
         private Timer intervalTimer;
-        private float elapsedTime = 0f;
+        [UnityEngine.SerializeField] private float elapsedTime = 0f;
 
         // Constructors.
         public Timer() { }

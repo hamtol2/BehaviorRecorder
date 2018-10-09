@@ -48,7 +48,18 @@ public class WebSurvey : Singleton<WebSurvey>
     [SerializeField] private AnswerState answerState = AnswerState.Wait;
     [SerializeField] private ModelType robotModelType = ModelType.ExpressionRobot;
 
-    
+    public void GetReply(string message)
+    {
+        var reply = _rs.reply("default", message);
+        if (reply.Contains("NOT_MATCHED"))
+        {
+            Debug.Log("Not matched");
+        }
+        else
+        {
+            Arbitor.Instance.Insert(reply);
+        }
+    }
 
     public void SendSTT()
     {

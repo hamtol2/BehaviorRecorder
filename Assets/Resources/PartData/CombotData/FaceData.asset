@@ -1,0 +1,44 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9e97845d4c99bb14e8759649f4886659, type: 3}
+  m_Name: FaceData
+  m_EditorClassIdentifier: 
+  faceName: 
+  faceParts:
+  - facialPartEnum: 0
+    partSprite: {fileID: 21300000, guid: 8d5a5a63ba26b4b42b8ebad1faf7ba8e, type: 3}
+    partPosition: {x: 2.7932, y: 0.0106}
+    partScale: {x: 0.8102159, y: 0.8105017}
+  - facialPartEnum: 1
+    partSprite: {fileID: 21300000, guid: b7dcef2294a204015addbae82d76e0c5, type: 3}
+    partPosition: {x: 2.751, y: -0.008}
+    partScale: {x: 0.6153615, y: 0.6115703}
+  - facialPartEnum: 2
+    partSprite: {fileID: 21300000, guid: 1d568a9d319104f66a1f0a7509d11d3b, type: 3}
+    partPosition: {x: -2.8446, y: -0.0075}
+    partScale: {x: 0.789334, y: 0.79106927}
+  - facialPartEnum: 3
+    partSprite: {fileID: 21300000, guid: 75a64aca27f064f289bc882daaeb9401, type: 3}
+    partPosition: {x: -2.8532, y: -0.003}
+    partScale: {x: 0.60987, y: 0.61441034}
+  - facialPartEnum: 6
+    partSprite: {fileID: 21300000, guid: 1bde58bf59e644777b440f7022cbcff3, type: 3}
+    partPosition: {x: -0.0098, y: -1.8778}
+    partScale: {x: 0.3909772, y: 0.36788678}
+  - facialPartEnum: 12
+    partSprite: {fileID: 21300000, guid: b27ab365331ee4b4892265349c62725d, type: 3}
+    partPosition: {x: 2.8647, y: 2.9446}
+    partScale: {x: 0.5193769, y: 0.5106722}
+  - facialPartEnum: 13
+    partSprite: {fileID: 21300000, guid: 9d932b743906547599ddf50dad32a6e2, type: 3}
+    partPosition: {x: -2.8767, y: 2.9531}
+    partScale: {x: 0.51768875, y: 0.50948876}
+  animDemensions: []
