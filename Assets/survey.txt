@@ -20,7 +20,7 @@
 - 첫번째 문제입니다. 연평균 기온을 비교할 경우 북극곰이 사는 북극보다 펭귄이 사는 남극이 더 춥다.\s
 ^ 맞으면 오\s 틀리면 엑스를 외쳐주세요.
 
-+ (오|어|아|우|o|5)
++ (오|어|아|우|o|5|30초)
 - 땡 틀렸습니다. 남극보다 북극이 더 춥습니다. <sm=facial:sad> <sm=motion:wrong> <sm=motion:wrong> {topic=ox2} {@init}
 
 + (엑스|액스|액수|엑수|액쓰|엑쓰|액쑤|엑쑤|앱스|x)
@@ -40,7 +40,7 @@
 - 정답입니다.\s
 ^ <sm=facial:happy> <sm=motion:clap> <sm=motion:clap> {@점수더하기} {topic=levelcheck} {@init}
 
-+ (엑스|액스|액수|엑수|액쓰|엑쓰|액쑤|엑쑤|x)
++ (엑스|액스|액수|엑수|액쓰|엑쓰|액쑤|엑쑤|x|30초)
 - 땡 틀렸습니다. 학이나 왜가리들은 체온유지를 위해 한 발을 들고 서 있는답니다.\s
 ^ <sm=facial:sad> <sm=motion:wrong> <sm=motion:wrong> {topic=levelcheck} {@init}
 
@@ -58,7 +58,7 @@
 - 또 틀리셨네요 좀 더 쉬운 문제로 드릴게요. 마지막 문제입니다. 닥을 많이 먹으면 닭살이 돋는다?\s
 ^ 맞으면 오 틀리면 엑스를 외쳐주세요. <sm=facial:normal>
 
-+ (오|어|아|우|o|5)
++ (오|어|아|우|o|5|30초)
 - 땡 틀렸습니다. 닥을 많이 먹는다고 닭살이 돋지는 않습니다.\s
 ^ 퀴즈가 종료되었습니다. 결과를 알려 드릴게요.<sm=facial:sad> <sm=motion:wrong> <sm=motion:wrong> {topic=result} {@init}
 
@@ -80,7 +80,7 @@
 - 정답입니다. 똑똑하시네요. 퀴즈가 종료되었습니다. 결과를 알려 드릴게요.\s
 ^ <sm=facial:happy> <sm=motion:clap> <sm=motion:clap> {@점수더하기} {topic=result} {@init}
 
-+ (엑스|액스|액수|엑수|액쓰|엑쓰|액쑤|엑쑤|x)
++ (엑스|액스|액수|엑수|액쓰|엑쓰|액쑤|엑쑤|x|30초)
 - 땡 틀렸습니다. 고양이의 수염에는 방향감각을 갖게 해주는 기능이 있답니다.\s
 ^ 퀴즈가 종료되었습니다. 결과를 알려 드릴게요. <sm=facial:sad> <sm=motion:wrong> <sm=motion:wrong> {topic=result} {@init}
 
@@ -97,7 +97,7 @@
 - 정답입니다. 퀴즈가 종료되었습니다. 결과를 알려 드릴게요.\s
 ^ <sm=facial:happy> <sm=motion:clap> <sm=motion:clap> {@점수더하기} {topic=result} {@init}
 
-+ (엑스|액스|액수|엑수|액쓰|엑쓰|액쑤|엑쑤|x)
++ (엑스|액스|액수|엑수|액쓰|엑쓰|액쑤|엑쑤|x|30초)
 - 땡 틀렸습니다. 퀴즈가 종료되었습니다. 결과를 알려 드릴게요.\s
 ^ <sm=facial:sad> <sm=motion:wrong> <sm=motion:wrong> {topic=result} {@init}
 

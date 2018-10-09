@@ -17,10 +17,10 @@ public class WebSurvey : Singleton<WebSurvey>
     const string FILENAME = "/survey.txt";
 
     public InputField speechMessage;
-    //public AudioClip audioClip;
-    public Button buttonSpeechRec;
 
     public REEL.Animation.RobotFacialRenderer robotFacialRenderer;
+    public Text quizNumberText;
+    public Text scoreText;
 
     private MqttClient mqttClient;
     string requested = "";
@@ -47,6 +47,8 @@ public class WebSurvey : Singleton<WebSurvey>
     [SerializeField] private ContentState contentState = ContentState.IceBreaking;
     [SerializeField] private AnswerState answerState = AnswerState.Wait;
     [SerializeField] private ModelType robotModelType = ModelType.ExpressionRobot;
+
+    
 
     public void SendSTT()
     {
@@ -78,7 +80,6 @@ public class WebSurvey : Singleton<WebSurvey>
     public void StartQuiz()
     {
         Debug.Log("StartQuiz");
-        SpeechRenderrer.Instance.QuizStart();
         behaviorRecorder.StartRecording();
     }
 
@@ -96,12 +97,15 @@ public class WebSurvey : Singleton<WebSurvey>
     public void NextStep()
     {
         ++currentQuizNumber;
+        if (currentQuizNumber < 4)
+            quizNumberText.text = currentQuizNumber.ToString() + " / 3";
         Debug.Log("NextStep: " + currentQuizNumber);
     }
 
     public void GainScore()
     {
         ++quizScore;
+        scoreText.text = quizScore.ToString();
         //Debug.Log("Score: " + quizScore);
     }
 
@@ -192,7 +196,6 @@ public class WebSurvey : Singleton<WebSurvey>
             _speechRecognition.StartRecord(false);
 
             text.text = "Recognizing...";
-            //buttonSpeechRec.GetComponentInChildren<Text>().text = "Recognizing...";
             speechRecognitionStart = true;
         }
         else
@@ -201,14 +204,13 @@ public class WebSurvey : Singleton<WebSurvey>
             _speechRecognition.StopRecord();
 
             text.text = "Speech Recognition";
-            //buttonSpeechRec.GetComponentInChildren<Text>().text = "Speech Recognition";
             speechRecognitionStart = false;
         }
     }
 
     bool CanClick
     {
-        get { return !SpeechRenderrer.Instance.IsSpeaking(); }
+        get { return !SpeechRenderrer.Instance.IsSpeaking; }
     }
 
     private void Awake()
@@ -269,29 +271,29 @@ public class WebSurvey : Singleton<WebSurvey>
     // Update is called once per frame
     void Update()
     {
-        if (received_tts.Length > 0)
-        {
-#if UNITY_EDITOR || UNITY_STANDALONE
-            //StartCoroutine(Say(received_tts));
-#elif UNITY_ANDROID
-            AndroidJNI.AttachCurrentThread();
-            SpeechRenderrer.Instance.Play(received_tts);
-            AndroidJNI.DetachCurrentThread();
-#endif
-            TTS.text = received_tts;
-            received_tts = "";
-        }
-        if (received_facial.Length > 0)
-        {
-            robotFacialRenderer.Play(received_facial);
-            received_facial = "";
-        }
-        if (received_motion.Length > 0)
-        {
-            //REEL.PoseAnimation.RobotTransformController.Instance.PlayGesture(received_motion);
-            REEL.PoseAnimation.RobotTransformController.Instance.PlayMotionCoroutine(received_motion);
-            received_motion = "";
-        }
+//        if (received_tts.Length > 0)
+//        {
+//#if UNITY_EDITOR || UNITY_STANDALONE
+//            //StartCoroutine(Say(received_tts));
+//#elif UNITY_ANDROID
+//            AndroidJNI.AttachCurrentThread();
+//            SpeechRenderrer.Instance.Play(received_tts);
+//            AndroidJNI.DetachCurrentThread();
+//#endif
+//            TTS.text = received_tts;
+//            received_tts = "";
+//        }
+//        if (received_facial.Length > 0)
+//        {
+//            robotFacialRenderer.Play(received_facial);
+//            received_facial = "";
+//        }
+//        if (received_motion.Length > 0)
+//        {
+//            //REEL.PoseAnimation.RobotTransformController.Instance.PlayGesture(received_motion);
+//            REEL.PoseAnimation.RobotTransformController.Instance.PlayMotionCoroutine(received_motion);
+//            received_motion = "";
+//        }
     }
 
     private void OnDestroy()

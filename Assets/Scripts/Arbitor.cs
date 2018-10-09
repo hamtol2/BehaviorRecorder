@@ -108,6 +108,9 @@ public class Arbitor : Singleton<Arbitor>
             }
         }
 
+        if (reply.Contains("시작"))
+            WebSurvey.Instance.StartQuiz();
+
         SpeechRenderrer.Instance.Play(reply);
         items.RemoveAt(0);
         if (isCorrect) WebSurvey.Instance.GainScore();
