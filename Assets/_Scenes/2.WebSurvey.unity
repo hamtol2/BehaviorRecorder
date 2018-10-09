@@ -2785,7 +2785,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9e4c0490fb6404287b852eb63a21200a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  quizStartClip: {fileID: 8300000, guid: 124ec421dbfe79349be45ff293bab7af, type: 3}
+  quizStartClip: {fileID: 8300000, guid: 0db521fd0cbe3624796c606884c3cf95, type: 3}
   tryAgainClip: {fileID: 8300000, guid: 478c777015c0dc941af314e3cf7d2db4, type: 3}
   speechRecognitionButton: {fileID: 357561500}
 --- !u!82 &1345046812

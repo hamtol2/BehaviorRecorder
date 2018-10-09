@@ -6,6 +6,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using SpeechLib;
 
 using REEL.Recorder;
 
@@ -26,10 +27,16 @@ public class SpeechRenderrer : Singleton<SpeechRenderrer>, Renderrer
     // Test.
     int fileIndex = 1;
 
+    private SpVoice voice;
+    private string speakHeader = "<speak version='1.0' xmlns='http://www.w3.org/2001/10/synthesis' xml:lang='ko-KO>";
+    private string tryAgainScript = "잘 못알아 들었습니다. 다시 말씀해 주세요.";
+
     void Awake()
     {
         if (!audioSource)
             audioSource = GetComponent<AudioSource>();
+
+        voice = new SpVoice();
 
         //Debug.Log(PlayerPrefs.GetString(SurveyStart.ageKey));
         //Debug.Log(PlayerPrefs.GetString(SurveyStart.genderKey));
@@ -41,6 +48,12 @@ public class SpeechRenderrer : Singleton<SpeechRenderrer>, Renderrer
 
     }
 
+    public void OnDisable()
+    {
+        if (voice != null)
+            voice.Pause();
+    }
+
     public void QuizStart()
     {
         currentSpeechInfo = new SpeechInfo("시작", quizStartClip);
@@ -49,8 +62,9 @@ public class SpeechRenderrer : Singleton<SpeechRenderrer>, Renderrer
 
     public void TryAgain()
     {
-        currentSpeechInfo = new SpeechInfo("다시 말씀해주세요.", tryAgainClip);
-        ImmediatePlay(currentSpeechInfo);
+        TextToSpeech(tryAgainScript);
+        //currentSpeechInfo = new SpeechInfo("다시 말씀해주세요.", tryAgainClip);
+        //ImmediatePlay(currentSpeechInfo);
     }
 
     void ImmediatePlay(SpeechInfo info)
@@ -65,7 +79,8 @@ public class SpeechRenderrer : Singleton<SpeechRenderrer>, Renderrer
     public void Play(string speech)
     {
 #if UNITY_EDITOR
-        StartCoroutine(Say(speech));
+        TextToSpeech(speech);
+        //StartCoroutine(Say(speech));
 #elif UNITY_ANDROID
         ttsPlugin.CallStatic ("speak", name);
 #endif
@@ -106,6 +121,14 @@ public class SpeechRenderrer : Singleton<SpeechRenderrer>, Renderrer
         ttsPlugin = new AndroidJavaClass ("kr.ac.hansung.eai.TTSPlugin");
         ttsPlugin.CallStatic ("initTTS", mainActivity);
 #endif
+    }
+
+    
+    void TextToSpeech(string ttsText)
+    {
+        voice.Volume = 100;
+        voice.Rate = 1;
+        voice.Speak(speakHeader + ttsText + "</speak>", SpeechVoiceSpeakFlags.SVSFlagsAsync | SpeechVoiceSpeakFlags.SVSFIsXML);
     }
 
     IEnumerator Say(string speech)
@@ -156,6 +179,11 @@ public class SpeechRenderrer : Singleton<SpeechRenderrer>, Renderrer
     }
 
     void Update()
+    {
+        //CheckAudioPlayState();
+    }
+
+    private void CheckAudioPlayState()
     {
         // check audio play state.
         if (isPlaying && !audioSource.isPlaying)
@@ -239,7 +267,7 @@ public class SpeechRenderrer : Singleton<SpeechRenderrer>, Renderrer
 
         //For some reason the MP3 header is readin as single channel despite it containing 2 channels of data (investigate later)
         //l_oAudioClip = AudioClip.Create("MySound", (int)(l_aFloatArray.Length), 2, l_oMP3Stream.Frequency, false);
-        l_oAudioClip = AudioClip.Create("MySound" + fileIndex, (int)(l_aFloatArray.Length * 0.52f), 2, l_oMP3Stream.Frequency, false);
+        l_oAudioClip = AudioClip.Create("MySound" + fileIndex, (int)(l_aFloatArray.Length * 0.52f), 1, l_oMP3Stream.Frequency, false);
         l_oAudioClip.SetData(l_aFloatArray, 0);
 
         return l_oAudioClip;

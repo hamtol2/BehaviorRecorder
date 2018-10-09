@@ -50,26 +50,13 @@ public class Arbitor : Singleton<Arbitor>
     {
         SpeechRenderrer.Instance.Init();
         InitMessageProcessor();
-
-        coroutine = Process(0.1f);
-        StartCoroutine(coroutine);
-    }
-
-    // every 0.1 seconds perform
-    private IEnumerator Process(float waitTime)
-    {
-        Debug.Log("Arbitor::Process");
-        while (true)
-        {
-            yield return new WaitForSeconds(waitTime);
-
-            ParseMessage();
-        }
     }
 
     public void Insert(string item)
     {
+        Debug.Log("msg inserted: " + item);
         items.Add(item);
+        ParseMessage(item);
     }
 
     void InitMessageProcessor()
@@ -89,74 +76,41 @@ public class Arbitor : Singleton<Arbitor>
         return reply.Contains("엑") || reply.Contains("액") || reply.Contains("악") || reply.Contains("윽");
     }
 
-    void ParseMessage()
+    void ParseMessage(string reply)
     {
-        if (items.Count > 0)
+        Debug.Log("Arbitor::Input " + reply);
+
+        if (reply.Contains("No Reply"))
         {
-            string reply = items[0];
-            Debug.Log("Arbitor::Input " + reply);
+            Debug.Log("오류");
+            items.RemoveAt(0);
 
-            if (reply.Contains("No Reply"))
+            SpeechRenderrer.Instance.TryAgain();
+            return;
+        }
+
+        bool isCorrect = reply.Contains("정답");
+        bool isAnswer = reply.Contains("땡");
+
+        Regex rx = new Regex("(<[^>]+>)");
+        MatchCollection matches = rx.Matches(reply);
+        if (matches.Count > 0)
+        {
+            foreach (Match match in matches)
             {
-                Debug.Log("오류");
-                items.RemoveAt(0);
+                GroupCollection groupCollection = match.Groups;
+                string command = groupCollection[1].ToString();
+                reply = reply.Replace(command, "");
+                command = command.Substring(1).Substring(0, command.Length - 2);
 
-                SpeechRenderrer.Instance.TryAgain();
-                return;
-            }
-
-            bool isCorrect = reply.Contains("정답");
-            bool isAnswer = reply.Contains("땡");
-
-            Regex rx = new Regex("(<[^>]+>)");
-            MatchCollection matches = rx.Matches(reply);
-            // Debug.Log("Match found " + matches.Count);
-            if (matches.Count > 0)
-            {
-                foreach (Match match in matches)
-                {
-                    GroupCollection groupCollection = match.Groups;
-                    string command = groupCollection[1].ToString();
-                    reply = reply.Replace(command, "");
-                    command = command.Substring(1).Substring(0, command.Length - 2);
-
-                    // 메시지 처리.
-                    ProcessCommand(command);
-                }
-            }
-
-            // Check if quiz start.
-            if (WebSurvey.Instance.GetCurrentStep() == 0 && reply.Contains("시작"))
-            {
-                WebSurvey.Instance.StartQuiz();
-                items.RemoveAt(0);
-            }
-
-            if (!SpeechRenderrer.Instance.IsSpeaking())
-            {
-                Debug.Log("Start Speaking: " + reply);
-                SpeechRenderrer.Instance.Play(reply);
-                //Debug.Log("clip length: " + SpeechRenderrer.Instance.GetComponent<AudioSource>().clip.length);
-                items.RemoveAt(0);
-
-                if (isCorrect) WebSurvey.Instance.GainScore();
+                // 메시지 처리.
+                ProcessCommand(command);
             }
         }
 
-        //if (_isSpeaking && !SpeechRenderrer.Instance.IsSpeaking())
-        //{
-        //    Debug.Log("Speaking finished");
-        //    //SpeechRecognition.Instance.Enable();
-
-        //    // check if on normal dialogue state.
-        //    WebSurvey.Instance.NextStep();
-
-        //    if (WebSurvey.Instance.GetCurrentScore() == 3)
-        //    {
-        //        WebSurvey.Instance.FinishQuiz();
-        //    }
-        //}
-        //_isSpeaking = SpeechRenderrer.Instance.IsSpeaking();
+        SpeechRenderrer.Instance.Play(reply);
+        items.RemoveAt(0);
+        if (isCorrect) WebSurvey.Instance.GainScore();
     }
 
     void ProcessCommand(string command)
