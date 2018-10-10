@@ -48,6 +48,9 @@ public class WebSurvey : Singleton<WebSurvey>
     [SerializeField] private AnswerState answerState = AnswerState.Wait;
     [SerializeField] private ModelType robotModelType = ModelType.ExpressionRobot;
 
+    private bool quizFinished = false;
+    public bool QuizFinished {  get { return quizFinished; } }
+
     public void GetReply(string message)
     {
         var reply = _rs.reply("default", message);
@@ -92,12 +95,14 @@ public class WebSurvey : Singleton<WebSurvey>
     {
         Debug.Log("StartQuiz");
         behaviorRecorder.StartRecording();
+        quizFinished = false;
     }
 
     public void FinishQuiz()
     {
         Debug.Log("FinishQuiz");
         behaviorRecorder.FinishRecording();
+        quizFinished = true;
     }
 
     public int GetCurrentStep()
@@ -108,6 +113,10 @@ public class WebSurvey : Singleton<WebSurvey>
     public void NextStep()
     {
         ++currentQuizNumber;
+
+        if (currentQuizNumber == 4)
+            FinishQuiz();
+
         if (currentQuizNumber < 4)
             quizNumberText.text = currentQuizNumber.ToString() + " / 3";
         Debug.Log("NextStep: " + currentQuizNumber);
@@ -117,6 +126,7 @@ public class WebSurvey : Singleton<WebSurvey>
     {
         ++quizScore;
         scoreText.text = quizScore.ToString();
+        answerState = AnswerState.Correct;
         //Debug.Log("Score: " + quizScore);
     }
 

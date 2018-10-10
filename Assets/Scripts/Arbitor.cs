@@ -80,7 +80,7 @@ public class Arbitor : Singleton<Arbitor>
         }
 
         bool isCorrect = reply.Contains("정답");
-        bool isAnswer = reply.Contains("땡");
+        bool isWrong = reply.Contains("땡");
 
         Regex rx = new Regex("(<[^>]+>)");
         MatchCollection matches = rx.Matches(reply);
@@ -103,7 +103,10 @@ public class Arbitor : Singleton<Arbitor>
 
         SpeechRenderrer.Instance.Play(reply);
         items.RemoveAt(0);
+
+        // check answer is correct or wrong.
         if (isCorrect) WebSurvey.Instance.GainScore();
+        else if (isWrong) WebSurvey.Instance.SetAnswerState(REEL.Recorder.AnswerState.Wrong);
     }
 
     void ProcessCommand(string command)

@@ -16,7 +16,7 @@ class SpeechInfo
     public string speechScript;
     public bool shouldGoNext;
     public bool shouldWaitForAnswer;
-    public bool isTryAgain;
+    //public bool isTryAgain;
 
     public SpeechInfo(string speechScript)
     {
@@ -27,8 +27,8 @@ class SpeechInfo
             || speechScript.Contains("안녕");
         shouldWaitForAnswer = speechScript.Contains("문제")
             || speechScript.Contains("난이도");
-        isTryAgain = speechScript.Contains("다시 말씀해 주세요")
-            || speechScript.Contains("대답해주세요");
+        //isTryAgain = speechScript.Contains("다시 말씀해 주세요")
+        //    || speechScript.Contains("대답해주세요");
     }
 }
 
@@ -39,14 +39,14 @@ public class SpeechRenderrer : Singleton<SpeechRenderrer>, Renderrer
     [SerializeField] private Button speechRecognitionButton;
 
     // Test.
-    int fileIndex = 1;
+    //int fileIndex = 1;
 
     private SpVoiceClass voice;
     private string tryAgainScript = "잘 못알아 들었습니다. 다시 말씀해 주세요.";
     private bool isTTSStarted = false;
     [SerializeField] private SpeechInfo currentSpeech;
     private Timer timer = null;
-    private float timeOutTime = 10f;
+    [SerializeField] private float timeOutTime = 10f;
     private string timeoutReply = "timeout";
 
     void Awake()
@@ -89,6 +89,7 @@ public class SpeechRenderrer : Singleton<SpeechRenderrer>, Renderrer
     public void TryAgain()
     {
         TextToSpeech(tryAgainScript);
+        timer = new Timer(timeOutTime, TimeOut);
     }
 
     public void Play(string speech)
@@ -138,13 +139,11 @@ public class SpeechRenderrer : Singleton<SpeechRenderrer>, Renderrer
             isTTSStarted = false;
             speechRecognitionButton.interactable = true;
 
-            if (currentSpeech.isTryAgain)
+            if (currentSpeech == null)
             {
-                Debug.Log("isTryAgain");
-                timer = new Timer(timeOutTime, TimeOut);
-                currentSpeech = null;
+                timer = null;
                 return;
-            }
+            }   
 
             if (currentSpeech.shouldGoNext)
             {
@@ -155,11 +154,11 @@ public class SpeechRenderrer : Singleton<SpeechRenderrer>, Renderrer
             if (currentSpeech.shouldWaitForAnswer)
                 timer = new Timer(timeOutTime, TimeOut);
 
-            if (WebSurvey.Instance.GetCurrentScore() == 4)
-            {
-                WebSurvey.Instance.FinishQuiz();
-                timer = null;
-            }
+            //if (WebSurvey.Instance.GetCurrentScore() == 4)
+            //{
+            //    WebSurvey.Instance.FinishQuiz();
+            //    timer = null;
+            //}
 
             currentSpeech = null;
         }
@@ -167,9 +166,16 @@ public class SpeechRenderrer : Singleton<SpeechRenderrer>, Renderrer
 
     private void CheckAnswerTimer()
     {
+        if (IsSpeaking)
+            return;
+
+        if (WebSurvey.Instance.QuizFinished)
+            timer = null;
+
         if (timer != null)
         {
-            Debug.Log("CheckAnswerTimer");
+            WebSurvey.Instance.SetAnswerState(AnswerState.Wait);
+            Debug.Log("CheckAnswerTimer: " + timer.GetElapsedTime);
             timer.Update(Time.deltaTime);
         }
     }
