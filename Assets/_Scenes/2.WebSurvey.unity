@@ -1251,7 +1251,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 20}
-  m_SizeDelta: {x: 100, y: 30}
+  m_SizeDelta: {x: 80, y: 30}
   m_Pivot: {x: 0, y: 0.5}
 --- !u!114 &625898600
 MonoBehaviour:
@@ -2283,7 +2283,7 @@ MonoBehaviour:
   - {fileID: 1792523651}
   partData:
   - {fileID: 11400000, guid: eb6004318da96634b947914a40b6b5cc, type: 2}
-  - {fileID: 11400000, guid: d5fbbff636b52cf49b738179bd605cac, type: 2}
+  - {fileID: 11400000, guid: 5949a8ea92806ba48846e734c29746cb, type: 2}
   - {fileID: 11400000, guid: 370323d1a607ef549bcd5057b4dd1053, type: 2}
   - {fileID: 11400000, guid: ccce56f9ac3b42a4e9a815258fdad988, type: 2}
   - {fileID: 11400000, guid: 1aab034d90fd07d41bb9358bcf4fb896, type: 2}
@@ -2939,8 +2939,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
-  m_AnchoredPosition: {x: 100, y: -19.999939}
-  m_SizeDelta: {x: 200, y: 30}
+  m_AnchoredPosition: {x: 80.00004, y: -19.999939}
+  m_SizeDelta: {x: 120, y: 30}
   m_Pivot: {x: 0, y: 0.5}
 --- !u!114 &1314758686
 MonoBehaviour:
@@ -4066,7 +4066,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
   m_AnchoredPosition: {x: 0, y: -20}
-  m_SizeDelta: {x: 100, y: 30}
+  m_SizeDelta: {x: 80, y: 30}
   m_Pivot: {x: 0, y: 0.5}
 --- !u!114 &1717550984
 MonoBehaviour:
@@ -4145,7 +4145,7 @@ RectTransform:
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: -10, y: -10}
-  m_SizeDelta: {x: 300, y: 120}
+  m_SizeDelta: {x: 200, y: 120}
   m_Pivot: {x: 1, y: 1}
 --- !u!114 &1748546972
 MonoBehaviour:
@@ -4376,6 +4376,30 @@ Prefab:
       propertyPath: m_TagString
       value: Face
       objectReference: {fileID: 0}
+    - target: {fileID: 212291208483535432, guid: 243c4f001e0da2c4dac47834601b1117,
+        type: 2}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 911321d677f465d48ad79e6f8b75d731,
+        type: 3}
+    - target: {fileID: 212243244354002814, guid: 243c4f001e0da2c4dac47834601b1117,
+        type: 2}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 8c125a87355bb4b57a2d3d6bb8139097,
+        type: 3}
+    - target: {fileID: 212862154903907226, guid: 243c4f001e0da2c4dac47834601b1117,
+        type: 2}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: da4a1a3a8c2a048bb9e95dd5f0c67ae7,
+        type: 3}
+    - target: {fileID: 212362585515669018, guid: 243c4f001e0da2c4dac47834601b1117,
+        type: 2}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 531b5729de5424a45a256036a98fb06a,
+        type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 243c4f001e0da2c4dac47834601b1117, type: 2}
   m_IsPrefabAsset: 0
@@ -4548,7 +4572,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -65, y: 0}
+  m_AnchoredPosition: {x: -65.000244, y: 0}
   m_SizeDelta: {x: -170, y: -40}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1941479395
@@ -4777,8 +4801,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
-  m_AnchoredPosition: {x: 100, y: 19.99998}
-  m_SizeDelta: {x: 200, y: 30}
+  m_AnchoredPosition: {x: 80.00004, y: 19.99998}
+  m_SizeDelta: {x: 120, y: 30}
   m_Pivot: {x: 0, y: 0.5}
 --- !u!114 &2054155524
 MonoBehaviour:
@@ -4923,7 +4947,7 @@ Camera:
   far clip plane: 50
   field of view: 60
   orthographic: 1
-  orthographic size: 2
+  orthographic size: 1.6
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -4946,7 +4970,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 2067273189}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.027685449, y: 1, z: -10}
+  m_LocalPosition: {x: -0.027685449, y: 1.5, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}

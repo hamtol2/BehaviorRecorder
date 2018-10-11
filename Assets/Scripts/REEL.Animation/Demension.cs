@@ -291,16 +291,19 @@ namespace REEL.Animation
 
         private IEnumerator LoopChangeImage(float period)
         {
-            Sprite originSprite = image.sprite;
+            Sprite originSprite = image == null ? spriteRenderer.sprite : image.sprite;
             float halfPeriod = period * 0.5f;
 
-            yield return new WaitForSeconds(halfPeriod);
+            while (true)
+            {
+                yield return new WaitForSeconds(halfPeriod);
 
-            SetSprite(parameters.ChangeSprite);
+                SetSprite(parameters.ChangeSprite);
 
-            yield return new WaitForSeconds(halfPeriod);
+                yield return new WaitForSeconds(halfPeriod);
 
-            SetSprite(originSprite);
+                SetSprite(originSprite);
+            }
         }
 
         private void SetSprite(Sprite sprite)
@@ -309,11 +312,13 @@ namespace REEL.Animation
             {
                 image.gameObject.SetActive((sprite != null));
                 image.sprite = sprite;
+                Debug.Log("image");
             }
             else
             {
                 spriteRenderer.gameObject.SetActive((sprite != null));
                 spriteRenderer.sprite = sprite;
+                Debug.Log("spriteRenderer");
             }
         }
     }

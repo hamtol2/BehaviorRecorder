@@ -1,0 +1,63 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9e97845d4c99bb14e8759649f4886659, type: 3}
+  m_Name: Speak
+  m_EditorClassIdentifier: 
+  faceName: speak
+  faceParts:
+  - facialPartEnum: 0
+    partSprite: {fileID: 21300000, guid: e8cc7ec591d6f435390debbc0b398c07, type: 3}
+    partPosition: {x: -2.48, y: 0.75}
+    partScale: {x: 0.78, y: 0.78}
+  - facialPartEnum: 1
+    partSprite: {fileID: 21300000, guid: 092904225b33940e596ea106718a2bfa, type: 3}
+    partPosition: {x: -2.48, y: 0.75}
+    partScale: {x: 0.7, y: 0.7}
+  - facialPartEnum: 2
+    partSprite: {fileID: 21300000, guid: 3bf367cf0033a46e4ba9fe6d5ae268d8, type: 3}
+    partPosition: {x: 2.45, y: 0.7}
+    partScale: {x: 0.78, y: 0.78}
+  - facialPartEnum: 3
+    partSprite: {fileID: 21300000, guid: 71757a8098be4463fb4fc800188e0faf, type: 3}
+    partPosition: {x: 2.45, y: 0.7}
+    partScale: {x: 0.7, y: 0.7}
+  - facialPartEnum: 4
+    partSprite: {fileID: 21300000, guid: 1873359bc91d79843a73847661fbb36c, type: 3}
+    partPosition: {x: 2.45, y: -1.541}
+    partScale: {x: 1, y: 1}
+  - facialPartEnum: 5
+    partSprite: {fileID: 21300000, guid: 873493d9373726349bcd4cf6f10305c6, type: 3}
+    partPosition: {x: 3.473, y: -1.542}
+    partScale: {x: 1, y: 1}
+  - facialPartEnum: 7
+    partSprite: {fileID: 21300000, guid: 94285540b5d53a74d975c065cf5dd8bf, type: 3}
+    partPosition: {x: -0.065, y: -0.543}
+    partScale: {x: 1, y: 1}
+  - facialPartEnum: 6
+    partSprite: {fileID: 21300000, guid: 911321d677f465d48ad79e6f8b75d731, type: 3}
+    partPosition: {x: -0.02, y: -1.55}
+    partScale: {x: 0.5743349, y: 0.5207173}
+  - facialPartEnum: 12
+    partSprite: {fileID: 21300000, guid: 40c1f19b559524f358929c572c3ac688, type: 3}
+    partPosition: {x: -2.68, y: 3.06}
+    partScale: {x: -0.42928436, y: 0.3778468}
+  - facialPartEnum: 13
+    partSprite: {fileID: 21300000, guid: 610427e50b52c4252ae48bc9607cd583, type: 3}
+    partPosition: {x: 2.738, y: 2.897}
+    partScale: {x: -0.42540574, y: 0.4312105}
+  animDemensions:
+  - facePart: 6
+    type: 5
+    parameter:
+      scale: 1
+      defaultValue: 1
+      amount: 1
+      changeSprite: {fileID: 21300000, guid: 72ebb80e3f33f4e4cb2135019cc2f644, type: 3}

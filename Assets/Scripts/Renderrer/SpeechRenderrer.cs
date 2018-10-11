@@ -119,7 +119,6 @@ public class SpeechRenderrer : Singleton<SpeechRenderrer>, Renderrer
         voice.Speak(ttsText, SpeechVoiceSpeakFlags.SVSFlagsAsync | SpeechVoiceSpeakFlags.SVSFIsXML);
 
         isTTSStarted = true;
-        //speechRecognitionButton.interactable = false;
     }
 
     void TTSStop()
@@ -135,7 +134,6 @@ public class SpeechRenderrer : Singleton<SpeechRenderrer>, Renderrer
             Debug.Log("Speak Finished");
 
             isTTSStarted = false;
-            //speechRecognitionButton.interactable = true;
 
             if (currentSpeech == null)
             {
@@ -154,12 +152,6 @@ public class SpeechRenderrer : Singleton<SpeechRenderrer>, Renderrer
                 timer = new Timer(timeOutTime, TimeOut);
                 answerButton.SetActive(true);
             }
-
-            //if (WebSurvey.Instance.GetCurrentScore() == 4)
-            //{
-            //    WebSurvey.Instance.FinishQuiz();
-            //    timer = null;
-            //}
 
             currentSpeech = null;
         }
