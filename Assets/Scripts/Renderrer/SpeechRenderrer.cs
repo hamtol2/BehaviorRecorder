@@ -37,9 +37,7 @@ public class SpeechRenderrer : Singleton<SpeechRenderrer>, Renderrer
     [SerializeField] private AudioClip quizStartClip;
     [SerializeField] private AudioClip tryAgainClip;
     [SerializeField] private Button speechRecognitionButton;
-
-    // Test.
-    //int fileIndex = 1;
+    [SerializeField] private GameObject answerButton;
 
     private SpVoiceClass voice;
     private string tryAgainScript = "잘 못알아 들었습니다. 다시 말씀해 주세요.";
@@ -121,7 +119,7 @@ public class SpeechRenderrer : Singleton<SpeechRenderrer>, Renderrer
         voice.Speak(ttsText, SpeechVoiceSpeakFlags.SVSFlagsAsync | SpeechVoiceSpeakFlags.SVSFIsXML);
 
         isTTSStarted = true;
-        speechRecognitionButton.interactable = false;
+        //speechRecognitionButton.interactable = false;
     }
 
     void TTSStop()
@@ -137,7 +135,7 @@ public class SpeechRenderrer : Singleton<SpeechRenderrer>, Renderrer
             Debug.Log("Speak Finished");
 
             isTTSStarted = false;
-            speechRecognitionButton.interactable = true;
+            //speechRecognitionButton.interactable = true;
 
             if (currentSpeech == null)
             {
@@ -151,8 +149,11 @@ public class SpeechRenderrer : Singleton<SpeechRenderrer>, Renderrer
                 timer = null;
             }
 
-            if (currentSpeech.shouldWaitForAnswer)
+            if (currentSpeech.shouldWaitForAnswer && !WebSurvey.Instance.QuizFinished)
+            {
                 timer = new Timer(timeOutTime, TimeOut);
+                answerButton.SetActive(true);
+            }
 
             //if (WebSurvey.Instance.GetCurrentScore() == 4)
             //{

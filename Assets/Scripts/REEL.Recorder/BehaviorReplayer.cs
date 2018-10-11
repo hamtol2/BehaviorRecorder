@@ -101,7 +101,7 @@ namespace REEL.Recorder
             marker.SetActive(true);
 
             // Disable EyePoint tracking.
-            TobbiTester.Instance.SetSimulationMode(false);
+            TobbiManager.Instance.SetSimulationMode(false);
 
             // Disable Robot movement.
             robotMovement.SetSimulation(false);
@@ -162,7 +162,7 @@ namespace REEL.Recorder
             currentIndex = 0;
 
             // Enable EyePoint tracking.
-            TobbiTester.Instance.SetSimulationMode(true);
+            TobbiManager.Instance.SetSimulationMode(true);
 
             // Move robot to origin.
             robotMovement.MoveToOrigin();

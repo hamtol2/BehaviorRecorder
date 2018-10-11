@@ -46,10 +46,27 @@ public class Arbitor : Singleton<Arbitor>
     delegate void MessageProcessor(string message);
     Dictionary<string, MessageProcessor> messageProcessors = new Dictionary<string, MessageProcessor>();
 
+    REEL.Recorder.Timer timer = new REEL.Recorder.Timer();
+    bool isStarted = false;
+
     void Start()
     {
         SpeechRenderrer.Instance.Init();
         InitMessageProcessor();
+
+        timer = new REEL.Recorder.Timer(5f, QuizStart);
+    }
+
+    private void Update()
+    {
+        if (!isStarted)
+            timer.Update(Time.deltaTime);
+    }
+
+    void QuizStart()
+    {
+        WebSurvey.Instance.GetReply("시작하자");
+        isStarted = true;
     }
 
     public void Insert(string item)

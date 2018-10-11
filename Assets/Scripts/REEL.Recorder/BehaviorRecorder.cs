@@ -82,7 +82,7 @@ namespace REEL.Recorder
             newData.contentState = WebSurvey.Instance.GetCurrentState();
             newData.answer = WebSurvey.Instance.GetAnswerState;
             newData.modelType = WebSurvey.Instance.GetModelType;
-            newData.eyePosition = TobbiTester.Instance.GetEyePoint;
+            newData.eyePosition = TobbiManager.Instance.GetEyePoint;
             newData.robotPosition = robotTransform.position;
             newData.targetRegion = GetTargetRegion;
             newData.face = facialRenderer.currentFace;
@@ -102,7 +102,7 @@ namespace REEL.Recorder
             newData.contentState = WebSurvey.Instance.GetCurrentState();
             newData.answer = WebSurvey.Instance.GetAnswerState;
             newData.modelType = WebSurvey.Instance.GetModelType;
-            newData.eyePosition = TobbiTester.Instance.GetEyePoint;
+            newData.eyePosition = TobbiManager.Instance.GetEyePoint;
             newData.robotPosition = robotTransform.position;
             newData.targetRegion = GetTargetRegion;
             newData.face = facialRenderer.currentFace;
@@ -117,7 +117,7 @@ namespace REEL.Recorder
         {
             get
             {
-                Ray ray = Camera.main.ScreenPointToRay(TobbiTester.Instance.GetEyePoint);
+                Ray ray = Camera.main.ScreenPointToRay(TobbiManager.Instance.GetEyePoint);
                 RaycastHit hit;
 
                 if (Physics.Raycast(ray, out hit, 100f))

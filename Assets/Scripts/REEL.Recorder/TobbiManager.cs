@@ -5,7 +5,7 @@ using Tobii.Gaming;
 
 namespace REEL.Recorder
 {
-    public class TobbiTester : Singleton<TobbiTester>
+    public class TobbiManager : Singleton<TobbiManager>
     {
         public GameObject marker;
 
@@ -38,8 +38,6 @@ namespace REEL.Recorder
                 GazePoint gazePoint = TobiiAPI.GetGazePoint();
                 RaycastCheck(gazePoint.Screen);
             }
-
-            
         }
 
         public void SetSimulationMode(bool isSimulation)

@@ -62,7 +62,9 @@
         public void Reset()
         {
             elapsedTime = 0f;
-            IntervalEvent = null;
+            if (intervalTimer != null)
+                intervalTimer.Reset();
+            //IntervalEvent = null;
         }
     }
 }
