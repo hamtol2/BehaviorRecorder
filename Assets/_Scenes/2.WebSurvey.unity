@@ -1104,7 +1104,7 @@ MonoBehaviour:
     isFixed: 1
   - joint: {fileID: 2115014835}
     baseRotation: {x: 90, y: -180, z: -180}
-    jointRotAxis: 3
+    jointRotAxis: 0
     isFixed: 1
   - joint: {fileID: 1485401939}
     baseRotation: {x: -180, y: -180, z: 90}

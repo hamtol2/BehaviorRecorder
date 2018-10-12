@@ -24,68 +24,63 @@ namespace REEL.PoseAnimation
 
         // Y, 	Z, 	  Z,   Y, 	X, Z
         float[] zeroAngle = new float[8] { 0f, -90f, 90f, 90f, 0f, 0f, 0f, 0f };
-        float[] baseAngle = new float[8] { 45f, -45f, -45f, -45f, 45f, 45f, 0f, 10f };
+        float[] baseAngle = new float[8] { 45f, -45f, -45f, 45f, 45f, 45f, 0f, 10f };
         float[] DIRECTION = new float[8] { -1f, 1f, 1f, 1f, -1f, -1f, 0f, 1f };
 
         float[] OFFSET = new float[] { 0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f };
         float[][] hiList = new float[5][] {
-							// Time,	Left Arm, 				Right Arm,				Head
-			new float[9] {  1.4f,       89.06f, -75f,-17.87f,   60.64f,60.64f,38.96f,   0f,-9.375f    },
-            new float[9] {  0.6f,       89.06f, -75f, -17.87f,  60.64f, 96.97f, 34.28f, 0f, -9.375f   },
-            new float[9] {  0.6f,       89.06f, -75f, -17.87f,  60.64f, 60.64f,38.96f,  0f, -9.375f   },
-            new float[9] {  0.6f,       89.06f, -75f, -17.87f,  60.64f, 96.97f, 34.28f, 0f, -9.375f   },
-            new float[9] {  1.4f,       57.42f, -75.29f,-23.73f,-57.42f,75.29f,23.73f,  0f,-9.375f    }
+							// Time,	Left Arm, 			Right Arm,			Head
+			new float[9] {  1.4f,       45f, -45f, -45f,    -60f, 60f, 38f,     0f, 25f    },
+            new float[9] {  0.6f,       45f, -45f, -45f,    -60f, 96f, 34f,     0f, 25f   },
+            new float[9] {  0.6f,       45f, -45f, -45f,    -60f, 60f, 38f,     0f, 25f   },
+            new float[9] {  0.6f,       45f, -45f, -45f,    -60f, 96f, 34f,     0f, 25f   },
+            new float[9] {  1.4f,       45f, -45f, -45f,    -57f, 75f, 23f,     0f, 25f    }
         };
 
         float[][] helloList = new float[5][] {
-							// Time,	Left Arm, 				Right Arm,				Head
-			new float[9] {  1.4f,       -60.64f, -60.64f, -38.96f,  60.64f, 60.64f, 38.96f,  0f, -9.375f   },
-            new float[9] {  0.6f,       -60.64f, -96.97f, -34.28f,  60.64f, 96.97f, 34.28f,  0f, -9.375f   },
-            new float[9] {  0.6f,       -60.64f, -60.64f, -38.96f,  60.64f, 60.64f, 38.96f,  0f, -9.375f   },
-            new float[9] {  0.6f,       -60.64f, -96.97f, -34.28f,  60.64f, 96.97f, 34.28f,  0f, -9.375f   },
-            new float[9] {  0.6f,        57.42f, -75f,    -23.73f,  -57.42f,75.29f, 23.73f,  0f, -9.375f   }
+							// Time,	Left Arm, 			Right Arm,		    Head
+			new float[9] {  1.4f,       -60f, -60f, -38f,   45f, 45f, 45f,      0f, 25f   },
+            new float[9] {  0.6f,       -60f, -80f, -34f,   45f, 45f, 45f,      0f, 25f   },
+            new float[9] {  0.6f,       -60f, -60f, -38f,   45f, 45f, 45f,      0f, 25f   },
+            new float[9] {  0.6f,       -60f, -80f, -34f,   45f, 45f, 45f,      0f, 25f   },
+            new float[9] {  0.6f,        45f, -45f, -45f,   45f, 45f, 45f,      0f, 25f   }
         };
 
         float[][] angryList = new float[4][] {
-							// Time,	Left Arm, 				Right Arm,				Head
-			new float[9] {  0.7f,    13.77f, -82.91f, -24.02f,   -13.77f,82.91f,24.02f, 0f,-9.375f    },
-            new float[9] {  0.7f,    57.42f, -75.29f, -23.73f,  -57.42f, 75.29f, 23.73f, 0f, -9.375f   },
-            new float[9] {  0.7f,    13.77f, -82.91f, -24.02f,  -13.77f, 82.91f,24.02f,  0f, -9.375f   },
-            new float[9] {  0.7f,    57.42f, -75.29f, -23.73f,  -57.42f, 75.29f, 23.73f, 0f, -9.375f   },
+							// Time,	Left Arm, 		    Right Arm,			Head
+			new float[9] {  0.7f,       14f, -83f, -24f,    14f, 83f, 24f,      0f, -9f    },
+            new float[9] {  0.7f,       57f, -75f, -24f,    57f, 75f, 24f,      0f, -9f   },
+            new float[9] {  0.7f,       14f, -83f, -24f,    14f, 83f, 24f,      0f, -99f   },
+            new float[9] {  1.2f,        45f, -45f, -45f,   45f, 45f, 45f,      0f, 25f   }
         };
         float[][] sadList = new float[5][] {
-							// Time,	Left Arm, 				Right Arm,				Head
-			new float[9] {  1.2f,       -24.6f, -101.6f, -67.3f,   43.3f,101.6f,67.3f,     0f,  20f    },
-            new float[9] {  0.5f,       -42.9f, -101.3f, -67f,     24f, 101.9f, 67.6f,     0f, 20f   },
-            new float[9] {  0.5f,       -24.6f, -101.6f, -67.3f,   43.3f, 101.6f, 67.3f,   0f, 20f   },
-            new float[9] {  0.5f,       -42.9f, -101.3f, -67f,     24f, 101.9f, 67.6f,      0f, 20f   },
-            new float[9] {  1.2f,       57.42f, -75.29f, -23.73f,  -57.42f, 75.29f, 23.73f, 0f, -9.375f }
+                			// Time,    Left Arm,           Right Arm,          Head
+			new float[9] {  1.2f,       -25f, -101f, -67f,   -43f, 101f, 67f,   0f, 20f   },
+            new float[9] {  0.5f,       -43f, -101f, -67f,   -24f, 101f, 67f,   0f, 20f   },
+            new float[9] {  0.5f,       -25f, -101f, -67f,   -43f, 101f, 67f,   0f, 20f   },
+            new float[9] {  0.5f,       -43f, -101f, -67f,   -24f, 101f, 67f,   0f, 20f   },
+            new float[9] {  1.2f,        45f, -45f, -45f,   45f, 45f, 45f,      0f, 25f   }
         };
         float[][] okList = new float[4][] {
-							// Time,	Left Arm, 				Right Arm,				Head
-			new float[9] {  0.5f, 57.42f, -75.29f, -23.73f, -57.42f, 75.29f, 23.73f, 0f,9.8f    },
-            new float[9] {  0.5f, 57.42f, -75.29f, -23.73f, -57.42f, 75.29f, 23.73f, 0f, -9.8f   },
-            new float[9] {  0.5f, 57.42f, -75.29f, -23.73f, -57.42f, 75.29f, 23.73f,  0f, 9.8f   },
-            new float[9] {  0.5f, 57.42f, -75.29f, -23.73f, -57.42f, 75.29f, 23.73f, 0f, -9.375f   }
-
+                			// Time,    Left Arm,           Right Arm,          Head
+			new float[9] {  0.5f,       57f, -75f, -24f,    57f, 75f, 24f,      0f,  10f    },
+            new float[9] {  0.5f,       57f, -75f, -24f,    57f, 75f, 24f,      0f, -10f   },
+            new float[9] {  0.5f,       57f, -75f, -24f,    57f, 75f, 24f,      0f,  10f   },
+            new float[9] {  1.0f,       45f, -45f, -45f,    45f, 45f, 45f,      0f, 25f   }
         };
         float[][] noList = new float[4][] {
-							// Time,	Left Arm, 				Right Arm,				Head
-			new float[9] {  0.6f, 57.42f, -75.29f, -23.73f, -57.42f, 75.29f, 23.73f, -20f,-9.375f    },
-            new float[9] {  0.8f, 57.42f, -75.29f, -23.73f, -57.42f, 75.29f, 23.73f, 20f, -9.375f   },
-            new float[9] {  0.8f, 57.42f, -75.29f, -23.73f, -57.42f, 75.29f, 23.73f,  -20f, -9.375f   },
-            new float[9] {  0.8f, 57.42f, -75.29f, -23.73f, -57.42f, 75.29f, 23.73f,  0f,-9.375f    }
+                			// Time,    Left Arm,           Right Arm,          Head
+			new float[9] {  0.6f,       57f, -75f, -24f,    57f, 75f, 24f,      -20f, -9f    },
+            new float[9] {  0.8f,       57f, -75f, -24f,    57f, 75f, 24f,       20f, -9f   },
+            new float[9] {  0.8f,       57f, -75f, -24f,    57f, 75f, 24f,      -20f, -9f   },
+            new float[9] {  1.0f,       45f, -45f, -45f,    45f, 45f, 45f,      0f, 25f   }
         };
         float[][] happyList = new float[4][] {
-							// Time,	Left Arm, 				Right Arm,				Head
-			//new float[9] {  1.6f,       -95f, -95f, -57f,   95f,95f,57f, 0f,-25f    },
-   //         new float[9] {  0.8f, -95f, -95f, -57f, 95f, 95f, 57f, -14.36f, -9.96f   },
-   //         new float[9] {  0.8f, -95f, -95f, -57f, 95f, 95f, 57f,  0f, -25f   },
-   //         new float[9] {  1.6f, 57.42f, -75.29f, -23.73f, -57.42f, 75.29f, 23.73f,  0f,-9.375f    }
-            new float[9] {  1.6f,       -40f, -95f, -57f,   40f,95f,57f, 0f,-25f    },
-            new float[9] {  0.8f,       -40f, -95f, -57f,   40f, 95f, 57f, -14.36f, -9.96f   },
-            new float[9] {  0.8f,       -40f, -95f, -57f,   40f, 95f, 57f,  0f, -25f   },
-            new float[9] {  1.6f,       57.42f, -75.29f,-23.73f, -57.42f, 75.29f, 23.73f,  0f,-9.375f    }
+                			// Time,    Left Arm,           Right Arm,          Head
+			new float[9] {  1.6f,       -70f, -70f, -30f,   -70f, 70f, 30f,     0f, -25f    },
+            new float[9] {  0.8f,       -70f, -70f, -30f,   -70f, 70f, 30f,     -14f, -10f   },
+            new float[9] {  0.8f,       -70f, -70f, -30f,   -70f, 70f, 30f,     0f, -25f   },
+            new float[9] {  1.0f,        45f, -45f, -45f,   45f, 45f, 45f,      0f, 25f   }
         };
 
         Dictionary<string, float[][]> motionTable;
