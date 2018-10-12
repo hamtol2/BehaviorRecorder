@@ -34,8 +34,6 @@ class SpeechInfo
 
 public class SpeechRenderrer : Singleton<SpeechRenderrer>, Renderrer
 {
-    [SerializeField] private AudioClip quizStartClip;
-    [SerializeField] private AudioClip tryAgainClip;
     [SerializeField] private Button speechRecognitionButton;
     [SerializeField] private GameObject answerButton;
 

@@ -114,11 +114,11 @@ public class WebSurvey : Singleton<WebSurvey>
     {
         ++currentQuizNumber;
 
-        if (currentQuizNumber == 4)
+        if (currentQuizNumber == 7)
             FinishQuiz();
 
-        if (currentQuizNumber < 4)
-            quizNumberText.text = currentQuizNumber.ToString() + " / 3";
+        if (currentQuizNumber < 7)
+            quizNumberText.text = currentQuizNumber.ToString() + " / 6";
         Debug.Log("NextStep: " + currentQuizNumber);
     }
 
