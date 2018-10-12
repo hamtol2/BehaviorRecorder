@@ -5,7 +5,7 @@ namespace REEL.Recorder
 {
     public enum ContentState
     {
-        IceBreaking, OnQuestion, Waiting
+        IceBreaking, OnQuestion, Waiting, Feedback
     }
 
     public enum AnswerState
