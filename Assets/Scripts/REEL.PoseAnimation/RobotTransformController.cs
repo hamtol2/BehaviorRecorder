@@ -82,6 +82,17 @@ namespace REEL.PoseAnimation
             new float[9] {  0.8f,       -70f, -70f, -30f,   -70f, 70f, 30f,     0f, -25f   },
             new float[9] {  1.0f,        45f, -45f, -45f,   45f, 45f, 45f,      0f, 25f   }
         };
+        float[][] clapList = new float[8][] {
+							// Time,	Left Arm, 			Right Arm,			Head
+			new float[9] {  1.4f,       -20f, -45f, -45f,   -20f, 45f, 45f,     0f, 25f    },
+            new float[9] {  0.2f,       -20f, -85f, -75f,   -20f, 85f, 75f,     0f, 25f   },
+            new float[9] {  0.2f,       -20f, -45f, -45f,   -20f, 45f, 45f,     0f, 25f   },
+            new float[9] {  0.2f,       -20f, -85f, -75f,   -20f, 85f, 75f,     0f, 25f   },
+            new float[9] {  0.2f,       -20f, -45f, -45f,   -20f, 45f, 45f,     0f, 25f   },
+            new float[9] {  0.2f,       -20f, -85f, -75f,   -20f, 85f, 75f,     0f, 25f   },
+            new float[9] {  0.2f,       -20f, -45f, -45f,   -20f, 45f, 45f,     0f, 25f   },
+            new float[9] {  1.4f,       45f, -45f, -45f,     45f, 45f, 45f,     0f, 25f    }
+        };
 
         Dictionary<string, float[][]> motionTable;
         IEnumerator currentAnimation = null;
@@ -213,7 +224,7 @@ namespace REEL.PoseAnimation
             motionTable.Add("angry", angryList);
             motionTable.Add("sad", sadList);
             motionTable.Add("ok", okList);
-            motionTable.Add("clap", okList);
+            motionTable.Add("clap", clapList);
             motionTable.Add("no", noList);
             motionTable.Add("wrong", noList);
             motionTable.Add("happy", happyList);
