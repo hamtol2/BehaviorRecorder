@@ -45,6 +45,8 @@ public class SpeechRenderrer : Singleton<SpeechRenderrer>, Renderrer
     [SerializeField] private float timeOutTime = 10f;
     private string timeoutReply = "timeout";
 
+    [SerializeField] private Text wordEventText;
+
     void Awake()
     {
         voice = new SpVoiceClass();
@@ -64,6 +66,17 @@ public class SpeechRenderrer : Singleton<SpeechRenderrer>, Renderrer
     {
         CheckAudioPlayState();
         CheckAnswerTimer();
+        //GetStatus(voice);
+    }
+
+    void GetStatus(SpVoiceClass voice)
+    {
+        if (voice == null) return;
+
+        SPVOICESTATUS status;
+        string bookmark;
+        voice.GetStatus(out status, out bookmark);
+        print(status.ulInputWordPos + " / " + status.ulInputWordPos + " / " + status.ulInputSentLen);
     }
 
     public void Init()

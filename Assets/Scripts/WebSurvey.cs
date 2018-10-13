@@ -14,11 +14,15 @@ using REEL.Recorder;
 
 public class WebSurvey : Singleton<WebSurvey>
 {
+    public enum AnswerType
+    {
+        O, X
+    }
+
     const string FILENAME = "/survey.txt";
 
-    public InputField speechMessage;
-
     public REEL.Animation.RobotFacialRenderer robotFacialRenderer;
+    public GameObject quizStatusWindow;
     public Text quizNumberText;
     public Text scoreText;
 
@@ -51,6 +55,9 @@ public class WebSurvey : Singleton<WebSurvey>
     private bool quizFinished = false;
     public bool QuizFinished {  get { return quizFinished; } }
 
+    private int quizCount = 0;
+    private AnswerType currentAnswerType;
+
     public void GetReply(string message)
     {
         var reply = _rs.reply("default", message);
@@ -64,9 +71,16 @@ public class WebSurvey : Singleton<WebSurvey>
         }
     }
 
-    public void SendSTT()
+    public int GetQuizCount { get { return quizCount; } }
+    public void SetQuizCount(string message)
     {
-        mqttClient.Publish("/input", Encoding.UTF8.GetBytes(speechMessage.text));
+        quizCount = System.Convert.ToInt32(message);
+    }
+
+    public void SetCurrentAnswer(string message)
+    {
+        Debug.Log("SetCurrentAnswer: " + message.ToUpper());
+        currentAnswerType = (AnswerType)Enum.Parse(typeof(AnswerType), message.ToUpper());
     }
 
     public void WebLogin()
@@ -94,6 +108,8 @@ public class WebSurvey : Singleton<WebSurvey>
     public void StartQuiz()
     {
         Debug.Log("StartQuiz");
+        quizStatusWindow.SetActive(true);
+        UpdateQuizStatus();
         behaviorRecorder.StartRecording();
         quizFinished = false;
     }
@@ -114,12 +130,17 @@ public class WebSurvey : Singleton<WebSurvey>
     {
         ++currentQuizNumber;
 
-        if (currentQuizNumber == 7)
+        if (currentQuizNumber == quizCount + 1)
             FinishQuiz();
 
-        if (currentQuizNumber < 7)
-            quizNumberText.text = currentQuizNumber.ToString() + " / 6";
-        Debug.Log("NextStep: " + currentQuizNumber);
+        if (currentQuizNumber < quizCount + 1)
+            UpdateQuizStatus();
+        //Debug.Log("NextStep: " + currentQuizNumber);
+    }
+
+    void UpdateQuizStatus()
+    {
+        quizNumberText.text = currentQuizNumber.ToString() + " / " + quizCount.ToString();
     }
 
     public void GainScore()
