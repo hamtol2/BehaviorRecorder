@@ -1,12 +1,6 @@
 ﻿using System;
 using System.Collections;
-using System.Collections.Generic;
-using System.IO;
-using System.Text;
 using UnityEngine;
-using UnityEngine.Networking;
-using uPLibrary.Networking.M2Mqtt;
-using uPLibrary.Networking.M2Mqtt.Messages;
 using UnityEngine.UI;
 using FrostweepGames.Plugins.GoogleCloud.SpeechRecognition;
 
@@ -46,20 +40,19 @@ public class WebSurvey : Singleton<WebSurvey>
     [SerializeField] private AnswerState answerState = AnswerState.Wait;
     [SerializeField] private ModelType robotModelType = ModelType.ExpressionRobot;
 
-    private Timer timer = null;
+    private Timer answerTimer = null;
+    private Timer hintTimer = null;
     [SerializeField] private float timeOutTime = 10f;
+    [SerializeField] private float hintTime = 0f;
 
     private bool quizFinished = false;
     public bool QuizFinished { get { return quizFinished; } }
 
-    [SerializeField] private int quizCount = 0;
+    [SerializeField] private int numOfQuiz = 0;
     private AnswerType currentAnswerType;
 
     private readonly string answerYes = "오";
     private readonly string answerNo = "엑스";
-
-    //private int timeoutTime = 0;
-    //private string timeoutReply = "timeout";
 
     private void Awake()
     {
@@ -125,10 +118,10 @@ public class WebSurvey : Singleton<WebSurvey>
         }
     }
 
-    public int GetQuizCount { get { return quizCount; } }
+    public int GetQuizCount { get { return numOfQuiz; } }
     public void SetQuizCount(string message)
     {
-        quizCount = Convert.ToInt32(message);
+        numOfQuiz = Convert.ToInt32(message);
     }
 
     public void SetCurrentAnswer(string message)
@@ -139,8 +132,13 @@ public class WebSurvey : Singleton<WebSurvey>
 
     public void SetTimeoutTime(string message)
     {
-        Debug.Log("SetTimeoutTime: " + message);
+        //Debug.Log("SetTimeoutTime: " + message);
         timeOutTime = Convert.ToSingle(message);
+    }
+
+    public void SetHintTime(string message)
+    {
+        hintTime = Convert.ToSingle(message);
     }
 
     public void StartQuiz()
@@ -168,30 +166,31 @@ public class WebSurvey : Singleton<WebSurvey>
     {
         ++currentQuizNumber;
 
-        if (currentQuizNumber == (quizCount + 1))
+        if (currentQuizNumber == (numOfQuiz + 1))
             FinishQuiz();
 
-        if (currentQuizNumber < (quizCount + 1))
+        if (currentQuizNumber < (numOfQuiz + 1))
             UpdateQuizStatus();
 
-        timer = null;
+        answerTimer = null;
         //Debug.Log("NextStep: " + currentQuizNumber);
     }
 
     public void TryAgain()
     {
-        timer = new Timer(timeOutTime, TimeOut);
+        answerTimer = new Timer(timeOutTime, TimeOut);
     }
 
     public void WaitForAnswer()
     {
-        timer = new Timer(timeOutTime, TimeOut);
+        answerTimer = new Timer(timeOutTime, TimeOut);
+        hintTimer = new Timer(hintTime, GazeToButton);
         OpenAnswerButton();
     }
 
     void UpdateQuizStatus()
     {
-        quizNumberText.text = currentQuizNumber.ToString() + " / " + quizCount.ToString();
+        quizNumberText.text = currentQuizNumber.ToString() + " / " + numOfQuiz.ToString();
     }
 
     public void GainScore()
@@ -230,7 +229,6 @@ public class WebSurvey : Singleton<WebSurvey>
     }
     public AnswerState GetAnswerState { get { return answerState; } }
 
-
     private bool speechRecognitionStart;
 
     private void CheckAnswerTimer()
@@ -239,13 +237,21 @@ public class WebSurvey : Singleton<WebSurvey>
             return;
 
         if (QuizFinished)
-            timer = null;
+        {
+            answerTimer = null;
+            hintTimer = null;
+        }
+        
+        if (hintTimer != null)
+        {
+            hintTimer.Update(Time.deltaTime);
+        }
 
-        if (timer != null)
+        if (answerTimer != null)
         {
             SetAnswerState(AnswerState.Wait);
-            Debug.Log("CheckAnswerTimer: " + timer.GetElapsedTime);
-            timer.Update(Time.deltaTime);
+            Debug.Log("CheckAnswerTimer: " + answerTimer.GetElapsedTime);
+            answerTimer.Update(Time.deltaTime);
         }
     }
 
@@ -267,9 +273,16 @@ public class WebSurvey : Singleton<WebSurvey>
     private void TimeOut()
     {
         Debug.Log(timeOutTime + "초 지남. 문제 틀림");
-        timer = null;
+        answerTimer = null;
         WebSurvey.Instance.GetReply(GetWrongAnswer);
         CloseAnswerButton();
+    }
+
+    private string faceGazeO = "gazeo";
+    private string faceGazeX = "gazex";
+    private void GazeToButton()
+    {
+        robotFacialRenderer.Play(currentAnswerType == AnswerType.O ? faceGazeO : faceGazeX);
     }
 
     private void OnDestroy()

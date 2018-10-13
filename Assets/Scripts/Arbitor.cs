@@ -83,6 +83,7 @@ public class Arbitor : Singleton<Arbitor>
         messageProcessors.Add("qcount", WebSurvey.Instance.SetQuizCount);
         messageProcessors.Add("answer", WebSurvey.Instance.SetCurrentAnswer);
         messageProcessors.Add("answertime", WebSurvey.Instance.SetTimeoutTime);
+        messageProcessors.Add("hinttime", WebSurvey.Instance.SetHintTime);
         //messageProcessors.Add("mobility", BluetoothManager.Instance.Send);
     }
 
