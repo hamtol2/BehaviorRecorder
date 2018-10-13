@@ -13,9 +13,9 @@
 > topic ox1 includes calculate
 + init 
 - 첫번째 문제입니다. 우리나라의 애국가 후렴은 대한 사람 대한으로 길이 보전하세로 끝맺는다.\s
-^ 맞으면 오 틀리면 엑스를 쳐다보세요. <sm=facial:normal><sm=qcount:6><sm=answer:o>
+^ 맞으면 오 틀리면 엑스를 쳐다보세요. <sm=facial:normal><sm=qcount:6><sm=answer:o><sm=answertime:5>
 
-+ (오|어|아|우|o|5|timeout)
++ (오|어|아|우|o|5)
 - 정답입니다. 그럼 다음 문제로 넘어갈께요\s
 ^ <sm=facial:happy> <sm=motion:clap> {@점수더하기} {topic=ox2} {@init}
 
@@ -35,7 +35,7 @@
 - 정답입니다.\s
 ^ <sm=facial:happy> <sm=motion:clap> <sm=motion:clap> {@점수더하기} {topic=ox3} {@init}
 
-+ (엑스|액스|액수|엑수|액쓰|엑쓰|액쑤|엑쑤|x|timeout)
++ (엑스|액스|액수|엑수|액쓰|엑쓰|액쑤|엑쑤|x)
 - 땡 틀렸습니다.\s
 ^ <sm=facial:sad> <sm=motion:wrong> <sm=motion:wrong> {topic=ox3} {@init}
 
@@ -52,7 +52,7 @@
 - 땡 틀렸습니다. 10원에 장식된 문양은 다보탑이고, 50원에 장식된 문양이 벼입니다.\s
 ^ <sm=facial:sad> <sm=motion:wrong> <sm=motion:wrong> {topic=ox4} {@init}
 
-+ (엑스|액스|액수|엑수|액쓰|엑쓰|액쑤|엑쑤|x|timeout)
++ (엑스|액스|액수|엑수|액쓰|엑쓰|액쑤|엑쑤|x)
 - 정답입니다. 헷갈리는 문제였는데. 대단해요.\s
 ^ <sm=facial:happy> <sm=motion:clap> <sm=motion:clap> {@점수더하기} {topic=ox4} {@init}
 
@@ -69,7 +69,7 @@
 - 땡 틀렸습니다. 닥을 많이 먹는다고 닭살이 돋지는 않아요.\s
 ^ <sm=facial:sad> <sm=motion:wrong> <sm=motion:wrong> {topic=ox5} {@init}
 
-+ (엑스|액스|액수|엑수|액쓰|엑쓰|액쑤|엑쑤|x|timeout)
++ (엑스|액스|액수|엑수|액쓰|엑쓰|액쑤|엑쑤|x)
 - 정답입니다.\s
 ^ <sm=facial:happy> <sm=motion:clap> <sm=motion:clap> {@점수더하기} {topic=ox5} {@init}
 
@@ -86,7 +86,7 @@
 - 정답입니다.\s
 ^ <sm=facial:happy> <sm=motion:clap> <sm=motion:clap> {@점수더하기} {topic=ox6} {@init}
 
-+ (엑스|액스|액수|엑수|액쓰|엑쓰|액쑤|엑쑤|x|timeout)
++ (엑스|액스|액수|엑수|액쓰|엑쓰|액쑤|엑쑤|x)
 - 땡 틀렸습니다.\s
 ^ <sm=facial:sad> <sm=motion:wrong> <sm=motion:wrong> {topic=ox6} {@init}
 
@@ -103,7 +103,7 @@
 - 땡 틀렸습니다. 총 20개 입니다. 99에서 헷갈리신듯 해요. 이제 퀴즈 결과를 알려드리겠습니다.\s
 ^ <sm=facial:sad> <sm=motion:wrong> <sm=motion:wrong> {topic=result} {@init}
 
-+ (엑스|액스|액수|엑수|액쓰|엑쓰|액쑤|엑쑤|x|timeout)
++ (엑스|액스|액수|엑수|액쓰|엑쓰|액쑤|엑쑤|x)
 - 정답입니다. 이제 퀴즈 결과를 알려드리겠습니다.\s
 ^ <sm=facial:happy> <sm=motion:clap> <sm=motion:clap> {@점수더하기} {topic=result} {@init}
 

@@ -35,38 +35,26 @@ class SpeechInfo
 public class SpeechRenderrer : Singleton<SpeechRenderrer>, Renderrer
 {
     [SerializeField] private Button speechRecognitionButton;
-    [SerializeField] private GameObject answerButton;
 
     private SpVoiceClass voice;
     private string tryAgainScript = "잘 못알아 들었습니다. 다시 말씀해 주세요.";
     private bool isTTSStarted = false;
     [SerializeField] private SpeechInfo currentSpeech;
-    private Timer timer = null;
-    [SerializeField] private float timeOutTime = 10f;
-    private string timeoutReply = "timeout";
 
     [SerializeField] private Text wordEventText;
 
     void Awake()
     {
         voice = new SpVoiceClass();
-        timer = null;
-
+        
         //Debug.Log(PlayerPrefs.GetString(SurveyStart.ageKey));
         //Debug.Log(PlayerPrefs.GetString(SurveyStart.genderKey));
         //Debug.Log(PlayerPrefs.GetInt(SurveyStart.countKey));
     }
 
-    void Start()
-    {
-
-    }
-
     void Update()
     {
         CheckAudioPlayState();
-        CheckAnswerTimer();
-        //GetStatus(voice);
     }
 
     void GetStatus(SpVoiceClass voice)
@@ -98,13 +86,12 @@ public class SpeechRenderrer : Singleton<SpeechRenderrer>, Renderrer
     public void TryAgain()
     {
         TextToSpeech(tryAgainScript);
-        timer = new Timer(timeOutTime, TimeOut);
+        WebSurvey.Instance.TryAgain();
     }
 
     public void Play(string speech)
     {
         TextToSpeech(speech);
-
         currentSpeech = new SpeechInfo(speech);
     }
 
@@ -148,46 +135,20 @@ public class SpeechRenderrer : Singleton<SpeechRenderrer>, Renderrer
 
             if (currentSpeech == null)
             {
-                timer = null;
                 return;
             }   
 
             if (currentSpeech.shouldGoNext)
             {
                 WebSurvey.Instance.NextStep();
-                timer = null;
             }
 
             if (currentSpeech.shouldWaitForAnswer && !WebSurvey.Instance.QuizFinished)
             {
-                timer = new Timer(timeOutTime, TimeOut);
-                answerButton.SetActive(true);
+                WebSurvey.Instance.WaitForAnswer();
             }
 
             currentSpeech = null;
         }
-    }
-
-    private void CheckAnswerTimer()
-    {
-        if (IsSpeaking)
-            return;
-
-        if (WebSurvey.Instance.QuizFinished)
-            timer = null;
-
-        if (timer != null)
-        {
-            WebSurvey.Instance.SetAnswerState(AnswerState.Wait);
-            Debug.Log("CheckAnswerTimer: " + timer.GetElapsedTime);
-            timer.Update(Time.deltaTime);
-        }
-    }
-
-    private void TimeOut()
-    {
-        Debug.Log(timeOutTime + "초 지남. 문제 틀림");
-        timer = null;
-        WebSurvey.Instance.GetReply(timeoutReply);
     }
 }

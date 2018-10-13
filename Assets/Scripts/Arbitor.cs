@@ -71,7 +71,7 @@ public class Arbitor : Singleton<Arbitor>
 
     public void Insert(string item)
     {
-        Debug.Log("msg inserted: " + item);
+        //Debug.Log("msg inserted: " + item);
         //items.Add(item);
         ParseMessage(item);
     }
@@ -82,6 +82,7 @@ public class Arbitor : Singleton<Arbitor>
         messageProcessors.Add("motion", RobotTransformController.Instance.PlayMotion);
         messageProcessors.Add("qcount", WebSurvey.Instance.SetQuizCount);
         messageProcessors.Add("answer", WebSurvey.Instance.SetCurrentAnswer);
+        messageProcessors.Add("answertime", WebSurvey.Instance.SetTimeoutTime);
         //messageProcessors.Add("mobility", BluetoothManager.Instance.Send);
     }
 

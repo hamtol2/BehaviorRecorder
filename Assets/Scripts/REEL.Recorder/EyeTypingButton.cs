@@ -53,7 +53,8 @@ namespace REEL.Recorder
         void EyeClickHandler()
         {
             WebSurvey.Instance.GetReply(this.ToString());
-            transform.parent.gameObject.SetActive(false);
+            WebSurvey.Instance.CloseAnswerButton();
+            //transform.parent.gameObject.SetActive(false);
         }
 
         //public void UpdateTimer(float deltaTime)

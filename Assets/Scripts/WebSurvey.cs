@@ -1,4 +1,4 @@
-﻿    using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
@@ -26,16 +26,10 @@ public class WebSurvey : Singleton<WebSurvey>
     public Text quizNumberText;
     public Text scoreText;
 
-    private MqttClient mqttClient;
-    string requested = "";
-    string received_tts = "";
-    string received_facial = "";
-    string received_motion = "";
-
-    public Text TTS;
-
     public BehaviorRecorder behaviorRecorder;
     public BehaviorReplayer behaviorReplayer;
+
+    [SerializeField] private GameObject answerButton;
 
     private Hashtable session_ident = new Hashtable();
 
@@ -52,208 +46,20 @@ public class WebSurvey : Singleton<WebSurvey>
     [SerializeField] private AnswerState answerState = AnswerState.Wait;
     [SerializeField] private ModelType robotModelType = ModelType.ExpressionRobot;
 
-    private bool quizFinished = false;
-    public bool QuizFinished {  get { return quizFinished; } }
+    private Timer timer = null;
+    [SerializeField] private float timeOutTime = 10f;
 
-    private int quizCount = 0;
+    private bool quizFinished = false;
+    public bool QuizFinished { get { return quizFinished; } }
+
+    [SerializeField] private int quizCount = 0;
     private AnswerType currentAnswerType;
 
-    public void GetReply(string message)
-    {
-        var reply = _rs.reply("default", message);
-        if (reply.Contains("NOT_MATCHED"))
-        {
-            Debug.Log("Not matched");
-        }
-        else
-        {
-            Arbitor.Instance.Insert(reply);
-        }
-    }
+    private readonly string answerYes = "오";
+    private readonly string answerNo = "엑스";
 
-    public int GetQuizCount { get { return quizCount; } }
-    public void SetQuizCount(string message)
-    {
-        quizCount = System.Convert.ToInt32(message);
-    }
-
-    public void SetCurrentAnswer(string message)
-    {
-        Debug.Log("SetCurrentAnswer: " + message.ToUpper());
-        currentAnswerType = (AnswerType)Enum.Parse(typeof(AnswerType), message.ToUpper());
-    }
-
-    public void WebLogin()
-    {
-        string uri = "http://localhost:3000/api/v1/login/reel";
-        Dictionary<string, string> postHeader = new Dictionary<string, string>();
-        //Hashtable postHeader = new Hashtable();
-        postHeader.Add("Content-Type", "application/json");
-        var formData = System.Text.Encoding.UTF8.GetBytes("{\"password\": \"1234\"}");
-        WWW www = new WWW(uri, formData, postHeader);
-        StartCoroutine(Login(www));
-    }
-
-    IEnumerator Login(WWW www)
-    {
-        yield return www;
-        Debug.Log(www.text);
-    }
-
-    public void WebUpload()
-    {
-        StartCoroutine("Upload");
-    }
-
-    public void StartQuiz()
-    {
-        Debug.Log("StartQuiz");
-        quizStatusWindow.SetActive(true);
-        UpdateQuizStatus();
-        behaviorRecorder.StartRecording();
-        quizFinished = false;
-    }
-
-    public void FinishQuiz()
-    {
-        Debug.Log("FinishQuiz");
-        behaviorRecorder.FinishRecording();
-        quizFinished = true;
-    }
-
-    public int GetCurrentStep()
-    {
-        return currentQuizNumber;
-    }
-
-    public void NextStep()
-    {
-        ++currentQuizNumber;
-
-        if (currentQuizNumber == quizCount + 1)
-            FinishQuiz();
-
-        if (currentQuizNumber < quizCount + 1)
-            UpdateQuizStatus();
-        //Debug.Log("NextStep: " + currentQuizNumber);
-    }
-
-    void UpdateQuizStatus()
-    {
-        quizNumberText.text = currentQuizNumber.ToString() + " / " + quizCount.ToString();
-    }
-
-    public void GainScore()
-    {
-        ++quizScore;
-        scoreText.text = quizScore.ToString();
-        answerState = AnswerState.Correct;
-        //Debug.Log("Score: " + quizScore);
-    }
-
-    public int GetCurrentScore()
-    {
-        return quizScore;
-    }
-
-    public string QuizTitle {  get { return quizTitle; } }
-
-    public ContentState GetCurrentState()
-    {
-        if (currentQuizNumber.Equals(0))
-            contentState = ContentState.IceBreaking;
-        else
-        {
-            if (SpeechRenderrer.Instance.IsRunning()) contentState = ContentState.OnQuestion;
-            else contentState = ContentState.Waiting;
-        }
-
-        return contentState;
-    }
-
-    public ModelType GetModelType { get { return robotModelType; } }
-
-    public void SetAnswerState(AnswerState state)
-    {
-        answerState = state;
-    }
-    public AnswerState GetAnswerState { get { return answerState; } }
-
-    IEnumerator Upload()
-    {
-        string filepath = Application.dataPath + "/movie_dummy.zip";
-        if (File.Exists(filepath))
-        {
-            byte[] data = File.ReadAllBytes(filepath);
-            List<IMultipartFormSection> formData = new List<IMultipartFormSection>();
-            formData.Add(new MultipartFormFileSection("file", data, "movie_dummy.zip", "application/zip"));
-
-            UnityWebRequest www = UnityWebRequest.Post("http://localhost:3000/api/v1/users/reel/projects/movie_dummy", formData);
-            yield return www.SendWebRequest();
-
-            if (www.isNetworkError || www.isHttpError)
-            {
-                Debug.Log(www.error);
-            }
-            else
-            {
-                Debug.Log("Form upload complete!");
-            }
-        }
-        else
-        {
-            Debug.Log("File not exist");
-        }
-    }
-
-    public void WebPlay()
-    {
-        StartCoroutine(Play());
-    }
-
-    IEnumerator Play()
-    {
-        string uri = "http://localhost:3000/api/v1/users/reel/projects/movie_dummy/play";
-        UnityWebRequest www = UnityWebRequest.Get(uri);
-        yield return www.SendWebRequest();
-
-        if (www.isNetworkError || www.isHttpError)
-        {
-            Debug.Log(www.error);
-        }
-        else
-        {
-            // Show results as text
-            Debug.Log(www.downloadHandler.text);
-        }
-    }
-
-    private bool speechRecognitionStart;
-    public void OnClickedSpeechRec(Text text)
-    {
-        if (!CanClick) return;
-
-        if (!speechRecognitionStart)
-        {
-            _speechRecognition.StartRecord(false);
-
-            text.text = "Recognizing...";
-            speechRecognitionStart = true;
-        }
-        else
-        {
-            //ApplySpeechContextPhrases();
-            _speechRecognition.StopRecord();
-
-            text.text = "Speech Recognition";
-            speechRecognitionStart = false;
-        }
-    }
-
-    bool CanClick
-    {
-        get { return !SpeechRenderrer.Instance.IsSpeaking; }
-    }
+    //private int timeoutTime = 0;
+    //private string timeoutReply = "timeout";
 
     private void Awake()
     {
@@ -294,15 +100,6 @@ public class WebSurvey : Singleton<WebSurvey>
             _rs.sortReplies();
             Debug.Log("Successfully load file");
 
-            //try
-            //{
-            //    var r1 = _rs.reply("default", "init");
-            //    Debug.Log(string.Format("{0}", r1));
-            //}
-            //catch (System.Exception ex)
-            //{
-            //    Debug.Log(string.Format("{0}", ex));
-            //}
         }
         else
         {
@@ -310,32 +107,169 @@ public class WebSurvey : Singleton<WebSurvey>
         }
     }
 
-    // Update is called once per frame
-    void Update()
+    private void Update()
     {
-//        if (received_tts.Length > 0)
-//        {
-//#if UNITY_EDITOR || UNITY_STANDALONE
-//            //StartCoroutine(Say(received_tts));
-//#elif UNITY_ANDROID
-//            AndroidJNI.AttachCurrentThread();
-//            SpeechRenderrer.Instance.Play(received_tts);
-//            AndroidJNI.DetachCurrentThread();
-//#endif
-//            TTS.text = received_tts;
-//            received_tts = "";
-//        }
-//        if (received_facial.Length > 0)
-//        {
-//            robotFacialRenderer.Play(received_facial);
-//            received_facial = "";
-//        }
-//        if (received_motion.Length > 0)
-//        {
-//            //REEL.PoseAnimation.RobotTransformController.Instance.PlayGesture(received_motion);
-//            REEL.PoseAnimation.RobotTransformController.Instance.PlayMotionCoroutine(received_motion);
-//            received_motion = "";
-//        }
+        CheckAnswerTimer();
+    }
+
+    public void GetReply(string message)
+    {
+        var reply = _rs.reply("default", message);
+        if (reply.Contains("NOT_MATCHED"))
+        {
+            Debug.Log("Not matched");
+        }
+        else
+        {
+            Arbitor.Instance.Insert(reply);
+        }
+    }
+
+    public int GetQuizCount { get { return quizCount; } }
+    public void SetQuizCount(string message)
+    {
+        quizCount = Convert.ToInt32(message);
+    }
+
+    public void SetCurrentAnswer(string message)
+    {
+        //Debug.Log("SetCurrentAnswer: " + message.ToUpper());
+        currentAnswerType = (AnswerType)Enum.Parse(typeof(AnswerType), message.ToUpper());
+    }
+
+    public void SetTimeoutTime(string message)
+    {
+        Debug.Log("SetTimeoutTime: " + message);
+        timeOutTime = Convert.ToSingle(message);
+    }
+
+    public void StartQuiz()
+    {
+        Debug.Log("StartQuiz");
+        quizStatusWindow.SetActive(true);
+        UpdateQuizStatus();
+        behaviorRecorder.StartRecording();
+        quizFinished = false;
+    }
+
+    public void FinishQuiz()
+    {
+        Debug.Log("FinishQuiz");
+        behaviorRecorder.FinishRecording();
+        quizFinished = true;
+    }
+
+    public int GetCurrentStep()
+    {
+        return currentQuizNumber;
+    }
+
+    public void NextStep()
+    {
+        ++currentQuizNumber;
+
+        if (currentQuizNumber == (quizCount + 1))
+            FinishQuiz();
+
+        if (currentQuizNumber < (quizCount + 1))
+            UpdateQuizStatus();
+
+        timer = null;
+        //Debug.Log("NextStep: " + currentQuizNumber);
+    }
+
+    public void TryAgain()
+    {
+        timer = new Timer(timeOutTime, TimeOut);
+    }
+
+    public void WaitForAnswer()
+    {
+        timer = new Timer(timeOutTime, TimeOut);
+        OpenAnswerButton();
+    }
+
+    void UpdateQuizStatus()
+    {
+        quizNumberText.text = currentQuizNumber.ToString() + " / " + quizCount.ToString();
+    }
+
+    public void GainScore()
+    {
+        ++quizScore;
+        scoreText.text = quizScore.ToString();
+        answerState = AnswerState.Correct;
+        //Debug.Log("Score: " + quizScore);
+    }
+
+    public int GetCurrentScore()
+    {
+        return quizScore;
+    }
+
+    public string QuizTitle { get { return quizTitle; } }
+
+    public ContentState GetCurrentState()
+    {
+        if (currentQuizNumber.Equals(0))
+            contentState = ContentState.IceBreaking;
+        else
+        {
+            if (SpeechRenderrer.Instance.IsRunning()) contentState = ContentState.OnQuestion;
+            else contentState = ContentState.Waiting;
+        }
+
+        return contentState;
+    }
+
+    public ModelType GetModelType { get { return robotModelType; } }
+
+    public void SetAnswerState(AnswerState state)
+    {
+        answerState = state;
+    }
+    public AnswerState GetAnswerState { get { return answerState; } }
+
+
+    private bool speechRecognitionStart;
+
+    private void CheckAnswerTimer()
+    {
+        if (SpeechRenderrer.Instance.IsSpeaking)
+            return;
+
+        if (QuizFinished)
+            timer = null;
+
+        if (timer != null)
+        {
+            SetAnswerState(AnswerState.Wait);
+            Debug.Log("CheckAnswerTimer: " + timer.GetElapsedTime);
+            timer.Update(Time.deltaTime);
+        }
+    }
+
+    public void OpenAnswerButton()
+    {
+        answerButton.SetActive(true);
+    }
+
+    public void CloseAnswerButton()
+    {
+        answerButton.SetActive(false);
+    }
+
+    private string GetWrongAnswer
+    {
+        get { return currentAnswerType == AnswerType.O ? answerNo : answerYes; }
+    }
+
+    private void TimeOut()
+    {
+        Debug.Log(timeOutTime + "초 지남. 문제 틀림");
+        timer = null;
+        WebSurvey.Instance.GetReply(GetWrongAnswer);
+        CloseAnswerButton();
     }
 
     private void OnDestroy()
@@ -343,25 +277,6 @@ public class WebSurvey : Singleton<WebSurvey>
         _speechRecognition.RecognitionSuccessEvent -= RecognitionSuccessEventHandler;
         _speechRecognition.NetworkRequestFailedEvent -= SpeechRecognizedFailedEventHandler;
         _speechRecognition.LongRecognitionSuccessEvent -= LongRecognitionSuccessEventHandler;
-    }
-
-    void client_MqttMsgPublishReceived(object sender, MqttMsgPublishEventArgs e)
-    {
-        String topic = e.Topic;
-        String message = System.Text.Encoding.UTF8.GetString(e.Message);
-        Debug.Log("Topic: " + topic + ", Message: " + message);
-        switch (topic)
-        {
-            case "/tts":
-                received_tts = message;
-                break;
-            case "/facial":
-                received_facial = message;
-                break;
-            case "/motion":
-                received_motion = message;
-                break;
-        }
     }
 
     private void SpeechRecognizedFailedEventHandler(string obj, long requestIndex)
@@ -398,17 +313,6 @@ public class WebSurvey : Singleton<WebSurvey>
                     Arbitor.Instance.Insert(reply);
                 }
             }
-
-            //string other = "\nDetected alternative: ";
-
-            //foreach (var result in obj.results)
-            //{
-            //    foreach (var alternative in result.alternatives)
-            //    {
-            //        if (obj.results[0].alternatives[0] != alternative)
-            //            other += alternative.transcript + ", ";
-            //    }
-            //}
         }
         else
         {

@@ -60,7 +60,7 @@ namespace REEL.Animation
 
         private void Play(RobotFacialInfo info)
         {
-            Debug.Log("Added to facial queue: " + info.faceName);
+            //Debug.Log("Added to facial queue: " + info.faceName);
 
             // Test.
             if (currentFacialInfo != null)
