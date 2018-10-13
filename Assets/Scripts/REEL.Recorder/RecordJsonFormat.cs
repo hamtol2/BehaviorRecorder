@@ -74,6 +74,7 @@ namespace REEL.Recorder
         public Vector2 eyePosition;
         public TargetRegion targetRegion;
         public Vector3 robotPosition;
+        public RobotMovement.State robotState;
         public string face;
         public string gesture;
         public RecordEvent recordEvent;

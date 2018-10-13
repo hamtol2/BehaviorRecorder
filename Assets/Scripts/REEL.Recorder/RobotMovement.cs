@@ -8,10 +8,11 @@ namespace REEL.Recorder
 	{
         public enum State
         {
-            Idle, Move
+            Idle, Move, Clap, No
         }
 
         [SerializeField] private State state = State.Idle;
+        public State GetRobotState { get { return state; } }
 
         [SerializeField] private Transform waypoint;
         [SerializeField] private Transform[] waypoints;
@@ -52,6 +53,9 @@ namespace REEL.Recorder
             {
                 case State.Idle: Idle(); break;
                 case State.Move: Move(); break;
+                case State.Clap: Clap(); break;
+                case State.No: No(); break;
+
                 default: break;
             }
         }
@@ -83,6 +87,16 @@ namespace REEL.Recorder
             {
                 SetState(State.Idle);
             }
+        }
+
+        private void Clap()
+        {
+
+        }
+
+        private void No()
+        {
+
         }
 
         public void MoveToOrigin()

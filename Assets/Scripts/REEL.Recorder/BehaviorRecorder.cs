@@ -14,7 +14,7 @@ namespace REEL.Recorder
         public float frame = 30f;
         public string fileName = "Behavior.json";
         public bool autoSave = true;
-        public Transform robotTransform;
+        public RobotMovement robotMovement;
         public RobotFacialRenderer facialRenderer;
         public RobotTransformController gestureController;
 
@@ -83,7 +83,8 @@ namespace REEL.Recorder
             newData.answer = WebSurvey.Instance.GetAnswerState;
             newData.modelType = WebSurvey.Instance.GetModelType;
             newData.eyePosition = TobbiManager.Instance.GetEyePoint;
-            newData.robotPosition = robotTransform.position;
+            newData.robotPosition = robotMovement.transform.position;
+            newData.robotState = robotMovement.GetRobotState;
             newData.targetRegion = GetTargetRegion;
             newData.face = facialRenderer.currentFace;
             newData.gesture = gestureController.currentGesture;
@@ -103,7 +104,8 @@ namespace REEL.Recorder
             newData.answer = WebSurvey.Instance.GetAnswerState;
             newData.modelType = WebSurvey.Instance.GetModelType;
             newData.eyePosition = TobbiManager.Instance.GetEyePoint;
-            newData.robotPosition = robotTransform.position;
+            newData.robotPosition = robotMovement.transform.position;
+            newData.robotState = robotMovement.GetRobotState;
             newData.targetRegion = GetTargetRegion;
             newData.face = facialRenderer.currentFace;
             newData.gesture = gestureController.currentGesture;
