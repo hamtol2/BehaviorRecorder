@@ -38,7 +38,8 @@ GameObject:
   - component: {fileID: 224296109542740964}
   - component: {fileID: 222301132012668074}
   - component: {fileID: 114476244112428046}
-  - component: {fileID: 114270155903913928}
+  - component: {fileID: 114804978120065844}
+  - component: {fileID: 114241694814924470}
   m_Layer: 5
   m_Name: EyeTypingButton
   m_TagString: Untagged
@@ -63,7 +64,7 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &114270155903913928
+--- !u!114 &114241694814924470
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
@@ -71,12 +72,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 1648045862942336}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 972b79e072ac85949a491315ad383668, type: 3}
+  m_Script: {fileID: 11500000, guid: 38d2b6b8889395646b435b345f5842c9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  clickCheckTime: 1
-  gaugeImage: {fileID: 114277138453213756}
-  gaugeColor: {r: 0.28248486, g: 0.8679245, b: 0.28248486, a: 1}
   buttonType: 0
 --- !u!114 &114277138453213756
 MonoBehaviour:
@@ -165,6 +163,36 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: O
+--- !u!114 &114804978120065844
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1648045862942336}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 24da3b1d2d415a146a0098adc5fdf52a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  clickCheckTime: 1
+  gaugeImage: {fileID: 114277138453213756}
+  gaugeColor: {r: 0.28248486, g: 0.8679245, b: 0.28248486, a: 1}
+  timerCallback:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 114241694814924470}
+        m_MethodName: TimerListener
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
 --- !u!222 &222301132012668074
 CanvasRenderer:
   m_ObjectHideFlags: 1

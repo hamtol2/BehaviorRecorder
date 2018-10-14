@@ -1488,11 +1488,6 @@ Prefab:
       propertyPath: m_Name
       value: YES
       objectReference: {fileID: 0}
-    - target: {fileID: 114277138453213756, guid: 460c1d3a18caa414cb6d9be3f9ddd0e5,
-        type: 2}
-      propertyPath: m_FillAmount
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 460c1d3a18caa414cb6d9be3f9ddd0e5, type: 2}
   m_IsPrefabAsset: 0
@@ -4551,7 +4546,13 @@ Prefab:
       value: 
       objectReference: {fileID: 21300000, guid: 81c42fa793796a744a716cc549276db8,
         type: 3}
-    m_RemovedComponents: []
+    - target: {fileID: 114241694814924470, guid: 460c1d3a18caa414cb6d9be3f9ddd0e5,
+        type: 2}
+      propertyPath: buttonType
+      value: 1
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 0}
   m_SourcePrefab: {fileID: 100100000, guid: 460c1d3a18caa414cb6d9be3f9ddd0e5, type: 2}
   m_IsPrefabAsset: 0
 --- !u!1 &1941479393

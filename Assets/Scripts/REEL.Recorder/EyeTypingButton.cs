@@ -1,69 +1,57 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using Tobii.Gaming;
-using UnityEngine;
-using UnityEngine.EventSystems;
+﻿using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.UI;
-using REEL.Recorder;
 
 namespace REEL.Recorder
 {
-    public class EyeTypingButton : TimerButton
-    {
-        public enum ButtonType
-        {
-            YES, NO, ETC
-        }
-        
+    public class EyeTypingButton : MonoBehaviour
+    {   
+        [SerializeField] [Range(0.1f, 2.0f)] protected float clickCheckTime = 1f;
         [SerializeField] protected Image gaugeImage;
         [SerializeField] protected Color gaugeColor;
-        [SerializeField] private ButtonType buttonType;
+        protected Timer timer = new Timer();
+        protected float lastRecoredTime = 0f;
+        protected float onExitCheckTime = 0.2f;
 
-        private string yesString = "오";
-        private string noString = "엑스";
+        [SerializeField] protected UnityEvent timerCallback;
 
-        protected override void Awake()
+        protected virtual void Awake()
         {
-            base.Awake();
+            timer.SetTimer(clickCheckTime, EyeClickHandler);
             gaugeImage.color = gaugeColor;
         }
 
-        protected override void Update()
+        protected virtual void Update()
         {
-            base.Update();
+            if (lastRecoredTime != 0f && Time.realtimeSinceStartup - lastRecoredTime > onExitCheckTime)
+            {
+                ResetButton();
+            }
         }
 
-        protected override void ResetButton()
+        protected virtual void ResetButton()
         {
-            base.ResetButton();
+            lastRecoredTime = 0f;
+            timer.Reset();
             gaugeImage.fillAmount = 0f;
         }
 
-        protected override void EyeClickHandler()
+        protected virtual void EyeClickHandler()
         {
-            WebSurvey.Instance.GetReply(this.ToString());
-            WebSurvey.Instance.CloseAnswerButton();
+            if (timerCallback != null)
+                timerCallback.Invoke();
         }
 
-        public override void UpdateTimer()
+        public virtual void UpdateTimer()
         {
-            base.UpdateTimer();
+            timer.Update(Time.deltaTime);
+            lastRecoredTime = Time.realtimeSinceStartup;
             UpdateGauge(timer.GetElapsedTime / clickCheckTime);
         }
 
-        protected void UpdateGauge(float amount)
+        protected virtual void UpdateGauge(float amount)
         {
             gaugeImage.fillAmount = amount;
-        }
-
-        public override string ToString()
-        {
-            return GetButtonSting;
-        }
-
-        string GetButtonSting
-        {
-            get { return buttonType == ButtonType.YES ? yesString : noString; }
         }
     }
 }

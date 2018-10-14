@@ -932,7 +932,6 @@ MonoBehaviour:
   ageDropdown: {fileID: 1706850095}
   genderDropdown: {fileID: 1447203117}
   surveySceneName: 2.WebSurvey
-  genderKey: gender
 --- !u!1 &747149348
 GameObject:
   m_ObjectHideFlags: 0
