@@ -74,11 +74,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 972b79e072ac85949a491315ad383668, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  clickCheckTime: 1
   gaugeImage: {fileID: 114277138453213756}
   gaugeColor: {r: 0.28248486, g: 0.8679245, b: 0.28248486, a: 1}
   buttonType: 0
-  timer:
-    elapsedTime: 0
 --- !u!114 &114277138453213756
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -125,7 +124,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 10911, guid: 0000000000000000f000000000000000, type: 0}
+  m_Sprite: {fileID: 21300000, guid: 81c42fa793796a744a716cc549276db8, type: 3}
   m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -165,7 +164,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\uC608"
+  m_Text: O
 --- !u!222 &222301132012668074
 CanvasRenderer:
   m_ObjectHideFlags: 1
@@ -204,7 +203,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -150, y: 0}
+  m_AnchoredPosition: {x: -200, y: 0}
   m_SizeDelta: {x: 200, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &224483941892806854

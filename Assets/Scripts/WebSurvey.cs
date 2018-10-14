@@ -15,6 +15,7 @@ public class WebSurvey : Singleton<WebSurvey>
 
     const string FILENAME = "/survey.txt";
 
+    [SerializeField] private TextAsset surveyScript;
     public REEL.Animation.RobotFacialRenderer robotFacialRenderer;
     public GameObject quizStatusWindow;
     public Text quizNumberText;
@@ -27,8 +28,8 @@ public class WebSurvey : Singleton<WebSurvey>
 
     private Hashtable session_ident = new Hashtable();
 
-    //RiveScript.RiveScript _rs = new RiveScript.RiveScript(utf8: true, debug: true);
-    RiveScript.RiveScript _rs;
+    //RiveScript.RiveScript riveScript = new RiveScript.RiveScript(utf8: true, debug: true);
+    RiveScript.RiveScript riveScript;
 
     private GCSpeechRecognition _speechRecognition;
 
@@ -61,7 +62,7 @@ public class WebSurvey : Singleton<WebSurvey>
             PlayerPrefs.SetString("UUID", System.Guid.NewGuid().ToString());
         }
 
-        _rs = new RiveScript.RiveScript(utf8: true, debug: true);
+        riveScript = new RiveScript.RiveScript(utf8: true, debug: true);
     }
 
     // Use this for initialization
@@ -87,17 +88,27 @@ public class WebSurvey : Singleton<WebSurvey>
         Debug.Log("UNITY_IOS");
         string filepath = Application.persistentDataPath + FILENAME;
 #endif
-        //Debug.Log("filepath: " + filepath);
-        if (_rs.loadFile(filepath))
-        {
-            _rs.sortReplies();
-            Debug.Log("Successfully load file");
 
+        if (riveScript.LoadTextAsset(surveyScript))
+        {
+            riveScript.sortReplies();
+            Debug.Log("Successfully load file");
         }
         else
         {
-            Debug.Log("Fail to load " + Application.persistentDataPath + FILENAME + " file");
+            Debug.Log("Fail to load " + surveyScript.name + " file");
         }
+
+        //string[] lines = surveyScript.text.Split(new char[] { '\n', '\r' });
+        //if (riveScript.parse(surveyScript.name, lines))
+        //{
+        //    riveScript.sortReplies();
+        //    Debug.Log("Successfully load file");
+        //}
+        //else
+        //{
+        //    Debug.Log("Fail to load " + surveyScript.name + " file");
+        //}
     }
 
     private void Update()
@@ -107,7 +118,7 @@ public class WebSurvey : Singleton<WebSurvey>
 
     public void GetReply(string message)
     {
-        var reply = _rs.reply("default", message);
+        var reply = riveScript.reply("default", message);
         if (reply.Contains("NOT_MATCHED"))
         {
             Debug.Log("Not matched");
@@ -316,7 +327,7 @@ public class WebSurvey : Singleton<WebSurvey>
 
                 Debug.Log(times);
 
-                var reply = _rs.reply("default", words[0].word);
+                var reply = riveScript.reply("default", words[0].word);
                 if (reply.Contains("NOT_MATCHED"))
                 {
                     Debug.Log("Not matched");

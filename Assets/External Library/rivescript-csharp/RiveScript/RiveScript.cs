@@ -224,6 +224,14 @@ namespace RiveScript
             return loadDirectory(path, new[] { ".rive", ".rs" });
         }
 
+        public bool LoadTextAsset(TextAsset textAsset)
+        {
+            say("Load TextAsset: " + textAsset.name);
+
+            string[] lines = textAsset.text.Split(new char[] { '\n', '\r' });
+            return parse(textAsset.name, lines);
+        }
+
         /// <summary>
         /// Load a single RiveScript document.
         /// </summary>
@@ -2738,7 +2746,7 @@ namespace RiveScript
             line = "[RS] " + line;
 
             if (onDebug != null)
-				Debug.Log(line);
+                Debug.Log(line);
             else
                 Console.WriteLine(line);
         }
@@ -2760,8 +2768,8 @@ namespace RiveScript
                 onDebug.Invoke(text);
                 
             else if (debug)
-                Console.WriteLine(text);
-                //Debug.Log(text);
+                //Console.WriteLine(text);
+                Debug.Log(text);
             else
                 System.Diagnostics.Debug.WriteLine(text);
         }

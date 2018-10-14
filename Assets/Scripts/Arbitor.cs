@@ -38,11 +38,6 @@ public class Arbitor : Singleton<Arbitor>
     public Toggle automaticExpression;
     public RobotFacialRenderer robotFacialRenderer;
 
-    List<string> items = new List<string>();
-    bool _isSpeaking;
-
-    private IEnumerator coroutine;
-
     delegate void MessageProcessor(string message);
     Dictionary<string, MessageProcessor> messageProcessors = new Dictionary<string, MessageProcessor>();
 
@@ -71,8 +66,6 @@ public class Arbitor : Singleton<Arbitor>
 
     public void Insert(string item)
     {
-        //Debug.Log("msg inserted: " + item);
-        //items.Add(item);
         ParseMessage(item);
     }
 
@@ -84,7 +77,6 @@ public class Arbitor : Singleton<Arbitor>
         messageProcessors.Add("answer", WebSurvey.Instance.SetCurrentAnswer);
         messageProcessors.Add("answertime", WebSurvey.Instance.SetTimeoutTime);
         messageProcessors.Add("hinttime", WebSurvey.Instance.SetHintTime);
-        //messageProcessors.Add("mobility", BluetoothManager.Instance.Send);
     }
 
     void ParseMessage(string reply)
@@ -93,8 +85,7 @@ public class Arbitor : Singleton<Arbitor>
 
         if (reply.Contains("No Reply"))
         {
-            Debug.Log("오류");
-            //items.RemoveAt(0);
+            Debug.Log("오류: No Reply");
 
             SpeechRenderrer.Instance.TryAgain();
             return;
@@ -123,7 +114,6 @@ public class Arbitor : Singleton<Arbitor>
             WebSurvey.Instance.StartQuiz();
 
         SpeechRenderrer.Instance.Play(reply);
-        //items.RemoveAt(0);
 
         // check answer is correct or wrong.
         if (isCorrect) WebSurvey.Instance.GainScore();

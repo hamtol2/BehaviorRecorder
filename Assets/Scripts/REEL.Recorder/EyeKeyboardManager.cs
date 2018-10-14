@@ -35,7 +35,7 @@ namespace REEL.Recorder
 
             foreach (RaycastResult result in results)
             {
-                EyeTypingButton button = result.gameObject.GetComponent<EyeTypingButton>();
+                TimerButton button = result.gameObject.GetComponent<TimerButton>();
                 if (button == null) continue;
 
                 //button.UpdateTimer(Time.deltaTime);

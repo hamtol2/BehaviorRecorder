@@ -488,7 +488,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &163239780
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1490,23 +1490,8 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 114277138453213756, guid: 460c1d3a18caa414cb6d9be3f9ddd0e5,
         type: 2}
-      propertyPath: m_Color.r
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114277138453213756, guid: 460c1d3a18caa414cb6d9be3f9ddd0e5,
-        type: 2}
-      propertyPath: m_Color.g
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114277138453213756, guid: 460c1d3a18caa414cb6d9be3f9ddd0e5,
-        type: 2}
-      propertyPath: m_Color.b
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114658428148687832, guid: 460c1d3a18caa414cb6d9be3f9ddd0e5,
-        type: 2}
-      propertyPath: m_Text
-      value: O
+      propertyPath: m_FillAmount
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 460c1d3a18caa414cb6d9be3f9ddd0e5, type: 2}
@@ -3030,6 +3015,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bb9320bdeb91e46dea82274872abd41d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  surveyScript: {fileID: 4900000, guid: 7e2ab539a227e9147832ebe4c8db5314, type: 3}
   robotFacialRenderer: {fileID: 1053427238}
   quizStatusWindow: {fileID: 1748546970}
   quizNumberText: {fileID: 2054155524}
@@ -4549,36 +4535,22 @@ Prefab:
       propertyPath: m_Name
       value: NO
       objectReference: {fileID: 0}
-    - target: {fileID: 114270155903913928, guid: 460c1d3a18caa414cb6d9be3f9ddd0e5,
-        type: 2}
-      propertyPath: buttonType
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114277138453213756, guid: 460c1d3a18caa414cb6d9be3f9ddd0e5,
-        type: 2}
-      propertyPath: m_Color.r
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114277138453213756, guid: 460c1d3a18caa414cb6d9be3f9ddd0e5,
-        type: 2}
-      propertyPath: m_Color.g
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114277138453213756, guid: 460c1d3a18caa414cb6d9be3f9ddd0e5,
-        type: 2}
-      propertyPath: m_Color.b
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 224483941892806854, guid: 460c1d3a18caa414cb6d9be3f9ddd0e5,
-        type: 2}
-      propertyPath: m_RootOrder
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 114658428148687832, guid: 460c1d3a18caa414cb6d9be3f9ddd0e5,
         type: 2}
       propertyPath: m_Text
       value: X
       objectReference: {fileID: 0}
+    - target: {fileID: 114277138453213756, guid: 460c1d3a18caa414cb6d9be3f9ddd0e5,
+        type: 2}
+      propertyPath: m_FillAmount
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114476244112428046, guid: 460c1d3a18caa414cb6d9be3f9ddd0e5,
+        type: 2}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 81c42fa793796a744a716cc549276db8,
+        type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 460c1d3a18caa414cb6d9be3f9ddd0e5, type: 2}
   m_IsPrefabAsset: 0
