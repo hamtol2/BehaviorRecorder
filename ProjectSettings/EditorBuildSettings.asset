@@ -7,7 +7,7 @@ EditorBuildSettings:
   m_Scenes:
   - enabled: 1
     path: Assets/_Scenes/1.StartScene.unity
-    guid: afdcbdcdfa4179649bdaa1aa70d88cab
+    guid: 7040652ab50b8e94d9eb98bdd71f7388
   - enabled: 1
     path: Assets/_Scenes/2.WebSurvey.unity
     guid: 9228aa744a67b499f91fee9ac1e320a9

@@ -14,7 +14,6 @@ namespace REEL.Recorder
 
         public void OnEyeClicked()
         {
-            CalibrationManager.Instance.AddHitCount();
             scatterParticle.SetActive(true);
             this.GetComponent<Image>().enabled = false;
             gaugeImage.enabled = false;
