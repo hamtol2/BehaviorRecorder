@@ -35,8 +35,10 @@ public class Arbitor : Singleton<Arbitor>
         }
     }
 
-    public Toggle automaticExpression;
+    //public Toggle automaticExpression;
     public RobotFacialRenderer robotFacialRenderer;
+
+    [SerializeField] private float quizStartTime = 2f;
 
     delegate void MessageProcessor(string message);
     Dictionary<string, MessageProcessor> messageProcessors = new Dictionary<string, MessageProcessor>();
@@ -49,7 +51,7 @@ public class Arbitor : Singleton<Arbitor>
         SpeechRenderrer.Instance.Init();
         InitMessageProcessor();
 
-        timer = new REEL.Recorder.Timer(5f, QuizStart);
+        timer = new REEL.Recorder.Timer(quizStartTime, QuizStart);
     }
 
     private void Update()

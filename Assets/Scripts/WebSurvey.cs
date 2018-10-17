@@ -13,8 +13,6 @@ public class WebSurvey : Singleton<WebSurvey>
         O, X
     }
 
-    const string FILENAME = "/survey.txt";
-
     [SerializeField] private TextAsset surveyScript;
     public REEL.Animation.RobotFacialRenderer robotFacialRenderer;
     public GameObject quizStatusWindow;
@@ -26,12 +24,7 @@ public class WebSurvey : Singleton<WebSurvey>
 
     [SerializeField] private GameObject answerButton;
 
-    private Hashtable session_ident = new Hashtable();
-
-    //RiveScript.RiveScript riveScript = new RiveScript.RiveScript(utf8: true, debug: true);
     RiveScript.RiveScript riveScript;
-
-    private GCSpeechRecognition _speechRecognition;
 
     private AudioSource audioSource;
     [SerializeField] private int currentQuizNumber = 0;
@@ -55,6 +48,12 @@ public class WebSurvey : Singleton<WebSurvey>
     private readonly string answerYes = "오";
     private readonly string answerNo = "엑스";
 
+    private readonly string faceGazeO = "gazeo";
+    private readonly string faceGazeX = "gazex";
+
+    private readonly float answerYPosHigh = 150f;
+    private readonly float answerYPosLow = 50f;
+
     private void Awake()
     {
         if (!PlayerPrefs.HasKey("UUID"))
@@ -70,25 +69,6 @@ public class WebSurvey : Singleton<WebSurvey>
     {
         SpeechRenderrer.Instance.Init();
 
-        // Google Cloud Speech Recognition
-        _speechRecognition = GCSpeechRecognition.Instance;
-        _speechRecognition.SetLanguage(Enumerators.LanguageCode.ko_KR);
-        _speechRecognition.RecognitionSuccessEvent += RecognitionSuccessEventHandler;
-        _speechRecognition.NetworkRequestFailedEvent += SpeechRecognizedFailedEventHandler;
-        _speechRecognition.LongRecognitionSuccessEvent += LongRecognitionSuccessEventHandler;
-
-        // rivescript
-#if UNITY_EDITOR || UNITY_WEBGL || UNITY_STANDALONE
-        Debug.Log("UNITY_EDITOR");
-        string filepath = Application.dataPath + FILENAME;
-#elif UNITY_ANDROID
-        Debug.Log("UNITY_ANDROID");
-        string filepath = Application.persistentDataPath + FILENAME;
-#elif UNITY_IOS
-        Debug.Log("UNITY_IOS");
-        string filepath = Application.persistentDataPath + FILENAME;
-#endif
-
         if (riveScript.LoadTextAsset(surveyScript))
         {
             riveScript.sortReplies();
@@ -98,17 +78,6 @@ public class WebSurvey : Singleton<WebSurvey>
         {
             Debug.Log("Fail to load " + surveyScript.name + " file");
         }
-
-        //string[] lines = surveyScript.text.Split(new char[] { '\n', '\r' });
-        //if (riveScript.parse(surveyScript.name, lines))
-        //{
-        //    riveScript.sortReplies();
-        //    Debug.Log("Successfully load file");
-        //}
-        //else
-        //{
-        //    Debug.Log("Fail to load " + surveyScript.name + " file");
-        //}
     }
 
     private void Update()
@@ -155,8 +124,8 @@ public class WebSurvey : Singleton<WebSurvey>
     public void StartQuiz()
     {
         Debug.Log("StartQuiz");
-        quizStatusWindow.SetActive(true);
-        UpdateQuizStatus();
+        //quizStatusWindow.SetActive(true);
+        //UpdateQuizStatus();
         behaviorRecorder.StartRecording();
         quizFinished = false;
     }
@@ -180,8 +149,8 @@ public class WebSurvey : Singleton<WebSurvey>
         if (currentQuizNumber == (numOfQuiz + 1))
             FinishQuiz();
 
-        if (currentQuizNumber < (numOfQuiz + 1))
-            UpdateQuizStatus();
+        //if (currentQuizNumber < (numOfQuiz + 1))
+        //    UpdateQuizStatus();
 
         answerTimer = null;
         //Debug.Log("NextStep: " + currentQuizNumber);
@@ -240,8 +209,6 @@ public class WebSurvey : Singleton<WebSurvey>
     }
     public AnswerState GetAnswerState { get { return answerState; } }
 
-    private bool speechRecognitionStart;
-
     private void CheckAnswerTimer()
     {
         if (SpeechRenderrer.Instance.IsSpeaking)
@@ -268,6 +235,10 @@ public class WebSurvey : Singleton<WebSurvey>
 
     public void OpenAnswerButton()
     {
+        Vector3 pos = answerButton.GetComponent<RectTransform>().anchoredPosition;
+        pos.y = pos.y == answerYPosHigh ? answerYPosLow : answerYPosHigh;
+        answerButton.GetComponent<RectTransform>().anchoredPosition = pos;
+
         answerButton.SetActive(true);
     }
 
@@ -285,12 +256,10 @@ public class WebSurvey : Singleton<WebSurvey>
     {
         Debug.Log(timeOutTime + "초 지남. 문제 틀림");
         answerTimer = null;
-        WebSurvey.Instance.GetReply(GetWrongAnswer);
+        GetReply(GetWrongAnswer);
         CloseAnswerButton();
     }
-
-    private string faceGazeO = "gazeo";
-    private string faceGazeX = "gazex";
+    
     private void GazeToButton()
     {
         robotFacialRenderer.Play(currentAnswerType == AnswerType.O ? faceGazeO : faceGazeX);
@@ -298,75 +267,5 @@ public class WebSurvey : Singleton<WebSurvey>
 
     private void OnDestroy()
     {
-        _speechRecognition.RecognitionSuccessEvent -= RecognitionSuccessEventHandler;
-        _speechRecognition.NetworkRequestFailedEvent -= SpeechRecognizedFailedEventHandler;
-        _speechRecognition.LongRecognitionSuccessEvent -= LongRecognitionSuccessEventHandler;
-    }
-
-    private void SpeechRecognizedFailedEventHandler(string obj, long requestIndex)
-    {
-        Debug.Log("SpeechRecognizedFailedEventHandler: " + obj);
-        SpeechRenderrer.Instance.TryAgain();
-    }
-
-    private void RecognitionSuccessEventHandler(RecognitionResponse obj, long requestIndex)
-    {
-        Debug.Log("RecognitionSuccessEventHandler: " + obj);
-        if (obj != null && obj.results.Length > 0)
-        {
-            Debug.Log("Speech Recognition succeeded! Detected Most useful: " + obj.results[0].alternatives[0].transcript);
-
-            var words = obj.results[0].alternatives[0].words;
-
-            if (words != null)
-            {
-                string times = string.Empty;
-
-                foreach (var item in obj.results[0].alternatives[0].words)
-                    times += "<color=green>" + item.word + "</color> -  start: " + item.startTime + "; end: " + item.endTime + "\n";
-
-                Debug.Log(times);
-
-                var reply = riveScript.reply("default", words[0].word);
-                if (reply.Contains("NOT_MATCHED"))
-                {
-                    Debug.Log("Not matched");
-                }
-                else
-                {
-                    Arbitor.Instance.Insert(reply);
-                }
-            }
-        }
-        else
-        {
-            Debug.Log("Speech Recognition succeeded! Words are no detected.");
-        }
-    }
-
-    private void LongRecognitionSuccessEventHandler(OperationResponse operation, long index)
-    {
-        Debug.Log("LongRecognitionSuccessEventHandler: " + operation);
-        if (operation != null && operation.response.results.Length > 0)
-        {
-            Debug.Log("Long Speech Recognition succeeded! Detected Most useful: " + operation.response.results[0].alternatives[0].transcript);
-
-            string other = "\nDetected alternative: ";
-
-            foreach (var result in operation.response.results)
-            {
-                foreach (var alternative in result.alternatives)
-                {
-                    if (operation.response.results[0].alternatives[0] != alternative)
-                        other += alternative.transcript + ", ";
-                }
-            }
-
-            Debug.Log(other);
-        }
-        else
-        {
-            Debug.Log("Speech Recognition succeeded! Words are no detected.");
-        }
     }
 }
