@@ -40,8 +40,7 @@ public class Arbitor : Singleton<Arbitor>
 
     [SerializeField] private float quizStartTime = 2f;
 
-    delegate void MessageProcessor(string message);
-    Dictionary<string, MessageProcessor> messageProcessors = new Dictionary<string, MessageProcessor>();
+    Dictionary<string, Action<string>> messageProcessors = new Dictionary<string, Action<string>>();
 
     REEL.Recorder.Timer timer = new REEL.Recorder.Timer();
     bool isStarted = false;
@@ -137,7 +136,7 @@ public class Arbitor : Singleton<Arbitor>
                 {
                     RobotMessage robotMessage = new RobotMessage(detail);
 
-                    MessageProcessor processor;
+                    Action<string> processor;
                     if (messageProcessors.TryGetValue(robotMessage.GetMessageType, out processor))
                     {
                         //Debug.Log(robotMessage);

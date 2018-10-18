@@ -312,13 +312,13 @@ namespace REEL.Animation
             {
                 image.gameObject.SetActive((sprite != null));
                 image.sprite = sprite;
-                Debug.Log("image");
+                //Debug.Log("image");
             }
             else
             {
                 spriteRenderer.gameObject.SetActive((sprite != null));
                 spriteRenderer.sprite = sprite;
-                Debug.Log("spriteRenderer");
+                //Debug.Log("spriteRenderer");
             }
         }
     }
