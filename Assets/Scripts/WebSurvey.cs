@@ -161,11 +161,13 @@ public class WebSurvey : Singleton<WebSurvey>
         answerTimer = new Timer(timeOutTime, TimeOut);
     }
 
+    private readonly string normalFaceName = "normal";
     public void WaitForAnswer()
     {
         answerTimer = new Timer(timeOutTime, TimeOut);
         hintTimer = new Timer(hintTime, GazeToButton);
         OpenAnswerButton();
+        robotFacialRenderer.Play(normalFaceName);
     }
 
     void UpdateQuizStatus()

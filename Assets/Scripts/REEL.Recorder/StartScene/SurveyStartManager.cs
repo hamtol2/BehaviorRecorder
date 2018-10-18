@@ -15,6 +15,8 @@ namespace REEL.Recorder
 
         private float waitTime = 2f;
 
+        private float nextStageWaitTime = 1.5f;
+
         // Stage1.
         public void AddHitCount()
         {
@@ -27,7 +29,7 @@ namespace REEL.Recorder
 
         public void GoingForward()
         {
-            Invoke("NextStage", 0.5f);
+            Invoke("NextStage", nextStageWaitTime);
         }
 
         private void NextStage()

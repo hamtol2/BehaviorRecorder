@@ -32,6 +32,8 @@ namespace REEL.Animation
         private float defaultAnimPeriod = 2f;
         private RobotFacialInfo currentFacialInfo;
 
+        private readonly string speakFaceName = "speak";
+
         void Awake()
         {
             if (robotFacialData == null) GetComponent<RobotFacialData>();
@@ -84,8 +86,9 @@ namespace REEL.Animation
         public void Play(string name)
         {   
             string[] splitString = name.Split('(');
+            float animTime = splitString[0] == speakFaceName ? 0.8f : 1f;
 
-            Play(new RobotFacialInfo(splitString[0], 1f));
+            Play(new RobotFacialInfo(splitString[0], animTime));
         }
         
         IEnumerator CheckFacialAnimFinished(float animPeriod)

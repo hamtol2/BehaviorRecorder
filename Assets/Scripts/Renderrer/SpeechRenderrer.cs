@@ -89,8 +89,10 @@ public class SpeechRenderrer : Singleton<SpeechRenderrer>, Renderrer
         WebSurvey.Instance.TryAgain();
     }
 
+    private readonly string speakFaceName = "speak";
     public void Play(string speech)
     {
+        WebSurvey.Instance.robotFacialRenderer.Play(speakFaceName);
         TextToSpeech(speech);
         currentSpeech = new SpeechInfo(speech);
     }

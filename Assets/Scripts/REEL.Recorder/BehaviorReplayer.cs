@@ -41,32 +41,6 @@ namespace REEL.Recorder
             if (!isReplaying) return;
 
             PlayJsonData();
-
-            //mainTimer.Update(Time.deltaTime);
-
-            //if (mainTimer.GetElapsedTime >= records[currentIndex].elapsedTime)
-            //{
-            //    Vector3 markerPos = records[currentIndex].markerPosition.ToVector2();
-            //    markerPos.z = -5f;
-            //    marker.transform.position = markerPos;
-
-            //    if (records[currentIndex].recordEvent != null && records[currentIndex].recordEvent.eventType != -1)
-            //    {
-            //        // -1 : none / 0 : motion / 1 : facial.
-            //        int eventType = records[currentIndex].recordEvent.eventType;
-
-            //        if (eventType == 0) transformController.PlayGesture(records[currentIndex].recordEvent.eventValue);
-            //        else facialRenderer.Play(records[currentIndex].recordEvent.eventValue);
-            //    }
-
-            //    ++currentIndex;
-
-            //    if (currentIndex >= records.Length)
-            //    {
-            //        StopReplay();
-            //        return;
-            //    }
-            //}
         }
 
         public void PlayReplay()

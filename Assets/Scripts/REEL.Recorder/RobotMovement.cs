@@ -79,8 +79,7 @@ namespace REEL.Recorder
 
         private void Move()
         {
-            //RotateToward(targetPos);
-
+            RotateToward(targetPos);
             transform.position = Vector3.MoveTowards(transform.position, targetPos, moveSpeed * Time.deltaTime);
 
             if (Vector3.Distance(transform.position, targetPos) == 0f)
@@ -114,6 +113,7 @@ namespace REEL.Recorder
                 if (Vector3.Distance(transform.position, targetPos) == 0f)
                     break;
 
+                RotateToward(targetPos);
                 transform.position = Vector3.MoveTowards(transform.position, targetPos, moveSpeed * Time.deltaTime);
                 yield return null;
             }
