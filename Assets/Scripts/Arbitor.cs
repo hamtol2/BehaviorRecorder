@@ -78,6 +78,7 @@ public class Arbitor : Singleton<Arbitor>
         messageProcessors.Add("answer", WebSurvey.Instance.SetCurrentAnswer);
         messageProcessors.Add("answertime", WebSurvey.Instance.SetTimeoutTime);
         messageProcessors.Add("hinttime", WebSurvey.Instance.SetHintTime);
+        messageProcessors.Add("movetime", WebSurvey.Instance.SetRobotMovementTime);
     }
 
     void ParseMessage(string reply)

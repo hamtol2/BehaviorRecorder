@@ -2027,7 +2027,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &892535533
 Transform:
   m_ObjectHideFlags: 0
@@ -2086,7 +2086,8 @@ MonoBehaviour:
   moveSpeed: 1
   turnSpeed: 10
   targetPos: {x: 0, y: 0, z: 0}
-  isSimulation: 1
+  isSimulation: 0
+  currentPosition: 0
 --- !u!1 &922914782
 GameObject:
   m_ObjectHideFlags: 0
@@ -3016,6 +3017,7 @@ MonoBehaviour:
   quizStatusWindow: {fileID: 1748546970}
   quizNumberText: {fileID: 2054155524}
   scoreText: {fileID: 1314758686}
+  robotMovement: {fileID: 917890946}
   behaviorRecorder: {fileID: 59991470}
   behaviorReplayer: {fileID: 2066061028}
   answerButton: {fileID: 1995386083}
@@ -3027,6 +3029,7 @@ MonoBehaviour:
   robotModelType: 1
   timeOutTime: 0
   hintTime: 0
+  robotMovementTime: 0
   numOfQuiz: 0
 --- !u!4 &1345046810
 Transform:

@@ -138,7 +138,7 @@ public class SpeechRenderrer : Singleton<SpeechRenderrer>, Renderrer
             if (currentSpeech == null)
             {
                 return;
-            }   
+            }
 
             if (currentSpeech.shouldGoNext)
             {

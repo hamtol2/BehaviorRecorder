@@ -19,6 +19,7 @@ public class WebSurvey : Singleton<WebSurvey>
     public Text quizNumberText;
     public Text scoreText;
 
+    public RobotMovement robotMovement;
     public BehaviorRecorder behaviorRecorder;
     public BehaviorReplayer behaviorReplayer;
 
@@ -36,8 +37,10 @@ public class WebSurvey : Singleton<WebSurvey>
 
     private Timer answerTimer = null;
     private Timer hintTimer = null;
+    private Timer robotMovementTimer = null;
     [SerializeField] private float timeOutTime = 10f;
     [SerializeField] private float hintTime = 0f;
+    [SerializeField] private float robotMovementTime = 0f;
 
     private bool quizFinished = false;
     public bool QuizFinished { get { return quizFinished; } }
@@ -121,6 +124,11 @@ public class WebSurvey : Singleton<WebSurvey>
         hintTime = Convert.ToSingle(message);
     }
 
+    public void SetRobotMovementTime(string message)
+    {
+        robotMovementTime = Convert.ToSingle(message);
+    }
+
     public void StartQuiz()
     {
         Debug.Log("StartQuiz");
@@ -166,8 +174,19 @@ public class WebSurvey : Singleton<WebSurvey>
     {
         answerTimer = new Timer(timeOutTime, TimeOut);
         hintTimer = new Timer(hintTime, GazeToButton);
+        if (UnityEngine.Random.Range(0, 2) == 0) robotMovementTimer = new Timer(robotMovementTime, RobotMove);
         OpenAnswerButton();
         robotFacialRenderer.Play(normalFaceName);
+    }
+
+    void RobotMove()
+    {
+        System.Random random = new System.Random();
+        int direction = random.Next(0, 2);              // 0 -> right / 1 -> left.
+        if (direction == 0) robotMovement.MoveRight();
+        else if (direction == 1) robotMovement.MoveLeft();
+
+        robotMovementTimer = null;
     }
 
     void UpdateQuizStatus()
@@ -220,11 +239,17 @@ public class WebSurvey : Singleton<WebSurvey>
         {
             answerTimer = null;
             hintTimer = null;
+            robotMovementTimer = null;
         }
         
         if (hintTimer != null)
         {
             hintTimer.Update(Time.deltaTime);
+        }
+
+        if (robotMovementTimer != null)
+        {
+            robotMovementTimer.Update(Time.deltaTime);
         }
 
         if (answerTimer != null)

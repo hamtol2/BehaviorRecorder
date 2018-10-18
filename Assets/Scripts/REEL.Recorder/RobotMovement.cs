@@ -11,6 +11,11 @@ namespace REEL.Recorder
             Idle, Move, Clap, No
         }
 
+        private enum WaypointEnum
+        {
+            Origin, Right, Left
+        }
+
         [SerializeField] private State state = State.Idle;
         public State GetRobotState { get { return state; } }
 
@@ -29,6 +34,11 @@ namespace REEL.Recorder
         private float timerTarget;
         private float elapsedTime;
 
+        [SerializeField] private WaypointEnum currentPosition;
+
+        private Timer returnToOriginTimer;
+        private float returnTime = 3f;
+
         private float WaitTime
         {
             get { return Random.Range(waitTimeMin, waitTimeMax); }
@@ -42,7 +52,10 @@ namespace REEL.Recorder
 
         private void Update()
         {
-            if (!isSimulation) return;
+            //if (!isSimulation) return;
+
+            if (returnToOriginTimer != null)
+                returnToOriginTimer.Update(Time.deltaTime);
 
             FSM();
         }
@@ -60,16 +73,50 @@ namespace REEL.Recorder
             }
         }
 
+        float GetRandomTime(float maxValue)
+        {
+            float time = Random.Range(maxValue * 0.9f, maxValue * 1.2f);
+            Debug.LogWarning("Robot Return Time: " + time);
+            return time;
+        }
+
+        public void MoveRight()
+        {
+            currentPosition = WaypointEnum.Right;
+            targetPos = waypoints[(int)currentPosition].position;
+            SetState(State.Move);
+
+            float time = GetRandomTime(returnTime);
+            returnToOriginTimer = new Timer(time, ReturnToOrigin);
+        }
+
+        public void MoveLeft()
+        {
+            currentPosition = WaypointEnum.Left;
+            targetPos = waypoints[(int)currentPosition].position;
+            SetState(State.Move);
+
+            float time = GetRandomTime(returnTime);
+            returnToOriginTimer = new Timer(time, ReturnToOrigin);
+        }
+
+        public void ReturnToOrigin()
+        {
+            currentPosition = WaypointEnum.Origin;
+            targetPos = waypoints[(int)currentPosition].position;
+            SetState(State.Move);
+        }
+
         private void Idle()
         {
-            elapsedTime += Time.deltaTime;
-            if (elapsedTime > timerTarget)
-            {
-                ResetTimer();
-                targetPos = waypoints[Random.Range(0, waypoints.Length)].position;
+            //elapsedTime += Time.deltaTime;
+            //if (elapsedTime > timerTarget)
+            //{
+            //    ResetTimer();
+            //    targetPos = waypoints[Random.Range(0, waypoints.Length)].position;
 
-                SetState(State.Move);
-            }
+            //    SetState(State.Move);
+            //}
         }
 
         void SetState(State newState)
@@ -115,6 +162,7 @@ namespace REEL.Recorder
 
                 RotateToward(targetPos);
                 transform.position = Vector3.MoveTowards(transform.position, targetPos, moveSpeed * Time.deltaTime);
+
                 yield return null;
             }
         }
