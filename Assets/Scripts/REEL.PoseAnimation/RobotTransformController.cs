@@ -93,6 +93,16 @@ namespace REEL.PoseAnimation
             new float[9] {  0.2f,       -20f, -45f, -45f,   -20f, 45f, 45f,     0f, 25f   },
             new float[9] {  1.4f,       45f, -45f, -45f,     45f, 45f, 45f,     0f, 25f    }
         };
+        float[][] nodLeftList = new float[2][] {
+							// Time,	Left Arm, 			Right Arm,			Head
+			new float[9] {  1.2f,       45f, -45f, -45f,   45f, 45f, 45f,     -40f, -30f    },
+            new float[9] {  1.2f,       45f, -45f, -45f,   45f, 45f, 45f,     0f, 10f   }
+        };
+        float[][] nodRightList = new float[2][] {
+							// Time,	Left Arm, 			Right Arm,			Head
+			new float[9] {  1.2f,       45f, -45f, -45f,   45f, 45f, 45f,     40f, -30f    },
+            new float[9] {  1.2f,       45f, -45f, -45f,   45f, 45f, 45f,     0f, 10f   }
+        };
 
         Dictionary<string, float[][]> motionTable;
         IEnumerator currentAnimation = null;
@@ -228,6 +238,8 @@ namespace REEL.PoseAnimation
             motionTable.Add("no", noList);
             motionTable.Add("wrong", noList);
             motionTable.Add("happy", happyList);
+            motionTable.Add("nodLeft", nodLeftList);
+            motionTable.Add("nodRight", nodRightList);
         }
 
         float GetPlayTime(float[][] motionList)
