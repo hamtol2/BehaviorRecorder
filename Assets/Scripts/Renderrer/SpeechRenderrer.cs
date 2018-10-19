@@ -115,8 +115,16 @@ public class SpeechRenderrer : Singleton<SpeechRenderrer>, Renderrer
     {
         voice.Volume = 100;
         voice.Rate = 1;
+
+        string[] sentences = ttsText.Split(new char[] { '/' });
+        foreach (string sentence in sentences)
+        {
+            //Debug.Log(sentence);
+            voice.Speak(sentence, SpeechVoiceSpeakFlags.SVSFlagsAsync | SpeechVoiceSpeakFlags.SVSFIsXML);
+        }
+
         //voice.Speak(speakHeader + ttsText + "</speak>", SpeechVoiceSpeakFlags.SVSFlagsAsync | SpeechVoiceSpeakFlags.SVSFIsXML);
-        voice.Speak(ttsText, SpeechVoiceSpeakFlags.SVSFlagsAsync | SpeechVoiceSpeakFlags.SVSFIsXML);
+        //voice.Speak(ttsText, SpeechVoiceSpeakFlags.SVSFlagsAsync | SpeechVoiceSpeakFlags.SVSFIsXML);
 
         isTTSStarted = true;
     }
