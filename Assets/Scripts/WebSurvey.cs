@@ -80,8 +80,11 @@ public class WebSurvey : Singleton<WebSurvey>
     {
         SpeechRenderrer.Instance.Init();
 
+        Debug.Log(PlayerPrefs.GetString(surveyTypeKey));
+
         TextAsset riveScriptTextAsset 
-            = PlayerPrefs.GetString(surveyTypeKey) == SurveyTypeSelectButton.SurveyType.TypeGA.ToString() ? surveyTypeGA : surveyTypeNA;
+            = PlayerPrefs.GetString(surveyTypeKey) 
+            == SurveyTypeSelectButton.SurveyType.TypeGA.ToString() ? surveyTypeGA : surveyTypeNA;
 
         if (riveScript.LoadTextAsset(riveScriptTextAsset))
         {

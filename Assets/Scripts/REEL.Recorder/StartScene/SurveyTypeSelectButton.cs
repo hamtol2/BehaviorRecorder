@@ -6,16 +6,17 @@ namespace REEL.Recorder
     {
         public enum SurveyType
         {
-            TypeGA, TypeNA
+            TypeGA, TypeNA, None
         }
 
-        public SurveyType surveyType = SurveyType.TypeGA;
+        [SerializeField] private SurveyType surveyType = SurveyType.None;
 
         private readonly string surveyTypeKey = "surveyType";
 
         public void OnGazeComplete()
         {
-            PlayerPrefs.SetString(surveyTypeKey, surveyType.ToString());
+            Debug.Log(surveyType.ToString());
+            PlayerPrefs.SetString(surveyTypeKey, this.surveyType.ToString());
             SurveyStartManager.Instance.GoingForward();
         }
     }
