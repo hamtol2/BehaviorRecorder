@@ -11,4 +11,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/_Scenes/2.WebSurvey.unity
     guid: 9228aa744a67b499f91fee9ac1e320a9
+  - enabled: 1
+    path: Assets/_Scenes/3.ResultScene.unity
+    guid: 58fa20db4303ee94f95f6cf65506f068
   m_configObjects: {}

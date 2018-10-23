@@ -5,16 +5,17 @@ using UnityEngine.UI;
 using FrostweepGames.Plugins.GoogleCloud.SpeechRecognition;
 
 using REEL.Recorder;
+using UnityEngine.SceneManagement;
 
 public class WebSurvey : Singleton<WebSurvey>
 {
-    public enum AnswerType
-    {
-        O, X
-    }
+    public enum AnswerType { O, X }
+    public enum Mode { Active, Inactive, None }
 
-    [SerializeField] private TextAsset surveyScript;
+    [SerializeField] private TextAsset surveyTypeGA;
+    [SerializeField] private TextAsset surveyTypeNA;
     public REEL.Animation.RobotFacialRenderer robotFacialRenderer;
+    public REEL.PoseAnimation.RobotTransformController transformController;
     public GameObject quizStatusWindow;
     public Text quizNumberText;
     public Text scoreText;
@@ -38,6 +39,7 @@ public class WebSurvey : Singleton<WebSurvey>
     private Timer answerTimer = null;
     private Timer hintTimer = null;
     private Timer robotMovementTimer = null;
+    private Timer resultSceneTimer = null;
     [SerializeField] private float timeOutTime = 10f;
     [SerializeField] private float hintTime = 0f;
     [SerializeField] private float robotMovementTime = 0f;
@@ -57,6 +59,12 @@ public class WebSurvey : Singleton<WebSurvey>
     private readonly float answerYPosHigh = 150f;
     private readonly float answerYPosLow = 50f;
 
+    private Mode behaviorMode = Mode.None;
+
+    private readonly string surveyTypeKey = "surveyType";
+
+    [SerializeField] private string resultSceneName = string.Empty;
+
     private void Awake()
     {
         if (!PlayerPrefs.HasKey("UUID"))
@@ -72,14 +80,17 @@ public class WebSurvey : Singleton<WebSurvey>
     {
         SpeechRenderrer.Instance.Init();
 
-        if (riveScript.LoadTextAsset(surveyScript))
+        TextAsset riveScriptTextAsset 
+            = PlayerPrefs.GetString(surveyTypeKey) == SurveyTypeSelectButton.SurveyType.TypeGA.ToString() ? surveyTypeGA : surveyTypeNA;
+
+        if (riveScript.LoadTextAsset(riveScriptTextAsset))
         {
             riveScript.sortReplies();
-            Debug.Log("Successfully load file");
+            Debug.Log("Successfully load file: " + riveScriptTextAsset.name);
         }
         else
         {
-            Debug.Log("Fail to load " + surveyScript.name + " file");
+            Debug.Log("Fail to load " + riveScriptTextAsset.name + " file");
         }
     }
 
@@ -124,10 +135,12 @@ public class WebSurvey : Singleton<WebSurvey>
         hintTime = Convert.ToSingle(message);
     }
 
-    public void SetRobotMovementTime(string message)
+    public void SetBehaviorMode(string message)
     {
-        robotMovementTime = Convert.ToSingle(message);
+        behaviorMode = (Mode)Enum.Parse(typeof(Mode), message);
     }
+
+    public Mode GetBehaviorMode { get { return behaviorMode; } }
 
     public void StartQuiz()
     {
@@ -143,6 +156,13 @@ public class WebSurvey : Singleton<WebSurvey>
         Debug.Log("FinishQuiz");
         behaviorRecorder.FinishRecording();
         quizFinished = true;
+
+        resultSceneTimer = new Timer(10f, GoToResultScene);
+    }
+
+    void GoToResultScene()
+    {
+        SceneManager.LoadScene(resultSceneName);
     }
 
     public int GetCurrentStep()
@@ -155,13 +175,9 @@ public class WebSurvey : Singleton<WebSurvey>
         ++currentQuizNumber;
 
         if (currentQuizNumber == (numOfQuiz + 1))
-            FinishQuiz();
+           FinishQuiz();
 
-        //if (currentQuizNumber < (numOfQuiz + 1))
-        //    UpdateQuizStatus();
-
-        answerTimer = null;
-        //Debug.Log("NextStep: " + currentQuizNumber);
+        SetTimersToNull();
     }
 
     public void TryAgain()
@@ -169,22 +185,29 @@ public class WebSurvey : Singleton<WebSurvey>
         answerTimer = new Timer(timeOutTime, TimeOut);
     }
 
-    private readonly string normalFaceName = "normal";
     public void WaitForAnswer()
     {
         answerTimer = new Timer(timeOutTime, TimeOut);
         hintTimer = new Timer(hintTime, GazeToButton);
-        if (UnityEngine.Random.Range(0, 2) == 0) robotMovementTimer = new Timer(robotMovementTime, RobotMove);
         OpenAnswerButton();
-        robotFacialRenderer.Play(normalFaceName);
+    }
+
+    public void RobotMovementStart(string message)
+    {
+        robotMovementTime = Convert.ToSingle(message);
+
+        //Debug.LogWarning("RobotMovementStart: " + robotMovementTime);
+        
+        if (UnityEngine.Random.Range(0, 2) == 0)
+            robotMovementTimer = new Timer(robotMovementTime, RobotMove);
     }
 
     void RobotMove()
     {
         System.Random random = new System.Random();
-        int direction = random.Next(0, 2);              // 0 -> right / 1 -> left.
-        if (direction == 0) robotMovement.MoveRight();
-        else if (direction == 1) robotMovement.MoveLeft();
+        int direction = random.Next(0, 10);              // result < 5 -> right / result >= 5 -> left.
+        if (direction < 5) robotMovement.MoveRight();
+        else if (direction >= 5) robotMovement.MoveLeft();
 
         robotMovementTimer = null;
     }
@@ -232,14 +255,16 @@ public class WebSurvey : Singleton<WebSurvey>
 
     private void CheckAnswerTimer()
     {
-        if (SpeechRenderrer.Instance.IsSpeaking)
-            return;
+        if (robotMovementTimer != null)
+        {
+            robotMovementTimer.Update(Time.deltaTime);
+        }
+
+        if (SpeechRenderrer.Instance.IsSpeaking) return;
 
         if (QuizFinished)
         {
-            answerTimer = null;
-            hintTimer = null;
-            robotMovementTimer = null;
+            SetTimersToNull();
         }
         
         if (hintTimer != null)
@@ -247,16 +272,16 @@ public class WebSurvey : Singleton<WebSurvey>
             hintTimer.Update(Time.deltaTime);
         }
 
-        if (robotMovementTimer != null)
-        {
-            robotMovementTimer.Update(Time.deltaTime);
-        }
-
         if (answerTimer != null)
         {
             SetAnswerState(AnswerState.Wait);
-            Debug.Log("CheckAnswerTimer: " + answerTimer.GetElapsedTime);
+            //Debug.Log("CheckAnswerTimer: " + answerTimer.GetElapsedTime);
             answerTimer.Update(Time.deltaTime);
+        }
+
+        if (quizFinished && resultSceneTimer != null)
+        {
+            resultSceneTimer.Update(Time.deltaTime);
         }
     }
 
@@ -282,14 +307,30 @@ public class WebSurvey : Singleton<WebSurvey>
     private void TimeOut()
     {
         Debug.Log(timeOutTime + "초 지남. 문제 틀림");
-        answerTimer = null;
+
+        SetTimersToNull();
+
         GetReply(GetWrongAnswer);
         CloseAnswerButton();
     }
     
     private void GazeToButton()
     {
+        Debug.Log("GazeToButton");
+
+        hintTimer = null;
+
         robotFacialRenderer.Play(currentAnswerType == AnswerType.O ? faceGazeO : faceGazeX);
+
+        if (behaviorMode == Mode.Active)
+            transformController.PlayMotion(currentAnswerType == AnswerType.O ? "nodRight" : "nodLeft");
+    }
+
+    private void SetTimersToNull()
+    {
+        answerTimer = null;
+        hintTimer = null;
+        robotMovementTimer = null;
     }
 
     private void OnDestroy()

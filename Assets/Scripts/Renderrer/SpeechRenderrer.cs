@@ -45,7 +45,7 @@ public class SpeechRenderrer : Singleton<SpeechRenderrer>, Renderrer
 
     void Awake()
     {
-        voice = new SpVoiceClass();
+        InitTTS();
         
         //Debug.Log(PlayerPrefs.GetString(SurveyStart.ageKey));
         //Debug.Log(PlayerPrefs.GetString(SurveyStart.genderKey));
@@ -92,7 +92,7 @@ public class SpeechRenderrer : Singleton<SpeechRenderrer>, Renderrer
     private readonly string speakFaceName = "speak";
     public void Play(string speech)
     {
-        WebSurvey.Instance.robotFacialRenderer.Play(speakFaceName);
+        //WebSurvey.Instance.robotFacialRenderer.Play(speakFaceName);
         TextToSpeech(speech);
         currentSpeech = new SpeechInfo(speech);
     }
@@ -111,22 +111,24 @@ public class SpeechRenderrer : Singleton<SpeechRenderrer>, Renderrer
         get { return isTTSStarted && voice.Status.RunningState == SpeechRunState.SRSEDone; }
     }
 
-    void TextToSpeech(string ttsText)
+    void InitTTS()
     {
+        voice = new SpVoiceClass();
         voice.Volume = 100;
         voice.Rate = 1;
+    }
 
-        string[] sentences = ttsText.Split(new char[] { '/' });
-        foreach (string sentence in sentences)
-        {
-            //Debug.Log(sentence);
-            voice.Speak(sentence, SpeechVoiceSpeakFlags.SVSFlagsAsync | SpeechVoiceSpeakFlags.SVSFIsXML);
-        }
-
-        //voice.Speak(speakHeader + ttsText + "</speak>", SpeechVoiceSpeakFlags.SVSFlagsAsync | SpeechVoiceSpeakFlags.SVSFIsXML);
-        //voice.Speak(ttsText, SpeechVoiceSpeakFlags.SVSFlagsAsync | SpeechVoiceSpeakFlags.SVSFIsXML);
+    void TextToSpeech(string ttsText)
+    {
+        //WebSurvey.Instance.RobotMovementStart();
 
         isTTSStarted = true;
+
+        string[] sentences = ttsText.Split(new char[] { '/' }, StringSplitOptions.RemoveEmptyEntries);
+        foreach (string sentence in sentences)
+        {
+            voice.Speak(sentence, SpeechVoiceSpeakFlags.SVSFlagsAsync | SpeechVoiceSpeakFlags.SVSFIsXML);
+        }
     }
 
     void TTSStop()
@@ -139,7 +141,7 @@ public class SpeechRenderrer : Singleton<SpeechRenderrer>, Renderrer
         // check audio play state.
         if (IsFinished)
         {
-            Debug.Log("Speak Finished");
+            //Debug.LogWarning("Speak Finished");
 
             isTTSStarted = false;
 

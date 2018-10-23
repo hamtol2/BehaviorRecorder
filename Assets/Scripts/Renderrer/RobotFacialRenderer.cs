@@ -7,6 +7,7 @@ using UnityEngine.UI;
 
 namespace REEL.Animation
 {
+    [Serializable]
     class RobotFacialInfo
     {
         public string faceName;
@@ -28,11 +29,14 @@ namespace REEL.Animation
 
         public string currentFace = "";
 
-        Queue<RobotFacialInfo> facialQueue = new Queue<RobotFacialInfo>();
+        //Queue<RobotFacialInfo> facialQueue = new Queue<RobotFacialInfo>();
+        [SerializeField] private List<RobotFacialInfo> facialQueue = new List<RobotFacialInfo>();
         private float defaultAnimPeriod = 2f;
         private RobotFacialInfo currentFacialInfo;
 
         private readonly string speakFaceName = "speak";
+
+        public int queueCount = 0;
 
         void Awake()
         {
@@ -42,6 +46,12 @@ namespace REEL.Animation
             Play(baseFace);
 
             //StartCoroutine("PlayAllForTest");
+        }
+
+        private void Update()
+        {
+            if (facialQueue != null)
+                queueCount = facialQueue.Count;
         }
 
         public void Init()
@@ -67,7 +77,8 @@ namespace REEL.Animation
             // Test.
             if (currentFacialInfo != null)
             {
-                facialQueue.Enqueue(info);
+                //facialQueue.Enqueue(info);
+                facialQueue.Add(info);
                 return;
             }
 
@@ -84,11 +95,12 @@ namespace REEL.Animation
         }
         
         public void Play(string name)
-        {   
-            string[] splitString = name.Split('(');
-            float animTime = splitString[0] == speakFaceName ? 0.8f : 1f;
+        {
+            //string[] splitString = name.Split('(');
+            //float animTime = splitString[0] == speakFaceName ? 0.8f : 1f;
+            float animTime = name == speakFaceName ? 0.8f : 1f;
 
-            Play(new RobotFacialInfo(splitString[0], animTime));
+            Play(new RobotFacialInfo(name, animTime));
         }
         
         IEnumerator CheckFacialAnimFinished(float animPeriod)
@@ -104,7 +116,33 @@ namespace REEL.Animation
             currentFacialInfo = null;
             if (facialQueue.Count > 0)
             {
-                Play(facialQueue.Dequeue());
+                //Play(facialQueue.Dequeue());
+                RobotFacialInfo info = facialQueue[0];
+                facialQueue.RemoveAt(0);
+                Play(info);
+            }
+            else
+            {
+                bool isSpeaking = SpeechRenderrer.Instance.IsSpeaking;
+                bool isActive = WebSurvey.Instance.GetBehaviorMode == WebSurvey.Mode.Active;
+
+                string faceName = string.Empty;
+                if (isSpeaking && isActive)
+                {
+                    faceName = "speak";
+                }   
+
+                else if (!isSpeaking && isActive)
+                {
+                    faceName = "normal_active";
+                    //Debug.Log("Set Normal Active");
+                }
+
+                else if (!isActive)
+                    faceName = "normal_inactive";
+
+                RobotFacialInfo info = new RobotFacialInfo(faceName, 1.0f);
+                Play(info);
             }
         }
 

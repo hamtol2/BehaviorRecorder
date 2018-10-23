@@ -2,12 +2,15 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Tobii.Gaming;
+using System.IO;
 
 namespace REEL.Recorder
 {
     public class TobbiManager : Singleton<TobbiManager>
     {
         public GameObject marker;
+
+        [SerializeField] private TextAsset settingText;
 
         [SerializeField] private bool isShowMarker = true;
         public bool isMouseTracking = false;
@@ -17,9 +20,12 @@ namespace REEL.Recorder
 
         [SerializeField] private bool isSimulation = true;
 
+        private readonly string useMouseKey = "UseMouse";
+
         private void Awake()
         {
-
+            TobbiSettingFormat setting = JsonUtility.FromJson<TobbiSettingFormat>(settingText.text);
+            isMouseTracking = setting.isUsingMouse;
         }
 
         private void Update()

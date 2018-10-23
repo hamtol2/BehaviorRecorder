@@ -95,20 +95,18 @@ namespace REEL.PoseAnimation
         };
         float[][] nodLeftList = new float[2][] {
 							// Time,	Left Arm, 			Right Arm,			Head
-			new float[9] {  1.2f,       45f, -45f, -45f,   45f, 45f, 45f,     -40f, -30f    },
-            new float[9] {  1.2f,       45f, -45f, -45f,   45f, 45f, 45f,     0f, 10f   }
+			new float[9] {  1.3f,       45f, -45f, -45f,   45f, 45f, 45f,     -20f, -15f    },
+            new float[9] {  1.0f,       45f, -45f, -45f,   45f, 45f, 45f,     0f, 10f   }
         };
         float[][] nodRightList = new float[2][] {
 							// Time,	Left Arm, 			Right Arm,			Head
-			new float[9] {  1.2f,       45f, -45f, -45f,   45f, 45f, 45f,     40f, -30f    },
-            new float[9] {  1.2f,       45f, -45f, -45f,   45f, 45f, 45f,     0f, 10f   }
+			new float[9] {  1.3f,       45f, -45f, -45f,   45f, 45f, 45f,     20f, -15f    },
+            new float[9] {  1.0f,       45f, -45f, -45f,   45f, 45f, 45f,     0f, 10f   }
         };
 
         Dictionary<string, float[][]> motionTable;
         IEnumerator currentAnimation = null;
         private bool isPlaying = false;
-
-        
 
         // Test.
         //Queue<IEnumerator> animationQueue = new Queue<IEnumerator>();
@@ -143,20 +141,6 @@ namespace REEL.PoseAnimation
             {
                 StartCoroutine(animationQueue.Dequeue().motionCoroutine);
             }
-
-            //Debug.Log("PlayMotion: " + motion);
-
-            //animationQueue.Enqueue(PlayMotionCoroutine(motion));
-
-            //if (currentAnimation != null)
-            //{
-            //    StopCoroutine(currentAnimation);
-            //    currentAnimation = null;
-            //    return;
-            //}
-
-            //currentAnimation = PlayMotionCoroutine(motion);
-            //StartCoroutine(currentAnimation);
         }
 
         IEnumerator TestAllMotion()
@@ -186,15 +170,6 @@ namespace REEL.PoseAnimation
 
             yield return new WaitForSeconds(2f);
         }
-
-        //public void SetBasePos()
-        //{
-        //    for (int ix = 0; ix < jointInfo.Length; ++ix)
-        //    {
-        //        //jointInfo[ix].SetBaseAngle();
-        //        SetAngle(ix, baseAngle[ix]);
-        //    }
-        //}
 
         //public bool PlayMotion(string gesture)
         public IEnumerator PlayMotionCoroutine(string gesture)
@@ -373,7 +348,7 @@ namespace REEL.PoseAnimation
         }
 
         public void SetAngleLerp(int jointId, float angle, float duration)
-        {   
+        {
             StartCoroutine(jointInfo[jointId].SetAngleLerp(angle, duration));
         }
 

@@ -1,0 +1,171 @@
++ (시작하자|시작하다)
+- 안녕하세요./ 저는 오늘 퀴즈 진행을 맡게 된/ 로봇 모카입니다./\s <sm=motion:hi> <sm=motion:hi>
+^ 저희 연구실은 인간과 로봇 사이의 원활한 소통방법을 연구하고 있으며/, 여러분이 퀴즈에 답하시는 동안/ 시선데이터를 저장하여/ \s <sm=motion:happy> 
+^ 로봇의 동작과 표정 연구에 사용하려고 합니다./<sm=facial:speak> {topic=oxintro} {@init}
+
+> topic oxintro
++ init
+- 오늘 하실 일은 간딴합니다./ 제가 내는 퀴즈 6개에 대하여/ 맞다 틀리다로 답해 주시면 됩니다./\s
+^ 맞으면 오/ 틀리면 엑스를 쳐다봐 주세요./ 30초안에 답을 정하지 않을 경우/ 오답처리 됩니다./\s
+^ 그럼 지금부터 퀴즈를 시작하겠습니다./ <sm=motion:ok> <set score=zero> {topic=ox1} {@init}
+< topic
+
+> topic ox1 includes calculate
++ init 
+- 첫번째 문제입니다./ 우리나라의 애국가 후렴은/ 대한 사람 대한으로 길이 보전하세로 끝맺는다./\s
+^ 맞으면 오/ 틀리면 엑스를 쳐다보세요./\s 
+^ <sm=qcount:6> <sm=answer:o> <sm=answertime:10> <sm=hinttime:5> <sm=robotmove:5> <sm=mode:Active>
+
++ (오|어|아|우|o|5)
+- 정답입니다./ 그럼/ 다음 문제로 넘어갈께요/\s
+^ <sm=facial:happy> <sm=motion:clap> {@점수더하기} {topic=ox2} {@init}
+
++ (엑스|액스|액수|엑수|액쓰|엑쓰|액쑤|엑쑤|앱스|x)
+- 땡 틀렸습니다. <sm=facial:sad> <sm=motion:wrong> {topic=ox2} {@init}
+
++ * 
+- 오./ 또는 엑스로만 대답해주세요/ <sm=facial:speak>
+< topic
+
+> topic ox2 includes calculate
++ init 
+- 두번째 문제입니다./ 바다에서 나는/ 김,/ 미역,/ 다시마는/ 갑상선 치료에 도움이 되는/ 요오드를 많이 함유한 식품이다./\s <sm=robotmove:1>
+^ 맞으면 오/ 틀리면 엑스를 쳐다보세요./ <sm=facial:speak><sm=answer:o>
+
++ (오|어|아|우|o|5)
+- 정답입니다.\s
+^ <sm=facial:happy> <sm=motion:clap> {@점수더하기} {topic=ox3} {@init}
+
++ (엑스|액스|액수|엑수|액쓰|엑쓰|액쑤|엑쑤|x)
+- 땡 틀렸습니다./\s
+^ <sm=facial:sad> <sm=motion:wrong> {topic=ox3} {@init}
+
++ * 
+- 오./ 또는 엑스로만 대답해주세요/ <sm=facial:speak>
+< topic
+
+> topic ox3 includes calculate
++ init 
+- 세번째 문제입니다./ 벼룩은 간을 가지고 있다./\s
+^ 맞으면 오 틀리면 엑스를 쳐다보세요. <sm=answer:x>
+
++ (오|어|아|우|o|5)
+- 땡 틀렸습니다./ 벼룩에는 간이 없답니다.\s
+^ <sm=facial:sad> <sm=motion:wrong> {topic=ox4} {@init}
+
++ (엑스|액스|액수|엑수|액쓰|엑쓰|액쑤|엑쑤|x)
+- 정답입니다./ 헷갈리는 문제였는데./ 대단해요./\s
+^ <sm=facial:happy> <sm=motion:clap> {@점수더하기} {topic=ox4} {@init}
+
++ * 
+- 오./ 또는 엑스로만 대답해주세요/ <sm=facial:normal_inactive>
+< topic
+
+> topic ox4 includes calculate
++ init 
+- 네번째 문제입니다./ 사람의 세포는/ 개미의 세포보다 크다./\s
+^ 맞으면 오 틀리면 엑스를 쳐다보세요. <sm=answer:x> <sm=mode:Inactive>
+
++ (오|어|아|우|o|5)
+- 땡 틀렸습니다./ 양의 차이일 뿐이지/ 세포의 크기는 모두 같습니다./\s
+^ {topic=ox5} {@init}
+
++ (엑스|액스|액수|엑수|액쓰|엑쓰|액쑤|엑쑤|x)
+- 정답입니다./\s
+^ {@점수더하기} {topic=ox5} {@init}
+
++ * 
+- 오./ 또는 엑스로만 대답해주세요/ 
+< topic
+
+> topic ox5 includes calculate
++ init 
+- 거의다 왔어요/ 조금만 더 힘내세요./ 다섯번째 문제입니다./ 신라시대 첨성대는/ 날씨 예측보다/ 별의 이동 관찰을 목적으로 세운 건축물이다./\s
+^ 맞으면 오/ 틀리면 엑스를 쳐다보세요. <sm=answer:o>
+
++ (오|어|아|우|o|5)
+- 정답입니다.\s
+^ {@점수더하기} {topic=ox6} {@init}
+
++ (엑스|액스|액수|엑수|액쓰|엑쓰|액쑤|엑쑤|x)
+- 땡 틀렸습니다./\s
+^ {topic=ox6} {@init}
+
++ * 
+- 오./ 또는 엑스로만 대답해주세요/
+< topic
+
+> topic ox6 includes calculate
++ init 
+- 드디어 마지막 문제입니다./ 고전소설 춘향전에서/ 이몽룡과 성춘향이/ 처음 만난 곳은/ 전라도 전주의 한옥마을이다./\s
+^ 맞으면 오/ 틀리면 엑스를 쳐다보세요. <sm=answer:x>
+
++ (오|어|아|우|o|5)
+- 땡 틀렸습니다./ 이몽룡과 성춘향은/ 전라도 남원의 광한루에서/ 처음 만났다고 합니다./\s <sm=mode:Active>
+^ <sm=facial:normal_inactive> {topic=result} {@init}
+
++ (엑스|액스|액수|엑수|액쓰|엑쓰|액쑤|엑쑤|x)
+- 정답입니다./ 이제/ 퀴즈 결과를 알려드리겠습니다./\s <sm=mode:Active>
+^ <sm=facial:normal_inactive> {@점수더하기} {topic=result} {@init}
+
++ * 
+- 오./ 또는 엑스로만 대답해주세요/ <sm=facial:normal_inactive>
+< topic
+
+> topic result includes calculate
++ init
+* <get score> == one => 한문제 맞추셨네요.\s
+^ <sm=facial:speak> <sm=motion:clap> {topic=bye} {@init}
+* <get score> == two => 두 문제 맞추셨어요.\s
+^ <sm=facial:speak> <sm=motion:clap> {topic=bye} {@init}
+* <get score> == three => 세 문제 맞았습니다.\s
+^ <sm=facial:happy> <sm=motion:clap> {topic=bye} {@init}
+* <get score> == four => 네 문제나 맞추셨어요. 대단해요.\s
+^ <sm=facial:happy> <sm=motion:clap> {topic=bye} {@init}
+* <get score> == five => 다섯 문제 맞았습니다. 축하드려요.\s
+^ <sm=facial:surprised> <sm=motion:clap> {topic=bye} {@init}
+* <get score> == six => 전부 맞추셨어요. 정말 똑똑하시네요.\s
+^ <sm=facial:surprised> <sm=motion:clap> {topic=bye} {@init}
+- 일부러 모두 틀리신거라 믿을께요.\s
+^ <sm=facial:sad> <sm=motion:wrong> {topic=bye} {@init}
+< topic
+
+> topic bye
++ init
+- 이것으로/ 퀴즈를 마치겠습니다./ 수고하셨습니다./ 오늘 만나서 정말 반가웠어요./ 감사합니다.\s
+^ <sm=facial:normal_active> <sm=motion:hi> {topic=random}
+< topic
+
+> topic calculate
++ 점수더하기
+	* <get score> == one => <set score=two>
+	* <get score> == two => <set score=three>
+	* <get score> == three => <set score=four>
+	* <get score> == four => <set score=five>
+	* <get score> == five => <set score=six>
+	- <set score=one>
+< topic 
+
+
+
+
+
+
+
+> topic calibration
++ init
+- 시선추적을 위해 컬리브레이션을 진행하겠습니다. 파란색점을 사라질때까지 쳐다봐 주세요.\s
+^ 컬리브레이션이 끝난 후 오 엑스 퀴즈를 진행해 주시면 됩니다.<sm=facial:normal_inactive> <sm=motion:hello> {topic=oxintro} {@init}
+< topic
+
+> topic levelcheck includes checkscore
++ init 
+- {@현재점수}
+< topic
+
+> topic checkscore includes calculate
++ 현재점수
+	* <get score> == one => {topic=midox3} {@init}
+	* <get score> == two => {topic=topox3} {@init}
+    - {topic=lowox3} {@init}
+< topic

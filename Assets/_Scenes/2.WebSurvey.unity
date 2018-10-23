@@ -2269,6 +2269,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 1db8ee38d50b009499c321bc01634341, type: 2}
   - {fileID: 11400000, guid: ef4565e924564b44fa937ecdf88bf4fe, type: 2}
   - {fileID: 11400000, guid: bda38163d5ef23f4fbcf367c1d40a25e, type: 2}
+  - {fileID: 11400000, guid: 6e9c69cf8e8dfa64b8924b3eea57b53f, type: 2}
 --- !u!114 &1053427238
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2284,8 +2285,10 @@ MonoBehaviour:
   robotFacialAnimator: {fileID: 1053427236}
   debugText: {fileID: 1295470174}
   isDebug: 1
-  baseFace: normal
+  baseFace: normal_active
   currentFace: 
+  facialQueue: []
+  queueCount: 0
 --- !u!224 &1056201728 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 224296109542740964, guid: 460c1d3a18caa414cb6d9be3f9ddd0e5,
@@ -3012,8 +3015,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bb9320bdeb91e46dea82274872abd41d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  surveyScript: {fileID: 4900000, guid: 7e2ab539a227e9147832ebe4c8db5314, type: 3}
+  surveyTypeGA: {fileID: 4900000, guid: 7e2ab539a227e9147832ebe4c8db5314, type: 3}
+  surveyTypeNA: {fileID: 4900000, guid: 0699161a4ffff9646bf80ca5ff213cfd, type: 3}
   robotFacialRenderer: {fileID: 1053427238}
+  transformController: {fileID: 574285150}
   quizStatusWindow: {fileID: 1748546970}
   quizNumberText: {fileID: 2054155524}
   scoreText: {fileID: 1314758686}
@@ -3031,6 +3036,7 @@ MonoBehaviour:
   hintTime: 0
   robotMovementTime: 0
   numOfQuiz: 0
+  resultSceneName: 3.ResultScene
 --- !u!4 &1345046810
 Transform:
   m_ObjectHideFlags: 0
@@ -4833,6 +4839,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   marker: {fileID: 922914782}
+  settingText: {fileID: 4900000, guid: a088ec17334abba46b408df1c91f03de, type: 3}
   isShowMarker: 1
   isMouseTracking: 1
   smoothTime: 25
