@@ -217,10 +217,9 @@ public class WebSurvey : Singleton<WebSurvey>
     {
         robotMovementTime = Convert.ToSingle(message);
 
-        //Debug.LogWarning("RobotMovementStart: " + robotMovementTime);
-
-        if (UnityEngine.Random.Range(0, 2) == 0)
-            robotMovementTimer = new Timer(robotMovementTime, RobotMove);
+        // Remove Random.
+        //if (UnityEngine.Random.Range(0, 2) == 0)
+        robotMovementTimer = new Timer(robotMovementTime, RobotMove);
     }
 
     void RobotMove()

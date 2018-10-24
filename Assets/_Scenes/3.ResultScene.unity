@@ -312,7 +312,7 @@ Prefab:
     - target: {fileID: 114494311652671042, guid: 24903316df89bdb459c0119a7026a6e0,
         type: 2}
       propertyPath: timerCallback.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
-      value: SetScore
+      value: OnGazeComplete
       objectReference: {fileID: 0}
     - target: {fileID: 114494311652671042, guid: 24903316df89bdb459c0119a7026a6e0,
         type: 2}
@@ -358,6 +358,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 13ded2f4eda20774d816b85816328677, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  otherButtonToDisable:
+  - {fileID: 245377894}
+  - {fileID: 579411525}
+  - {fileID: 1530594520}
+  - {fileID: 824841108}
   questionNumber: 1
   score: 2
 --- !u!1 &245377894 stripped
@@ -376,6 +381,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 13ded2f4eda20774d816b85816328677, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  otherButtonToDisable:
+  - {fileID: 209695660}
+  - {fileID: 579411525}
+  - {fileID: 1530594520}
+  - {fileID: 824841108}
   questionNumber: 1
   score: 1
 --- !u!1 &347446976
@@ -616,7 +626,7 @@ Prefab:
     - target: {fileID: 114494311652671042, guid: 24903316df89bdb459c0119a7026a6e0,
         type: 2}
       propertyPath: timerCallback.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
-      value: SetScore
+      value: OnGazeComplete
       objectReference: {fileID: 0}
     - target: {fileID: 114494311652671042, guid: 24903316df89bdb459c0119a7026a6e0,
         type: 2}
@@ -662,6 +672,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 13ded2f4eda20774d816b85816328677, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  otherButtonToDisable:
+  - {fileID: 1283947008}
+  - {fileID: 2145177249}
+  - {fileID: 599407264}
+  - {fileID: 1676283996}
   questionNumber: 2
   score: 3
 --- !u!1 &482506959
@@ -821,7 +836,7 @@ Prefab:
     - target: {fileID: 114494311652671042, guid: 24903316df89bdb459c0119a7026a6e0,
         type: 2}
       propertyPath: timerCallback.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
-      value: SetScore
+      value: OnGazeComplete
       objectReference: {fileID: 0}
     - target: {fileID: 114494311652671042, guid: 24903316df89bdb459c0119a7026a6e0,
         type: 2}
@@ -867,6 +882,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 13ded2f4eda20774d816b85816328677, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  otherButtonToDisable:
+  - {fileID: 245377894}
+  - {fileID: 209695660}
+  - {fileID: 1530594520}
+  - {fileID: 824841108}
   questionNumber: 1
   score: 3
 --- !u!1 &596347643
@@ -1094,7 +1114,7 @@ Prefab:
     - target: {fileID: 114494311652671042, guid: 24903316df89bdb459c0119a7026a6e0,
         type: 2}
       propertyPath: timerCallback.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
-      value: SetScore
+      value: OnGazeComplete
       objectReference: {fileID: 0}
     - target: {fileID: 114494311652671042, guid: 24903316df89bdb459c0119a7026a6e0,
         type: 2}
@@ -1140,6 +1160,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 13ded2f4eda20774d816b85816328677, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  otherButtonToDisable:
+  - {fileID: 1283947008}
+  - {fileID: 2145177249}
+  - {fileID: 452258617}
+  - {fileID: 1676283996}
   questionNumber: 2
   score: 4
 --- !u!1 &637824828
@@ -1386,7 +1411,7 @@ Prefab:
     - target: {fileID: 114494311652671042, guid: 24903316df89bdb459c0119a7026a6e0,
         type: 2}
       propertyPath: timerCallback.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
-      value: SetScore
+      value: OnGazeComplete
       objectReference: {fileID: 0}
     - target: {fileID: 114494311652671042, guid: 24903316df89bdb459c0119a7026a6e0,
         type: 2}
@@ -1432,6 +1457,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 13ded2f4eda20774d816b85816328677, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  otherButtonToDisable:
+  - {fileID: 245377894}
+  - {fileID: 209695660}
+  - {fileID: 579411525}
+  - {fileID: 1530594520}
   questionNumber: 1
   score: 5
 --- !u!1 &898559919
@@ -1635,7 +1665,7 @@ Prefab:
     - target: {fileID: 114494311652671042, guid: 24903316df89bdb459c0119a7026a6e0,
         type: 2}
       propertyPath: timerCallback.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
-      value: SetScore
+      value: OnGazeComplete
       objectReference: {fileID: 0}
     - target: {fileID: 114494311652671042, guid: 24903316df89bdb459c0119a7026a6e0,
         type: 2}
@@ -2071,7 +2101,7 @@ Prefab:
     - target: {fileID: 114494311652671042, guid: 24903316df89bdb459c0119a7026a6e0,
         type: 2}
       propertyPath: timerCallback.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
-      value: SetScore
+      value: OnGazeComplete
       objectReference: {fileID: 0}
     - target: {fileID: 114494311652671042, guid: 24903316df89bdb459c0119a7026a6e0,
         type: 2}
@@ -2102,6 +2132,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 13ded2f4eda20774d816b85816328677, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  otherButtonToDisable:
+  - {fileID: 2145177249}
+  - {fileID: 452258617}
+  - {fileID: 599407264}
+  - {fileID: 1676283996}
   questionNumber: 2
   score: 1
 --- !u!1 &1451350847
@@ -2279,7 +2314,7 @@ Prefab:
     - target: {fileID: 114494311652671042, guid: 24903316df89bdb459c0119a7026a6e0,
         type: 2}
       propertyPath: timerCallback.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
-      value: SetScore
+      value: OnGazeComplete
       objectReference: {fileID: 0}
     - target: {fileID: 114494311652671042, guid: 24903316df89bdb459c0119a7026a6e0,
         type: 2}
@@ -2325,6 +2360,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 13ded2f4eda20774d816b85816328677, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  otherButtonToDisable:
+  - {fileID: 245377894}
+  - {fileID: 209695660}
+  - {fileID: 579411525}
+  - {fileID: 824841108}
   questionNumber: 1
   score: 4
 --- !u!1 &1563930544
@@ -2561,7 +2601,7 @@ Prefab:
     - target: {fileID: 114494311652671042, guid: 24903316df89bdb459c0119a7026a6e0,
         type: 2}
       propertyPath: timerCallback.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
-      value: SetScore
+      value: OnGazeComplete
       objectReference: {fileID: 0}
     - target: {fileID: 114494311652671042, guid: 24903316df89bdb459c0119a7026a6e0,
         type: 2}
@@ -2607,6 +2647,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 13ded2f4eda20774d816b85816328677, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  otherButtonToDisable:
+  - {fileID: 1283947008}
+  - {fileID: 2145177249}
+  - {fileID: 452258617}
+  - {fileID: 599407264}
   questionNumber: 2
   score: 5
 --- !u!1001 &2145177247
@@ -2738,7 +2783,7 @@ Prefab:
     - target: {fileID: 114494311652671042, guid: 24903316df89bdb459c0119a7026a6e0,
         type: 2}
       propertyPath: timerCallback.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
-      value: SetScore
+      value: OnGazeComplete
       objectReference: {fileID: 0}
     - target: {fileID: 114494311652671042, guid: 24903316df89bdb459c0119a7026a6e0,
         type: 2}
@@ -2784,5 +2829,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 13ded2f4eda20774d816b85816328677, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  otherButtonToDisable:
+  - {fileID: 1283947008}
+  - {fileID: 452258617}
+  - {fileID: 599407264}
+  - {fileID: 1676283996}
   questionNumber: 2
   score: 2

@@ -119,7 +119,7 @@ namespace REEL.Recorder
             //}
         }
 
-        void SetState(State newState)
+        public void SetState(State newState)
         {
             this.state = newState;
         }

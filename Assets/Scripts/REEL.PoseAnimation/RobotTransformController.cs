@@ -12,6 +12,7 @@ namespace REEL.PoseAnimation
         public JointSet[] jointInfo;
         public bool breath = true;
         public BehaviorRecorder behaviorRecorder;
+        [SerializeField] private RobotMovement robotMovement;
 
         [SerializeField] private Motion[] motions;
 
@@ -104,6 +105,17 @@ namespace REEL.PoseAnimation
             new float[9] {  1.0f,       45f, -45f, -45f,   45f, 45f, 45f,     0f, 10f   }
         };
 
+        float[][] breathing = new float[][] {
+            // Time,	Left Arm, 			Right Arm,			Head
+            new float[9] {  0.0f,       45f, -45f, -45f, 45f, 45f, 45f, 0f, 10f },
+            new float[9] {  2.0f,       35f, -35f, -35f, 55f, 35f, 35f, 0f, 20f },
+            new float[9] {  2.0f,       45f, -45f, -45f, 45f, 45f, 45f, 0f, 10f },
+
+            //new float[9] { 45f, -45f, -45f, 45f, 45f, 45f, 0f, 10f },
+        };
+
+        //float[] DIRECTION = new float[8] { -1f, 1f, 1f, 1f, -1f, -1f, 0f, 1f };
+
         Dictionary<string, float[][]> motionTable;
         IEnumerator currentAnimation = null;
         private bool isPlaying = false;
@@ -121,6 +133,9 @@ namespace REEL.PoseAnimation
             InitMotionData();
 
             yield return StartCoroutine(SetBasePos());
+
+            if (breath) PlayMotion("breathing");
+
             //StartCoroutine(Breath());
 
             //StartCoroutine(PlayMotion("happy"));
@@ -135,6 +150,10 @@ namespace REEL.PoseAnimation
         public void PlayMotion(string motion)
         {
             //Debug.Log("PlayMotion: " + motion);
+            if (motion.Contains("ok") || motion.Contains("clap"))
+                robotMovement.SetState(RobotMovement.State.Clap);
+            else if (motion.Contains("no") || motion.Contains("wrong"))
+                robotMovement.SetState(RobotMovement.State.No);
 
             animationQueue.Enqueue(new MotionAnimInfo(motion, PlayMotionCoroutine(motion)));
             if (!isPlaying && animationQueue.Count > 0)
@@ -215,6 +234,7 @@ namespace REEL.PoseAnimation
             motionTable.Add("happy", happyList);
             motionTable.Add("nodLeft", nodLeftList);
             motionTable.Add("nodRight", nodRightList);
+            motionTable.Add("breathing", breathing);
         }
 
         float GetPlayTime(float[][] motionList)
@@ -235,10 +255,18 @@ namespace REEL.PoseAnimation
             {
                 for (int jx = 0; jx < jointInfo.Length; ++jx)
                 {
+                    // For Debug.
+                    //if (jx == 0)
+                    //{
+                    //    StartCoroutine(jointInfo[jx].SetAngleLerp(motionInfo[ix][jx + 1], motionInfo[ix][0], true));
+                    //    continue;
+                    //}
+
                     StartCoroutine(jointInfo[jx].SetAngleLerp(motionInfo[ix][jx + 1], motionInfo[ix][0]));
                 }
 
                 float waitTime = motionInfo[ix][0];
+
                 yield return new WaitForSeconds(waitTime);
             }
 
@@ -252,6 +280,13 @@ namespace REEL.PoseAnimation
                 MotionAnimInfo info = animationQueue.Dequeue();
                 //Debug.Log("Play Next motion: " + info.motion);
                 StartCoroutine(info.motionCoroutine);
+            }
+            else if (animationQueue.Count == 0)
+            {
+                if (breath)
+                {
+                    PlayMotion("breathing");
+                }
             }
 
             //breatheEnable = true;

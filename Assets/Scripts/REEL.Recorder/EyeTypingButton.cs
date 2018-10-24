@@ -9,6 +9,7 @@ namespace REEL.Recorder
         [SerializeField] [Range(0.1f, 2.0f)] protected float clickCheckTime = 1f;
         [SerializeField] protected Image gaugeImage;
         [SerializeField] protected Color gaugeColor;
+        [SerializeField] protected bool isActive = true;
         protected Timer timer = new Timer();
         protected float lastRecoredTime = 0f;
         protected float onExitCheckTime = 0.2f;
@@ -44,9 +45,21 @@ namespace REEL.Recorder
 
         public virtual void UpdateTimer()
         {
+            if (!isActive) return;
+
             timer.Update(Time.deltaTime);
             lastRecoredTime = Time.realtimeSinceStartup;
             UpdateGauge(timer.GetElapsedTime / clickCheckTime);
+        }
+
+        public void EnableEyeTypingButton()
+        {
+            isActive = true;
+        }
+
+        public void DisableEyeTypingButton()
+        {
+            isActive = false;
         }
 
         protected virtual void UpdateGauge(float amount)

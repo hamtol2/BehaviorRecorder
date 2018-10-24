@@ -46,16 +46,11 @@ public class SpeechRenderrer : Singleton<SpeechRenderrer>, Renderrer
     void Awake()
     {
         InitTTS();
-        
-        //Debug.Log(PlayerPrefs.GetString(SurveyStart.ageKey));
-        //Debug.Log(PlayerPrefs.GetString(SurveyStart.genderKey));
-        //Debug.Log(PlayerPrefs.GetInt(SurveyStart.countKey));
     }
 
     void Update()
     {
         CheckAudioPlayState();
-        GetStatus(voice);
     }
 
     void GetStatus(SpVoiceClass voice)

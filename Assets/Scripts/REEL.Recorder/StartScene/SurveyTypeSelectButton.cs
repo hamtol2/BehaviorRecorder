@@ -2,7 +2,7 @@
 
 namespace REEL.Recorder
 {
-    public class SurveyTypeSelectButton : MonoBehaviour
+    public class SurveyTypeSelectButton : EyeSelectionBase
     {
         public enum SurveyType
         {
@@ -13,8 +13,10 @@ namespace REEL.Recorder
 
         private readonly string surveyTypeKey = "surveyType";
 
-        public void OnGazeComplete()
+        public override void OnGazeComplete()
         {
+            base.OnGazeComplete();
+
             Debug.Log(surveyType.ToString());
             PlayerPrefs.SetString(surveyTypeKey, this.surveyType.ToString());
             SurveyStartManager.Instance.GoingForward();

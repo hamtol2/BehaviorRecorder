@@ -2,7 +2,7 @@
 
 namespace REEL.Recorder
 {
-    public class SelectGenderButton : MonoBehaviour
+    public class SelectGenderButton : EyeSelectionBase
     {
         public enum Gender
         {
@@ -13,8 +13,9 @@ namespace REEL.Recorder
 
         private string genderKey = "gender";
 
-        public void SelectGender()
+        public override void OnGazeComplete()
         {
+            base.OnGazeComplete();
             PlayerPrefs.SetString(genderKey, this.ToString());
             SurveyStartManager.Instance.GoingForward();
         }

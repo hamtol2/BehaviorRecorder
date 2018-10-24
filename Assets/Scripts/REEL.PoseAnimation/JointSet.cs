@@ -24,20 +24,23 @@ namespace REEL.PoseAnimation
             joint.localRotation = Quaternion.Euler(rot);
         }
 
-        public IEnumerator SetAngleLerp(float angle, float duration)
+        public IEnumerator SetAngleLerp(float angle, float duration, bool isDebug = false)
         {
             float elapsedTime = 0f;
             this.angle = angle;
             Vector3 rot = isFixed ? GetFixedEulerAngle(angle) : GetEulerAngle(angle);
+            Quaternion startRot = joint.localRotation;
             Quaternion targetRot = Quaternion.Euler(rot);
 
             while (elapsedTime <= duration)
             {
                 elapsedTime += Time.deltaTime;
                 float normalTime = elapsedTime / duration;
-                joint.localRotation = Quaternion.Lerp(joint.localRotation, targetRot, normalTime);
+                normalTime = float.IsInfinity(normalTime) ? 0f : normalTime;
+                joint.localRotation = Quaternion.Lerp(startRot, targetRot, normalTime);
 
-                yield return null;
+                if (isDebug) Debug.Log("elapsedTime: " + elapsedTime + " ,normalTime: " + normalTime);
+                yield return new WaitForEndOfFrame();
             }
         }
 

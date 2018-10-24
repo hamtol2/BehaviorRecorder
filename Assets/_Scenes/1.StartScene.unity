@@ -407,7 +407,7 @@ Prefab:
     - target: {fileID: 114494311652671042, guid: 24903316df89bdb459c0119a7026a6e0,
         type: 2}
       propertyPath: timerCallback.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
-      value: SelectAge
+      value: OnGazeComplete
       objectReference: {fileID: 0}
     - target: {fileID: 114494311652671042, guid: 24903316df89bdb459c0119a7026a6e0,
         type: 2}
@@ -438,6 +438,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 49b050c7443c8a94983278066e52899f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  otherButtonToDisable: []
 --- !u!1 &282406735
 GameObject:
   m_ObjectHideFlags: 0
@@ -527,6 +528,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e58d3bca5a65c554faabe650cf0e87b8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  otherButtonToDisable:
+  - {fileID: 1268661320}
   gender: 1
 --- !u!1 &347446976
 GameObject:
@@ -722,7 +725,7 @@ Prefab:
     - target: {fileID: 114494311652671042, guid: 24903316df89bdb459c0119a7026a6e0,
         type: 2}
       propertyPath: timerCallback.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
-      value: SelectGender
+      value: OnGazeComplete
       objectReference: {fileID: 0}
     - target: {fileID: 114494311652671042, guid: 24903316df89bdb459c0119a7026a6e0,
         type: 2}
@@ -748,6 +751,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 24abb1a9e23cff840956a0564fc7b596, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  otherButtonToDisable:
+  - {fileID: 577343554}
+  - {fileID: 1756340732}
+  - {fileID: 1135024122}
+  - {fileID: 1028924125}
+  - {fileID: 665105613}
   age: 40
 --- !u!1 &482506959
 GameObject:
@@ -793,6 +802,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 49b050c7443c8a94983278066e52899f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  otherButtonToDisable: []
 --- !u!1 &546078437
 GameObject:
   m_ObjectHideFlags: 0
@@ -849,6 +859,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 24abb1a9e23cff840956a0564fc7b596, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  otherButtonToDisable:
+  - {fileID: 1756340732}
+  - {fileID: 1135024122}
+  - {fileID: 472749209}
+  - {fileID: 1028924125}
+  - {fileID: 665105613}
   age: 10
 --- !u!1 &596347643
 GameObject:
@@ -1083,7 +1099,7 @@ Prefab:
     - target: {fileID: 114494311652671042, guid: 24903316df89bdb459c0119a7026a6e0,
         type: 2}
       propertyPath: timerCallback.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
-      value: SelectAge
+      value: OnGazeComplete
       objectReference: {fileID: 0}
     - target: {fileID: 114494311652671042, guid: 24903316df89bdb459c0119a7026a6e0,
         type: 2}
@@ -1219,6 +1235,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 24abb1a9e23cff840956a0564fc7b596, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  otherButtonToDisable:
+  - {fileID: 577343554}
+  - {fileID: 1756340732}
+  - {fileID: 1135024122}
+  - {fileID: 472749209}
+  - {fileID: 1028924125}
   age: 60
 --- !u!224 &700184836 stripped
 RectTransform:
@@ -1766,6 +1788,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 24abb1a9e23cff840956a0564fc7b596, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  otherButtonToDisable:
+  - {fileID: 577343554}
+  - {fileID: 1756340732}
+  - {fileID: 1135024122}
+  - {fileID: 472749209}
+  - {fileID: 665105613}
   age: 50
 --- !u!1001 &1032545912
 Prefab:
@@ -1916,7 +1944,7 @@ Prefab:
     - target: {fileID: 114494311652671042, guid: 24903316df89bdb459c0119a7026a6e0,
         type: 2}
       propertyPath: timerCallback.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
-      value: SelectAge
+      value: OnGazeComplete
       objectReference: {fileID: 0}
     - target: {fileID: 114494311652671042, guid: 24903316df89bdb459c0119a7026a6e0,
         type: 2}
@@ -2153,6 +2181,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 24abb1a9e23cff840956a0564fc7b596, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  otherButtonToDisable:
+  - {fileID: 577343554}
+  - {fileID: 1756340732}
+  - {fileID: 472749209}
+  - {fileID: 1028924125}
+  - {fileID: 665105613}
   age: 30
 --- !u!1001 &1180486244
 Prefab:
@@ -2303,7 +2337,7 @@ Prefab:
     - target: {fileID: 114494311652671042, guid: 24903316df89bdb459c0119a7026a6e0,
         type: 2}
       propertyPath: timerCallback.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
-      value: SelectAge
+      value: OnGazeComplete
       objectReference: {fileID: 0}
     - target: {fileID: 114494311652671042, guid: 24903316df89bdb459c0119a7026a6e0,
         type: 2}
@@ -2409,6 +2443,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e58d3bca5a65c554faabe650cf0e87b8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  otherButtonToDisable:
+  - {fileID: 327128195}
   gender: 0
 --- !u!1 &1273980895
 GameObject:
@@ -7576,7 +7612,7 @@ Prefab:
     - target: {fileID: 114494311652671042, guid: 24903316df89bdb459c0119a7026a6e0,
         type: 2}
       propertyPath: timerCallback.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
-      value: SelectAge
+      value: OnGazeComplete
       objectReference: {fileID: 0}
     - target: {fileID: 114494311652671042, guid: 24903316df89bdb459c0119a7026a6e0,
         type: 2}
@@ -7902,7 +7938,7 @@ Prefab:
     - target: {fileID: 114494311652671042, guid: 24903316df89bdb459c0119a7026a6e0,
         type: 2}
       propertyPath: timerCallback.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
-      value: SelectGender
+      value: OnGazeComplete
       objectReference: {fileID: 0}
     - target: {fileID: 114494311652671042, guid: 24903316df89bdb459c0119a7026a6e0,
         type: 2}
@@ -7933,6 +7969,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 24abb1a9e23cff840956a0564fc7b596, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  otherButtonToDisable:
+  - {fileID: 577343554}
+  - {fileID: 1135024122}
+  - {fileID: 472749209}
+  - {fileID: 1028924125}
+  - {fileID: 665105613}
   age: 20
 --- !u!224 &1805182033
 RectTransform:
@@ -7989,6 +8031,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 980dac9f509c60c4e81d2b2f4b24e480, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  otherButtonToDisable:
+  - {fileID: 1944377231}
   surveyType: 0
 --- !u!114 &1805182036
 MonoBehaviour:
@@ -8061,6 +8105,7 @@ MonoBehaviour:
   clickCheckTime: 1
   gaugeImage: {fileID: 1934031531}
   gaugeColor: {r: 0.22694907, g: 0.62446964, b: 0.9433962, a: 1}
+  isActive: 1
   timerCallback:
     m_PersistentCalls:
       m_Calls:
@@ -8464,6 +8509,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b16a29a8812855a4eb0ec244dfcdc5c9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  otherButtonToDisable: []
   quizSceneName: 2.WebSurvey
 --- !u!1 &1906307630 stripped
 GameObject:
@@ -8481,6 +8527,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 49b050c7443c8a94983278066e52899f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  otherButtonToDisable: []
 --- !u!1 &1934031529
 GameObject:
   m_ObjectHideFlags: 0
@@ -8609,6 +8656,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 980dac9f509c60c4e81d2b2f4b24e480, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  otherButtonToDisable:
+  - {fileID: 1805182034}
   surveyType: 1
 --- !u!114 &1944377233
 MonoBehaviour:
@@ -8681,6 +8730,7 @@ MonoBehaviour:
   clickCheckTime: 1
   gaugeImage: {fileID: 282406737}
   gaugeColor: {r: 0.22694907, g: 0.62446964, b: 0.9433962, a: 1}
+  isActive: 1
   timerCallback:
     m_PersistentCalls:
       m_Calls:
@@ -8893,7 +8943,7 @@ Prefab:
     - target: {fileID: 114494311652671042, guid: 24903316df89bdb459c0119a7026a6e0,
         type: 2}
       propertyPath: timerCallback.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
-      value: SelectAge
+      value: OnGazeComplete
       objectReference: {fileID: 0}
     - target: {fileID: 114494311652671042, guid: 24903316df89bdb459c0119a7026a6e0,
         type: 2}

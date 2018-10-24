@@ -2,10 +2,11 @@
 
 namespace REEL.Recorder
 {
-    public class EyeTypingPracticeButton : MonoBehaviour
+    public class EyeTypingPracticeButton : EyeSelectionBase
     {
-        public void OnGazeComplete()
+        public override void OnGazeComplete()
         {
+            base.OnGazeComplete();
             SurveyStartManager.Instance.AddHitCount();
         }
     }
