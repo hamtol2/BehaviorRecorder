@@ -2,13 +2,13 @@
 
 namespace REEL.Recorder
 {
+    public enum SurveyType
+    {
+        TypeGA, TypeNA, None
+    }
+
     public class SurveyTypeSelectButton : EyeSelectionBase
     {
-        public enum SurveyType
-        {
-            TypeGA, TypeNA, None
-        }
-
         [SerializeField] private SurveyType surveyType = SurveyType.None;
 
         private readonly string surveyTypeKey = "surveyType";

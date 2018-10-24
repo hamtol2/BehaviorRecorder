@@ -101,7 +101,7 @@ public class WebSurvey : Singleton<WebSurvey>
         age = PlayerPrefs.GetString(ageKey);
         gender = PlayerPrefs.GetString(genderKey);
 
-        bool isTypeGA = quizType == SurveyTypeSelectButton.SurveyType.TypeGA.ToString();
+        bool isTypeGA = quizType == SurveyType.TypeGA.ToString();
         TextAsset riveScriptTextAsset = isTypeGA ? surveyTypeGA : surveyTypeNA;
 
         if (riveScript.LoadTextAsset(riveScriptTextAsset))
@@ -251,9 +251,9 @@ public class WebSurvey : Singleton<WebSurvey>
     }
 
     public string QuizTitle { get { return quizTitle; } }
-    public string GetQuizType { get { return quizType; } }
-    public string GetGender { get { return gender; } }
-    public string GetAge { get { return age; } }
+    public string GetQuizType { get { return quizType.Equals(SurveyType.TypeGA.ToString()) ? "가형" : "나형"; } }
+    public string GetGender { get { return gender.Equals("m") ? "남성" : "여성"; } }
+    public string GetAge { get { return age + "대"; } }
 
     public ContentState GetCurrentState()
     {

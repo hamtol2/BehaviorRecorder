@@ -118,6 +118,8 @@ namespace REEL.PoseAnimation
         IEnumerator currentAnimation = null;
         private bool isPlaying = false;
 
+        private readonly float playMotionDelayTime = 1f;
+
         // Test.
         Queue<MotionAnimInfo> animationQueue = new Queue<MotionAnimInfo>();
 
@@ -133,6 +135,13 @@ namespace REEL.PoseAnimation
 
         public void PlayMotion(string motion)
         {
+            if (WebSurvey.Instance.GetBehaviorMode == WebSurvey.Mode.Inactive
+                && !motion.Equals("breathing"))
+            {
+                StartCoroutine("DelayPlayMotion", motion);
+                return;
+            }
+
             //Debug.Log("PlayMotion: " + motion);
             SetRobotState(motion);
 
@@ -141,6 +150,12 @@ namespace REEL.PoseAnimation
             {
                 StartCoroutine(animationQueue.Dequeue().motionCoroutine);
             }
+        }
+
+        IEnumerator DelayPlayMotion(string motion)
+        {
+            yield return new WaitForSeconds(playMotionDelayTime);
+            PlayMotion(motion);
         }
 
         private void SetRobotState(string motion)
