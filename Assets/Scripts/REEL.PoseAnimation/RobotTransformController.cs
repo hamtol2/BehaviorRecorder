@@ -96,22 +96,20 @@ namespace REEL.PoseAnimation
         };
         float[][] nodLeftList = new float[2][] {
 							// Time,	Left Arm, 			Right Arm,			Head
-			new float[9] {  1.3f,       45f, -45f, -45f,   45f, 45f, 45f,     -20f, -15f    },
-            new float[9] {  1.0f,       45f, -45f, -45f,   45f, 45f, 45f,     0f, 10f   }
+			new float[9] {  0.5f,       45f, -45f, -45f,   45f, 45f, 45f,     -20f, -15f    },
+            new float[9] {  0.5f,       45f, -45f, -45f,   45f, 45f, 45f,     0f, 10f   }
         };
         float[][] nodRightList = new float[2][] {
 							// Time,	Left Arm, 			Right Arm,			Head
-			new float[9] {  1.3f,       45f, -45f, -45f,   45f, 45f, 45f,     20f, -15f    },
-            new float[9] {  1.0f,       45f, -45f, -45f,   45f, 45f, 45f,     0f, 10f   }
+			new float[9] {  0.5f,       45f, -45f, -45f,   45f, 45f, 45f,     20f, -15f    },
+            new float[9] {  0.5f,       45f, -45f, -45f,   45f, 45f, 45f,     0f, 10f   }
         };
 
         float[][] breathing = new float[][] {
             // Time,	Left Arm, 			Right Arm,			Head
             new float[9] {  0.0f,       45f, -45f, -45f, 45f, 45f, 45f, 0f, 10f },
-            new float[9] {  2.0f,       35f, -35f, -35f, 55f, 35f, 35f, 0f, 20f },
-            new float[9] {  2.0f,       45f, -45f, -45f, 45f, 45f, 45f, 0f, 10f },
-
-            //new float[9] { 45f, -45f, -45f, 45f, 45f, 45f, 0f, 10f },
+            new float[9] {  1.5f,       35f, -35f, -35f, 35f, 35f, 35f, 0f, 20f },
+            new float[9] {  1.5f,       45f, -45f, -45f, 45f, 45f, 45f, 0f, 10f },
         };
 
         //float[] DIRECTION = new float[8] { -1f, 1f, 1f, 1f, -1f, -1f, 0f, 1f };
