@@ -6,7 +6,7 @@ namespace REEL.Recorder
 {
     public class EyeTypingButton : MonoBehaviour
     {   
-        [SerializeField] [Range(0.1f, 2.0f)] protected float clickCheckTime = 1f;
+        [SerializeField] [Range(0.1f, 5.0f)] protected float clickCheckTime = 1f;
         [SerializeField] protected Image gaugeImage;
         [SerializeField] protected Color gaugeColor;
         [SerializeField] protected bool isActive = true;
@@ -65,6 +65,11 @@ namespace REEL.Recorder
         protected virtual void UpdateGauge(float amount)
         {
             gaugeImage.fillAmount = amount;
+        }
+
+        protected virtual void OnDisable()
+        {
+            ResetButton();
         }
     }
 }

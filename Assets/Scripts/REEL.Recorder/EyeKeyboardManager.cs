@@ -31,6 +31,10 @@ namespace REEL.Recorder
             data.position = TobbiManager.Instance.GetEyePoint;
 
             results = new List<RaycastResult>();
+
+            // position IsNaN 확인.
+            if (IsNaN(data.position)) return;
+
             raycaster.Raycast(data, results);
 
             foreach (RaycastResult result in results)
@@ -38,9 +42,15 @@ namespace REEL.Recorder
                 EyeTypingButton button = result.gameObject.GetComponent<EyeTypingButton>();
                 if (button == null) continue;
 
-                //button.UpdateTimer(Time.deltaTime);
-                button.UpdateTimer();
+                // 활성화인 경우에만 타이머 갱신.
+                if (button.gameObject.activeInHierarchy)
+                    button.UpdateTimer();
             }
+        }
+
+        bool IsNaN(Vector2 position)
+        {
+            return float.IsNaN(position.x) || float.IsNaN(position.y);
         }
     }
 }

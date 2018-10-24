@@ -44,11 +44,15 @@ public class WebSurvey : Singleton<WebSurvey>
     [SerializeField] private float hintTime = 0f;
     [SerializeField] private float robotMovementTime = 0f;
 
+    private readonly float timeToResultScene = 5f;
+
     private bool quizFinished = false;
     public bool QuizFinished { get { return quizFinished; } }
 
     [SerializeField] private int numOfQuiz = 0;
     private AnswerType currentAnswerType;
+
+    private readonly string timeoutString = "timeout";
 
     private readonly string answerYes = "오";
     private readonly string answerNo = "엑스";
@@ -171,14 +175,14 @@ public class WebSurvey : Singleton<WebSurvey>
         behaviorRecorder.StartRecording();
         quizFinished = false;
     }
-
+    
     public void FinishQuiz()
     {
         Debug.Log("FinishQuiz");
         behaviorRecorder.FinishRecording();
         quizFinished = true;
 
-        resultSceneTimer = new Timer(10f, GoToResultScene);
+        resultSceneTimer = new Timer(timeToResultScene, GoToResultScene);
     }
 
     void GoToResultScene()
@@ -326,14 +330,15 @@ public class WebSurvey : Singleton<WebSurvey>
     {
         get { return currentAnswerType == AnswerType.O ? answerNo : answerYes; }
     }
-
+    
     private void TimeOut()
     {
         Debug.Log(timeOutTime + "초 지남. 문제 틀림");
 
         SetTimersToNull();
 
-        GetReply(GetWrongAnswer);
+        //GetReply(GetWrongAnswer);
+        GetReply(timeoutString);
         CloseAnswerButton();
     }
 

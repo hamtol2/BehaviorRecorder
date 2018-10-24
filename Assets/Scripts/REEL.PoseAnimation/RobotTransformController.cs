@@ -105,10 +105,17 @@ namespace REEL.PoseAnimation
             new float[9] {  0.5f,       45f, -45f, -45f,   45f, 45f, 45f,     0f, 10f   }
         };
 
-        float[][] breathing = new float[][] {
+        float[][] breathing_active = new float[][] {
             // Time,	Left Arm, 			Right Arm,			Head
             //new float[9] {  0.0f,       45f, -45f, -45f, 45f, 45f, 45f, 0f, 10f },
             new float[9] {  1.2f,       35f, -35f, -35f, 35f, 35f, 35f, 0f, 20f },
+            new float[9] {  1.2f,       45f, -45f, -45f, 45f, 45f, 45f, 0f, 10f },
+        };
+
+        float[][] breathing_inactive = new float[][] {
+            // Time,	Left Arm, 			Right Arm,			Head
+            //new float[9] {  0.0f,       45f, -45f, -45f, 45f, 45f, 45f, 0f, 10f },
+            new float[9] {  1.2f,       40f, -40f, -40f, 40f, 40f, 40f, 0f, 10f },
             new float[9] {  1.2f,       45f, -45f, -45f, 45f, 45f, 45f, 0f, 10f },
         };
 
@@ -136,7 +143,7 @@ namespace REEL.PoseAnimation
         public void PlayMotion(string motion)
         {
             if (WebSurvey.Instance.GetBehaviorMode == WebSurvey.Mode.Inactive
-                && !motion.Equals("breathing"))
+                && !motion.Contains("breathing"))
             {
                 StartCoroutine("DelayPlayMotion", motion);
                 return;
@@ -248,7 +255,8 @@ namespace REEL.PoseAnimation
             motionTable.Add("happy", happyList);
             motionTable.Add("nodLeft", nodLeftList);
             motionTable.Add("nodRight", nodRightList);
-            motionTable.Add("breathing", breathing);
+            motionTable.Add("breathing_active", breathing_active);
+            motionTable.Add("breathing_inactive", breathing_inactive);
         }
 
         float GetPlayTime(float[][] motionList)
@@ -299,7 +307,9 @@ namespace REEL.PoseAnimation
             {
                 if (breath)
                 {
-                    PlayMotion("breathing");
+                    bool isActiveMode = WebSurvey.Instance.GetBehaviorMode == WebSurvey.Mode.Active;
+                    string brethingName = isActiveMode ? "breathing_active" : "breathing_inactive";
+                    PlayMotion(brethingName);
                 }
             }
 

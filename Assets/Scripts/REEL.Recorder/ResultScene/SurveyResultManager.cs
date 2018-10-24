@@ -118,7 +118,16 @@ namespace REEL.Recorder
             resultSaveFormat.AddData(data);
 
             SaveToFile();
+            GoingForward();
+        }
 
+        public void OnCloseButtonClicked()
+        {
+            Application.Quit();
+        }
+
+        public void OnReturnButtonClicked()
+        {
             Invoke("MoveToStartScene", 3f);
         }
 

@@ -14,7 +14,7 @@
 + init 
 - 첫번째 문제입니다./ 우리나라의 애국가 후렴은/ 대한 사람 대한으로 길이 보전하세로 끝맺는다./\s
 ^ 맞으면 오/ 틀리면 엑스를 쳐다보세요./\s 
-^ <sm=qcount:6> <sm=answer:o> <sm=answertime:10> <sm=hinttime:5> <sm=robotmove:5> <sm=mode:Active>
+^ <sm=qcount:6> <sm=answer:o> <sm=answertime:10> <sm=hinttime:1> <sm=robotmove:5> <sm=mode:Active>
 
 + (오|어|아|우|o|5)
 - 정답입니다./ 그럼/ 다음 문제로 넘어갈께요/\s
@@ -22,6 +22,9 @@
 
 + (엑스|액스|액수|엑수|액쓰|엑쓰|액쑤|엑쑤|앱스|x)
 - 땡 틀렸습니다. <sm=facial:sad> <sm=motion:wrong> {topic=ox2} {@init}
+
++ (timeout|타임아웃|시간초과)
+- 시간이 초과되었습니다. <sm=facial:sad> <sm=motion:wrong> {topic=ox2} {@init}
 
 + * 
 - 오./ 또는 엑스로만 대답해주세요/ <sm=facial:speak>
@@ -40,6 +43,9 @@
 - 땡 틀렸습니다./\s
 ^ <sm=facial:sad> <sm=motion:wrong> {topic=ox3} {@init}
 
++ (timeout|타임아웃|시간초과)
+- 시간이 초과되었습니다. <sm=facial:sad> <sm=motion:wrong> {topic=ox3} {@init}
+
 + * 
 - 오./ 또는 엑스로만 대답해주세요/ <sm=facial:speak>
 < topic
@@ -56,6 +62,9 @@
 + (엑스|액스|액수|엑수|액쓰|엑쓰|액쑤|엑쑤|x)
 - 정답입니다./ 헷갈리는 문제였는데./ 대단해요./\s
 ^ <sm=facial:happy> <sm=motion:clap> {@점수더하기} {topic=ox4} {@init}
+
++ (timeout|타임아웃|시간초과)
+- 시간이 초과되었습니다. <sm=facial:sad> <sm=motion:wrong> {topic=ox4} {@init}
 
 + * 
 - 오./ 또는 엑스로만 대답해주세요/ <sm=facial:normal_inactive>
@@ -74,6 +83,9 @@
 - 정답입니다./\s
 ^ {@점수더하기} {topic=ox5} {@init}
 
++ (timeout|타임아웃|시간초과)
+- 시간이 초과되었습니다. {topic=ox5} {@init}
+
 + * 
 - 오./ 또는 엑스로만 대답해주세요/ 
 < topic
@@ -91,6 +103,9 @@
 - 땡 틀렸습니다./\s
 ^ {topic=ox6} {@init}
 
++ (timeout|타임아웃|시간초과)
+- 시간이 초과되었습니다. {topic=ox6} {@init}
+
 + * 
 - 오./ 또는 엑스로만 대답해주세요/
 < topic
@@ -101,12 +116,15 @@
 ^ 맞으면 오/ 틀리면 엑스를 쳐다보세요. <sm=answer:x>
 
 + (오|어|아|우|o|5)
-- 땡 틀렸습니다./ 이몽룡과 성춘향은/ 전라도 남원의 광한루에서/ 처음 만났다고 합니다./\s <sm=mode:Active>
+- 땡 틀렸습니다./ 이몽룡과 성춘향은/ 전라도 남원의 광한루에서/ 처음 만났다고 합니다./\s
 ^ <sm=facial:normal_inactive> {topic=result} {@init}
 
 + (엑스|액스|액수|엑수|액쓰|엑쓰|액쑤|엑쑤|x)
-- 정답입니다./ 이제/ 퀴즈 결과를 알려드리겠습니다./\s <sm=mode:Active>
+- 정답입니다./ 이제/ 퀴즈 결과를 알려드리겠습니다./\s
 ^ <sm=facial:normal_inactive> {@점수더하기} {topic=result} {@init}
+
++ (timeout|타임아웃|시간초과)
+- 시간이 초과되었습니다. <sm=facial:normal_inactive> {topic=result} {@init}
 
 + * 
 - 오./ 또는 엑스로만 대답해주세요/ <sm=facial:normal_inactive>
@@ -133,7 +151,7 @@
 > topic bye
 + init
 - 이것으로/ 퀴즈를 마치겠습니다./ 수고하셨습니다./ 오늘 만나서 정말 반가웠어요./ 감사합니다.\s
-^ <sm=facial:normal_active> <sm=motion:hi> {topic=random}
+^ <sm=mode:Active> <sm=facial:normal_active> <sm=motion:hi> {topic=random}
 < topic
 
 > topic calculate

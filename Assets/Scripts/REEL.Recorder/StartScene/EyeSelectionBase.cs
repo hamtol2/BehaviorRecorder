@@ -14,7 +14,8 @@ namespace REEL.Recorder
             {
                 foreach (GameObject button in otherButtonToDisable)
                 {
-                    button.GetComponent<EyeTypingButton>().DisableEyeTypingButton();
+                    EyeTypingButton eyeTyping = button.GetComponent<EyeTypingButton>();
+                    if (eyeTyping) eyeTyping.DisableEyeTypingButton();
                 }
             }
         }
