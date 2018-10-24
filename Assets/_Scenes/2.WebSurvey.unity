@@ -1124,6 +1124,7 @@ MonoBehaviour:
     isFixed: 1
   breath: 1
   behaviorRecorder: {fileID: 59991470}
+  robotMovement: {fileID: 917890946}
   motions: []
   currentGesture: 
 --- !u!1 &590462872 stripped

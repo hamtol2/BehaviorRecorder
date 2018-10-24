@@ -31,16 +31,16 @@ namespace REEL.PoseAnimation
         float[] OFFSET = new float[] { 0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f };
         float[][] hiList = new float[5][] {
 							// Time,	Left Arm, 			Right Arm,			Head
-			new float[9] {  1.4f,       45f, -45f, -45f,    -60f, 60f, 38f,     0f, 25f    },
+			new float[9] {  0.7f,       45f, -45f, -45f,    -60f, 60f, 38f,     0f, 25f    },
             new float[9] {  0.6f,       45f, -45f, -45f,    -60f, 96f, 34f,     0f, 25f   },
             new float[9] {  0.6f,       45f, -45f, -45f,    -60f, 60f, 38f,     0f, 25f   },
             new float[9] {  0.6f,       45f, -45f, -45f,    -60f, 96f, 34f,     0f, 25f   },
-            new float[9] {  1.4f,       45f, -45f, -45f,    -57f, 75f, 23f,     0f, 25f    }
+            new float[9] {  0.7f,       45f, -45f, -45f,    -57f, 75f, 23f,     0f, 25f    }
         };
 
         float[][] helloList = new float[5][] {
 							// Time,	Left Arm, 			Right Arm,		    Head
-			new float[9] {  1.4f,       -60f, -60f, -38f,   45f, 45f, 45f,      0f, 25f   },
+			new float[9] {  0.7f,       -60f, -60f, -38f,   45f, 45f, 45f,      0f, 25f   },
             new float[9] {  0.6f,       -60f, -80f, -34f,   45f, 45f, 45f,      0f, 25f   },
             new float[9] {  0.6f,       -60f, -60f, -38f,   45f, 45f, 45f,      0f, 25f   },
             new float[9] {  0.6f,       -60f, -80f, -34f,   45f, 45f, 45f,      0f, 25f   },
@@ -52,47 +52,47 @@ namespace REEL.PoseAnimation
 			new float[9] {  0.7f,       14f, -83f, -24f,    14f, 83f, 24f,      0f, -9f    },
             new float[9] {  0.7f,       57f, -75f, -24f,    57f, 75f, 24f,      0f, -9f   },
             new float[9] {  0.7f,       14f, -83f, -24f,    14f, 83f, 24f,      0f, -99f   },
-            new float[9] {  1.2f,        45f, -45f, -45f,   45f, 45f, 45f,      0f, 25f   }
+            new float[9] {  0.8f,        45f, -45f, -45f,   45f, 45f, 45f,      0f, 25f   }
         };
         float[][] sadList = new float[5][] {
                 			// Time,    Left Arm,           Right Arm,          Head
-			new float[9] {  1.2f,       -25f, -101f, -67f,   -43f, 101f, 67f,   0f, 20f   },
+			new float[9] {  0.8f,       -25f, -101f, -67f,   -43f, 101f, 67f,   0f, 20f   },
             new float[9] {  0.5f,       -43f, -101f, -67f,   -24f, 101f, 67f,   0f, 20f   },
             new float[9] {  0.5f,       -25f, -101f, -67f,   -43f, 101f, 67f,   0f, 20f   },
             new float[9] {  0.5f,       -43f, -101f, -67f,   -24f, 101f, 67f,   0f, 20f   },
-            new float[9] {  1.2f,        45f, -45f, -45f,   45f, 45f, 45f,      0f, 25f   }
+            new float[9] {  0.8f,        45f, -45f, -45f,   45f, 45f, 45f,      0f, 25f   }
         };
         float[][] okList = new float[4][] {
                 			// Time,    Left Arm,           Right Arm,          Head
-			new float[9] {  0.5f,       57f, -75f, -24f,    57f, 75f, 24f,      0f,  10f    },
-            new float[9] {  0.5f,       57f, -75f, -24f,    57f, 75f, 24f,      0f, -10f   },
-            new float[9] {  0.5f,       57f, -75f, -24f,    57f, 75f, 24f,      0f,  10f   },
-            new float[9] {  1.0f,       45f, -45f, -45f,    45f, 45f, 45f,      0f, 25f   }
+			new float[9] {  0.3f,       57f, -75f, -24f,    57f, 75f, 24f,      0f,  10f    },
+            new float[9] {  0.3f,       57f, -75f, -24f,    57f, 75f, 24f,      0f, -10f   },
+            new float[9] {  0.3f,       57f, -75f, -24f,    57f, 75f, 24f,      0f,  10f   },
+            new float[9] {  0.5f,       45f, -45f, -45f,    45f, 45f, 45f,      0f, 25f   }
         };
         float[][] noList = new float[4][] {
                 			// Time,    Left Arm,           Right Arm,          Head
-			new float[9] {  0.6f,       57f, -75f, -24f,    57f, 75f, 24f,      -20f, -9f    },
-            new float[9] {  0.8f,       57f, -75f, -24f,    57f, 75f, 24f,       20f, -9f   },
-            new float[9] {  0.8f,       57f, -75f, -24f,    57f, 75f, 24f,      -20f, -9f   },
-            new float[9] {  1.0f,       45f, -45f, -45f,    45f, 45f, 45f,      0f, 25f   }
+			new float[9] {  0.3f,       57f, -75f, -24f,    57f, 75f, 24f,      -20f, -9f    },
+            new float[9] {  0.4f,       57f, -75f, -24f,    57f, 75f, 24f,       20f, -9f   },
+            new float[9] {  0.4f,       57f, -75f, -24f,    57f, 75f, 24f,      -20f, -9f   },
+            new float[9] {  0.7f,       45f, -45f, -45f,    45f, 45f, 45f,      0f, 25f   }
         };
         float[][] happyList = new float[4][] {
                 			// Time,    Left Arm,           Right Arm,          Head
-			new float[9] {  1.6f,       -70f, -70f, -30f,   -70f, 70f, 30f,     0f, -25f    },
-            new float[9] {  0.8f,       -70f, -70f, -30f,   -70f, 70f, 30f,     -14f, -10f   },
-            new float[9] {  0.8f,       -70f, -70f, -30f,   -70f, 70f, 30f,     0f, -25f   },
-            new float[9] {  1.0f,        45f, -45f, -45f,   45f, 45f, 45f,      0f, 25f   }
+			new float[9] {  0.8f,       -70f, -70f, -30f,   -70f, 70f, 30f,     0f, -25f    },
+            new float[9] {  0.4f,       -70f, -70f, -30f,   -70f, 70f, 30f,     -14f, -10f   },
+            new float[9] {  0.4f,       -70f, -70f, -30f,   -70f, 70f, 30f,     0f, -25f   },
+            new float[9] {  0.5f,        45f, -45f, -45f,   45f, 45f, 45f,      0f, 25f   }
         };
         float[][] clapList = new float[8][] {
 							// Time,	Left Arm, 			Right Arm,			Head
-			new float[9] {  1.4f,       -20f, -45f, -45f,   -20f, 45f, 45f,     0f, 25f    },
+			new float[9] {  0.7f,       -20f, -45f, -45f,   -20f, 45f, 45f,     0f, 25f    },
             new float[9] {  0.2f,       -20f, -85f, -75f,   -20f, 85f, 75f,     0f, 25f   },
             new float[9] {  0.2f,       -20f, -45f, -45f,   -20f, 45f, 45f,     0f, 25f   },
             new float[9] {  0.2f,       -20f, -85f, -75f,   -20f, 85f, 75f,     0f, 25f   },
             new float[9] {  0.2f,       -20f, -45f, -45f,   -20f, 45f, 45f,     0f, 25f   },
             new float[9] {  0.2f,       -20f, -85f, -75f,   -20f, 85f, 75f,     0f, 25f   },
             new float[9] {  0.2f,       -20f, -45f, -45f,   -20f, 45f, 45f,     0f, 25f   },
-            new float[9] {  1.4f,       45f, -45f, -45f,     45f, 45f, 45f,     0f, 25f    }
+            new float[9] {  0.7f,       45f, -45f, -45f,     45f, 45f, 45f,     0f, 25f    }
         };
         float[][] nodLeftList = new float[2][] {
 							// Time,	Left Arm, 			Right Arm,			Head
@@ -108,8 +108,8 @@ namespace REEL.PoseAnimation
         float[][] breathing = new float[][] {
             // Time,	Left Arm, 			Right Arm,			Head
             new float[9] {  0.0f,       45f, -45f, -45f, 45f, 45f, 45f, 0f, 10f },
-            new float[9] {  1.5f,       35f, -35f, -35f, 35f, 35f, 35f, 0f, 20f },
-            new float[9] {  1.5f,       45f, -45f, -45f, 45f, 45f, 45f, 0f, 10f },
+            new float[9] {  1.2f,       35f, -35f, -35f, 35f, 35f, 35f, 0f, 20f },
+            new float[9] {  1.2f,       45f, -45f, -45f, 45f, 45f, 45f, 0f, 10f },
         };
 
         //float[] DIRECTION = new float[8] { -1f, 1f, 1f, 1f, -1f, -1f, 0f, 1f };
@@ -178,14 +178,16 @@ namespace REEL.PoseAnimation
 
         public IEnumerator SetBasePos()
         {
+            float basePoseTime = 1f;
+
             for (int ix = 0; ix < jointInfo.Length; ++ix)
             {
                 //jointInfo[ix].SetBaseAngle();
                 //SetAngle(ix, baseAngle[ix]);
-                SetAngleLerp(ix, baseAngle[ix], 2f);
+                SetAngleLerp(ix, baseAngle[ix], basePoseTime);
             }
 
-            yield return new WaitForSeconds(2f);
+            yield return new WaitForSeconds(basePoseTime);
         }
 
         //public bool PlayMotion(string gesture)
