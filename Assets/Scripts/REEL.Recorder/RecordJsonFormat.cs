@@ -67,6 +67,8 @@ namespace REEL.Recorder
     {
         public string quizTitle;
         public string quizType;
+        public string age;
+        public string gender;
         public int quizNumber;
         public float elapsedTime;
         public string contentState;

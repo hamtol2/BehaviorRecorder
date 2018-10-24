@@ -78,6 +78,8 @@ namespace REEL.Recorder
             RecordData newData = new RecordData();
             newData.quizTitle = WebSurvey.Instance.QuizTitle;
             newData.quizType = WebSurvey.Instance.GetQuizType;
+            newData.age = WebSurvey.Instance.GetAge;
+            newData.gender = WebSurvey.Instance.GetGender;
             newData.quizNumber = WebSurvey.Instance.GetCurrentStep();
             newData.elapsedTime = mainTimer.GetElapsedTime;
             newData.contentState = WebSurvey.Instance.GetCurrentState().ToString();
@@ -100,6 +102,8 @@ namespace REEL.Recorder
             RecordData newData = new RecordData();
             newData.quizTitle = WebSurvey.Instance.QuizTitle;
             newData.quizType = WebSurvey.Instance.GetQuizType;
+            newData.age = WebSurvey.Instance.GetAge;
+            newData.gender = WebSurvey.Instance.GetGender;
             newData.quizNumber = WebSurvey.Instance.GetCurrentStep();
             newData.elapsedTime = mainTimer.GetElapsedTime;
             newData.contentState = WebSurvey.Instance.GetCurrentState().ToString();

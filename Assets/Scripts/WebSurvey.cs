@@ -62,18 +62,18 @@ public class WebSurvey : Singleton<WebSurvey>
     private Mode behaviorMode = Mode.None;
 
     private readonly string surveyTypeKey = "surveyType";
+    private readonly string genderKey = "gender";
+    private readonly string ageKey = "age";
+
     private string quizType;
+    private string age;
+    private string gender;
 
     [SerializeField] private string resultSceneName = string.Empty;
 
     private void Awake()
     {
-        if (!PlayerPrefs.HasKey("UUID"))
-        {
-            PlayerPrefs.SetString("UUID", System.Guid.NewGuid().ToString());
-        }
-
-        riveScript = new RiveScript.RiveScript(utf8: true, debug: true);
+        InitRiveScript();
     }
 
     // Use this for initialization
@@ -81,12 +81,28 @@ public class WebSurvey : Singleton<WebSurvey>
     {
         SpeechRenderrer.Instance.Init();
 
-        //Debug.Log(PlayerPrefs.GetString(surveyTypeKey));
-        quizType = PlayerPrefs.GetString(surveyTypeKey);
+    }
 
-        TextAsset riveScriptTextAsset 
-            = PlayerPrefs.GetString(surveyTypeKey) 
-            == SurveyTypeSelectButton.SurveyType.TypeGA.ToString() ? surveyTypeGA : surveyTypeNA;
+    private void Update()
+    {
+        CheckAnswerTimer();
+    }
+
+    void InitRiveScript()
+    {
+        if (!PlayerPrefs.HasKey("UUID"))
+        {
+            PlayerPrefs.SetString("UUID", System.Guid.NewGuid().ToString());
+        }
+
+        riveScript = new RiveScript.RiveScript(utf8: true, debug: true);
+
+        quizType = PlayerPrefs.GetString(surveyTypeKey);
+        age = PlayerPrefs.GetString(ageKey);
+        gender = PlayerPrefs.GetString(genderKey);
+
+        bool isTypeGA = quizType == SurveyTypeSelectButton.SurveyType.TypeGA.ToString();
+        TextAsset riveScriptTextAsset = isTypeGA ? surveyTypeGA : surveyTypeNA;
 
         if (riveScript.LoadTextAsset(riveScriptTextAsset))
         {
@@ -98,13 +114,6 @@ public class WebSurvey : Singleton<WebSurvey>
             Debug.Log("Fail to load " + riveScriptTextAsset.name + " file");
         }
     }
-
-    private void Update()
-    {
-        CheckAnswerTimer();
-    }
-
-    
 
     public void GetReply(string message)
     {
@@ -187,7 +196,7 @@ public class WebSurvey : Singleton<WebSurvey>
         ++currentQuizNumber;
 
         if (currentQuizNumber == (numOfQuiz + 1))
-           FinishQuiz();
+            FinishQuiz();
 
         SetTimersToNull();
     }
@@ -209,7 +218,7 @@ public class WebSurvey : Singleton<WebSurvey>
         robotMovementTime = Convert.ToSingle(message);
 
         //Debug.LogWarning("RobotMovementStart: " + robotMovementTime);
-        
+
         if (UnityEngine.Random.Range(0, 2) == 0)
             robotMovementTimer = new Timer(robotMovementTime, RobotMove);
     }
@@ -244,6 +253,8 @@ public class WebSurvey : Singleton<WebSurvey>
 
     public string QuizTitle { get { return quizTitle; } }
     public string GetQuizType { get { return quizType; } }
+    public string GetGender { get { return gender; } }
+    public string GetAge { get { return age; } }
 
     public ContentState GetCurrentState()
     {
@@ -279,7 +290,7 @@ public class WebSurvey : Singleton<WebSurvey>
         {
             SetTimersToNull();
         }
-        
+
         if (hintTimer != null)
         {
             hintTimer.Update(Time.deltaTime);
@@ -326,7 +337,7 @@ public class WebSurvey : Singleton<WebSurvey>
         GetReply(GetWrongAnswer);
         CloseAnswerButton();
     }
-    
+
     private void GazeToButton()
     {
         Debug.Log("GazeToButton");
