@@ -20,5 +20,10 @@ namespace REEL.Recorder
                 index = index + smoothInterval;
             }
         }
+
+        private void OnEnable()
+        {
+            fellow[0].transform.parent.gameObject.SetActive(true);
+        }
     }
 }

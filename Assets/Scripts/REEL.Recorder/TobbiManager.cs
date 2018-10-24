@@ -26,6 +26,7 @@ namespace REEL.Recorder
         {
             TobbiSettingFormat setting = JsonUtility.FromJson<TobbiSettingFormat>(settingText.text);
             isMouseTracking = setting.isUsingMouse;
+            if (setting.isUsingMarker) marker.SetActive(true);
         }
 
         private void Update()

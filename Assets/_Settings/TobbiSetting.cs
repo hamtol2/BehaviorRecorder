@@ -8,6 +8,6 @@ namespace REEL.Recorder
     public class TobbiSettingFormat
     {
         public bool isUsingMouse;
-
+        public bool isUsingMarker;
     }
 }
