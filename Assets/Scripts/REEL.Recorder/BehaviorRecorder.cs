@@ -77,15 +77,16 @@ namespace REEL.Recorder
 
             RecordData newData = new RecordData();
             newData.quizTitle = WebSurvey.Instance.QuizTitle;
+            newData.quizType = WebSurvey.Instance.GetQuizType;
             newData.quizNumber = WebSurvey.Instance.GetCurrentStep();
             newData.elapsedTime = mainTimer.GetElapsedTime;
-            newData.contentState = WebSurvey.Instance.GetCurrentState();
-            newData.answer = WebSurvey.Instance.GetAnswerState;
-            newData.modelType = WebSurvey.Instance.GetModelType;
+            newData.contentState = WebSurvey.Instance.GetCurrentState().ToString();
+            newData.answer = WebSurvey.Instance.GetAnswerState.ToString();
+            newData.modelType = WebSurvey.Instance.GetModelType.ToString();
             newData.eyePosition = TobbiManager.Instance.GetEyePoint;
             newData.robotPosition = robotMovement.transform.position;
-            newData.robotState = robotMovement.GetRobotState;
-            newData.targetRegion = GetTargetRegion;
+            newData.robotState = robotMovement.GetRobotState.ToString();
+            newData.targetRegion = GetTargetRegion.ToString();
             newData.face = facialRenderer.currentFace;
             newData.gesture = gestureController.currentGesture;
 
@@ -98,15 +99,16 @@ namespace REEL.Recorder
 
             RecordData newData = new RecordData();
             newData.quizTitle = WebSurvey.Instance.QuizTitle;
+            newData.quizType = WebSurvey.Instance.GetQuizType;
             newData.quizNumber = WebSurvey.Instance.GetCurrentStep();
             newData.elapsedTime = mainTimer.GetElapsedTime;
-            newData.contentState = WebSurvey.Instance.GetCurrentState();
-            newData.answer = WebSurvey.Instance.GetAnswerState;
-            newData.modelType = WebSurvey.Instance.GetModelType;
+            newData.contentState = WebSurvey.Instance.GetCurrentState().ToString();
+            newData.answer = WebSurvey.Instance.GetAnswerState.ToString();
+            newData.modelType = WebSurvey.Instance.GetModelType.ToString();
             newData.eyePosition = TobbiManager.Instance.GetEyePoint;
             newData.robotPosition = robotMovement.transform.position;
-            newData.robotState = robotMovement.GetRobotState;
-            newData.targetRegion = GetTargetRegion;
+            newData.robotState = robotMovement.GetRobotState.ToString();
+            newData.targetRegion = GetTargetRegion.ToString();
             newData.face = facialRenderer.currentFace;
             newData.gesture = gestureController.currentGesture;
             newData.recordEvent = newEvent;

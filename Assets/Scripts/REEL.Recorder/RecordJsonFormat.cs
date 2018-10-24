@@ -66,19 +66,39 @@ namespace REEL.Recorder
     public class RecordData
     {
         public string quizTitle;
+        public string quizType;
         public int quizNumber;
         public float elapsedTime;
-        public ContentState contentState;
-        public AnswerState answer;
-        public ModelType modelType;
+        public string contentState;
+        public string answer;
+        public string modelType;
         public Vector2 eyePosition;
-        public TargetRegion targetRegion;
+        public string targetRegion;
         public Vector3 robotPosition;
-        public RobotMovement.State robotState;
+        public string robotState;
         public string face;
         public string gesture;
         public RecordEvent recordEvent;
     }
+
+    //[Serializable]
+    //public class RecordData
+    //{
+    //    public string quizTitle;
+    //    public string quizType;
+    //    public int quizNumber;
+    //    public float elapsedTime;
+    //    public ContentState contentState;
+    //    public AnswerState answer;
+    //    public ModelType modelType;
+    //    public Vector2 eyePosition;
+    //    public TargetRegion targetRegion;
+    //    public Vector3 robotPosition;
+    //    public RobotMovement.State robotState;
+    //    public string face;
+    //    public string gesture;
+    //    public RecordEvent recordEvent;
+    //}
 
     [Serializable]
     public class RecordEvent

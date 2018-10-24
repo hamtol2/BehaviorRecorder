@@ -62,6 +62,7 @@ public class WebSurvey : Singleton<WebSurvey>
     private Mode behaviorMode = Mode.None;
 
     private readonly string surveyTypeKey = "surveyType";
+    private string quizType;
 
     [SerializeField] private string resultSceneName = string.Empty;
 
@@ -80,7 +81,8 @@ public class WebSurvey : Singleton<WebSurvey>
     {
         SpeechRenderrer.Instance.Init();
 
-        Debug.Log(PlayerPrefs.GetString(surveyTypeKey));
+        //Debug.Log(PlayerPrefs.GetString(surveyTypeKey));
+        quizType = PlayerPrefs.GetString(surveyTypeKey);
 
         TextAsset riveScriptTextAsset 
             = PlayerPrefs.GetString(surveyTypeKey) 
@@ -101,6 +103,8 @@ public class WebSurvey : Singleton<WebSurvey>
     {
         CheckAnswerTimer();
     }
+
+    
 
     public void GetReply(string message)
     {
@@ -141,6 +145,11 @@ public class WebSurvey : Singleton<WebSurvey>
     public void SetBehaviorMode(string message)
     {
         behaviorMode = (Mode)Enum.Parse(typeof(Mode), message);
+
+        if (behaviorMode == Mode.Active)
+            robotModelType = ModelType.ExpressionRobot;
+        else if (behaviorMode == Mode.Inactive)
+            robotModelType = ModelType.NonExpressionRobot;
     }
 
     public Mode GetBehaviorMode { get { return behaviorMode; } }
@@ -234,6 +243,7 @@ public class WebSurvey : Singleton<WebSurvey>
     }
 
     public string QuizTitle { get { return quizTitle; } }
+    public string GetQuizType { get { return quizType; } }
 
     public ContentState GetCurrentState()
     {

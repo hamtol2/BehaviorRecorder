@@ -55,6 +55,7 @@ public class SpeechRenderrer : Singleton<SpeechRenderrer>, Renderrer
     void Update()
     {
         CheckAudioPlayState();
+        GetStatus(voice);
     }
 
     void GetStatus(SpVoiceClass voice)
