@@ -10,7 +10,7 @@ namespace REEL.Recorder
 
     public enum AnswerState
     {
-        Wait, Correct, Wrong
+        Wait, Correct, Wrong, Timeout
     }
 
     public enum ModelType

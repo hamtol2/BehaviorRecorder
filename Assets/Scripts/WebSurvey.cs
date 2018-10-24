@@ -337,6 +337,8 @@ public class WebSurvey : Singleton<WebSurvey>
 
         SetTimersToNull();
 
+        answerState = AnswerState.Timeout;
+
         //GetReply(GetWrongAnswer);
         GetReply(timeoutString);
         CloseAnswerButton();

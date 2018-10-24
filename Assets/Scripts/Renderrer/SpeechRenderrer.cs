@@ -23,6 +23,7 @@ class SpeechInfo
         this.speechScript = speechScript;
         shouldGoNext = speechScript.Contains("정답")
             || speechScript.Contains("땡")
+            || speechScript.Contains("초과")
             || speechScript.Contains("시작")
             || speechScript.Contains("안녕");
         shouldWaitForAnswer = speechScript.Contains("문제")
