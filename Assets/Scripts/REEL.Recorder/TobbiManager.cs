@@ -10,8 +10,6 @@ namespace REEL.Recorder
     {
         public GameObject marker;
 
-        [SerializeField] private TextAsset settingText;
-
         [SerializeField] private bool isShowMarker = true;
         public bool isMouseTracking = false;
 
@@ -22,7 +20,13 @@ namespace REEL.Recorder
 
         private void Awake()
         {
-            TobbiSettingFormat setting = JsonUtility.FromJson<TobbiSettingFormat>(settingText.text);
+            string folderPath = Application.dataPath + "/../Settings";
+            string fileName = "TobbiSetting.json";
+            if (!Directory.Exists(folderPath))
+                Directory.CreateDirectory(folderPath);
+
+            string jsonString = File.ReadAllText(folderPath + "/" + fileName);
+            TobbiSettingFormat setting = JsonUtility.FromJson<TobbiSettingFormat>(jsonString);
             isMouseTracking = setting.isUsingMouse;
             if (setting.isUsingMarker) marker.SetActive(true);
         }
