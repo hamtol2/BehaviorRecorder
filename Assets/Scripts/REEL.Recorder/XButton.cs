@@ -6,9 +6,9 @@ namespace REEL.Recorder
 {
     public class XButton : MonoBehaviour
     {
-        public void OnXButtonClicked()
+        public void OnButtonClicked()
         {
-            Invoke("QuitApplication", 1.5f);
+            QuitApplication();
         }
 
         void QuitApplication()

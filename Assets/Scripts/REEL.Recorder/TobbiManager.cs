@@ -20,8 +20,6 @@ namespace REEL.Recorder
 
         [SerializeField] private bool isSimulation = true;
 
-        private readonly string useMouseKey = "UseMouse";
-
         private void Awake()
         {
             TobbiSettingFormat setting = JsonUtility.FromJson<TobbiSettingFormat>(settingText.text);
