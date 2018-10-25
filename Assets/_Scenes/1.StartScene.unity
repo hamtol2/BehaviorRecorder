@@ -2028,7 +2028,7 @@ Prefab:
     - target: {fileID: 114114952572615630, guid: 24903316df89bdb459c0119a7026a6e0,
         type: 2}
       propertyPath: m_Text
-      value: 
+      value: X
       objectReference: {fileID: 0}
     - target: {fileID: 1933974163225486, guid: 24903316df89bdb459c0119a7026a6e0, type: 2}
       propertyPath: m_Name
@@ -2073,6 +2073,26 @@ Prefab:
         type: 2}
       propertyPath: timerCallback.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 114114952572615630, guid: 24903316df89bdb459c0119a7026a6e0,
+        type: 2}
+      propertyPath: m_Color.r
+      value: 0.07450981
+      objectReference: {fileID: 0}
+    - target: {fileID: 114114952572615630, guid: 24903316df89bdb459c0119a7026a6e0,
+        type: 2}
+      propertyPath: m_Color.g
+      value: 0.6862745
+      objectReference: {fileID: 0}
+    - target: {fileID: 114114952572615630, guid: 24903316df89bdb459c0119a7026a6e0,
+        type: 2}
+      propertyPath: m_Color.b
+      value: 0.8980393
+      objectReference: {fileID: 0}
+    - target: {fileID: 114114952572615630, guid: 24903316df89bdb459c0119a7026a6e0,
+        type: 2}
+      propertyPath: m_FontData.m_FontSize
+      value: 40
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 24903316df89bdb459c0119a7026a6e0, type: 2}
@@ -2262,7 +2282,7 @@ Prefab:
     - target: {fileID: 114114952572615630, guid: 24903316df89bdb459c0119a7026a6e0,
         type: 2}
       propertyPath: m_Text
-      value: 
+      value: X
       objectReference: {fileID: 0}
     - target: {fileID: 1933974163225486, guid: 24903316df89bdb459c0119a7026a6e0, type: 2}
       propertyPath: m_Name
@@ -2307,6 +2327,26 @@ Prefab:
         type: 2}
       propertyPath: timerCallback.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 114114952572615630, guid: 24903316df89bdb459c0119a7026a6e0,
+        type: 2}
+      propertyPath: m_Color.r
+      value: 0.07450981
+      objectReference: {fileID: 0}
+    - target: {fileID: 114114952572615630, guid: 24903316df89bdb459c0119a7026a6e0,
+        type: 2}
+      propertyPath: m_Color.g
+      value: 0.6862745
+      objectReference: {fileID: 0}
+    - target: {fileID: 114114952572615630, guid: 24903316df89bdb459c0119a7026a6e0,
+        type: 2}
+      propertyPath: m_Color.b
+      value: 0.8980393
+      objectReference: {fileID: 0}
+    - target: {fileID: 114114952572615630, guid: 24903316df89bdb459c0119a7026a6e0,
+        type: 2}
+      propertyPath: m_FontData.m_FontSize
+      value: 40
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 24903316df89bdb459c0119a7026a6e0, type: 2}
@@ -2608,7 +2648,7 @@ Prefab:
     - target: {fileID: 114114952572615630, guid: 24903316df89bdb459c0119a7026a6e0,
         type: 2}
       propertyPath: m_Text
-      value: 
+      value: X
       objectReference: {fileID: 0}
     - target: {fileID: 1933974163225486, guid: 24903316df89bdb459c0119a7026a6e0, type: 2}
       propertyPath: m_Name
@@ -2638,6 +2678,26 @@ Prefab:
         type: 2}
       propertyPath: timerCallback.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 114114952572615630, guid: 24903316df89bdb459c0119a7026a6e0,
+        type: 2}
+      propertyPath: m_Color.r
+      value: 0.07450981
+      objectReference: {fileID: 0}
+    - target: {fileID: 114114952572615630, guid: 24903316df89bdb459c0119a7026a6e0,
+        type: 2}
+      propertyPath: m_Color.g
+      value: 0.6862745
+      objectReference: {fileID: 0}
+    - target: {fileID: 114114952572615630, guid: 24903316df89bdb459c0119a7026a6e0,
+        type: 2}
+      propertyPath: m_Color.b
+      value: 0.8980393
+      objectReference: {fileID: 0}
+    - target: {fileID: 114114952572615630, guid: 24903316df89bdb459c0119a7026a6e0,
+        type: 2}
+      propertyPath: m_FontData.m_FontSize
+      value: 40
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 24903316df89bdb459c0119a7026a6e0, type: 2}
