@@ -162,10 +162,10 @@ namespace REEL.Recorder
             mainTimer.SetTimer(fps, RecordBehavior);
 
             //filePath = Application.dataPath + "/" + fileName;
-            if (!Directory.Exists(Application.dataPath + "/SurveyData"))
-                Directory.CreateDirectory(Application.dataPath + "/SurveyData");
+            if (!Directory.Exists(Application.dataPath + "/../SurveyData"))
+                Directory.CreateDirectory(Application.dataPath + "/../SurveyData");
 
-            filePath = Application.dataPath + "/SurveyData/" + GetFileName;
+            filePath = Application.dataPath + "/../SurveyData/" + GetFileName;
         }
 
         public void ResetState()
