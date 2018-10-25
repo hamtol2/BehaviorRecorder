@@ -100,8 +100,8 @@ public class WebSurvey : Singleton<WebSurvey>
         riveScript = new RiveScript.RiveScript(utf8: true, debug: true);
 
         quizType = PlayerPrefs.GetString(surveyTypeKey);
-        age = PlayerPrefs.GetString(SurveyStart.ageKey);
-        gender = PlayerPrefs.GetString(SurveyStart.genderKey);
+        age = PlayerPrefs.GetString(SurveyUtil.ageKey);
+        gender = PlayerPrefs.GetString(SurveyUtil.genderKey);
 
         bool isTypeGA = quizType == SurveyType.TypeGA.ToString();
         TextAsset riveScriptTextAsset = isTypeGA ? surveyTypeGA : surveyTypeNA;

@@ -11,7 +11,7 @@ namespace REEL.Recorder
         {
             base.OnGazeComplete();
 
-            PlayerPrefs.SetInt(SurveyStart.countKey, GetFileCount());
+            PlayerPrefs.SetInt(SurveyUtil.countKey, GetFileCount());
             Invoke("LoadMainScene", 0.5f);
         }
 
@@ -22,7 +22,7 @@ namespace REEL.Recorder
 
         int GetFileCount()
         {
-            if (PlayerPrefs.HasKey(SurveyStart.countKey)) return PlayerPrefs.GetInt(SurveyStart.countKey) + 1;
+            if (PlayerPrefs.HasKey(SurveyUtil.countKey)) return PlayerPrefs.GetInt(SurveyUtil.countKey) + 1;
             else return 1;
         }
     }

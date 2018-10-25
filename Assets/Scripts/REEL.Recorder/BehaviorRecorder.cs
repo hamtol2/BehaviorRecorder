@@ -161,11 +161,10 @@ namespace REEL.Recorder
             mainTimer = new Timer();
             mainTimer.SetTimer(fps, RecordBehavior);
 
-            //filePath = Application.dataPath + "/" + fileName;
-            if (!Directory.Exists(Application.dataPath + "/../SurveyData"))
-                Directory.CreateDirectory(Application.dataPath + "/../SurveyData");
+            if (!Directory.Exists(SurveyUtil.GetFolderPath))
+                Directory.CreateDirectory(SurveyUtil.GetFolderPath);
 
-            filePath = Application.dataPath + "/../SurveyData/" + GetFileName;
+            filePath = SurveyUtil.GetFilePath;
         }
 
         public void ResetState()
@@ -173,20 +172,6 @@ namespace REEL.Recorder
             //records = new List<RecordFormat>();
             saveData = new RecordJsonFormat();
             mainTimer.Reset();
-        }
-
-        string GetFileName
-        {
-            get
-            {
-                string age = PlayerPrefs.GetString(SurveyStart.ageKey);
-                string gender = PlayerPrefs.GetString(SurveyStart.genderKey);
-                string today = string.Format("{0:yyyy_MM_dd}", DateTime.Now);
-                string fileCount = PlayerPrefs.GetInt(SurveyStart.countKey).ToString();
-                string underscore = "_";
-
-                return age + underscore + gender + underscore + today + underscore + fileCount + ".json";
-            }
         }
     }
 }
