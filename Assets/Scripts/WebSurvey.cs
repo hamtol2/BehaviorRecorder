@@ -66,8 +66,6 @@ public class WebSurvey : Singleton<WebSurvey>
     private Mode behaviorMode = Mode.None;
 
     private readonly string surveyTypeKey = "surveyType";
-    private readonly string genderKey = "gender";
-    private readonly string ageKey = "age";
 
     private string quizType;
     private string age;
@@ -102,8 +100,8 @@ public class WebSurvey : Singleton<WebSurvey>
         riveScript = new RiveScript.RiveScript(utf8: true, debug: true);
 
         quizType = PlayerPrefs.GetString(surveyTypeKey);
-        age = PlayerPrefs.GetString(ageKey);
-        gender = PlayerPrefs.GetString(genderKey);
+        age = PlayerPrefs.GetString(SurveyStart.ageKey);
+        gender = PlayerPrefs.GetString(SurveyStart.genderKey);
 
         bool isTypeGA = quizType == SurveyType.TypeGA.ToString();
         TextAsset riveScriptTextAsset = isTypeGA ? surveyTypeGA : surveyTypeNA;
