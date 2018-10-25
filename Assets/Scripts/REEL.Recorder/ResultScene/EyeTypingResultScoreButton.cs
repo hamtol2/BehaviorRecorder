@@ -12,6 +12,7 @@ namespace REEL.Recorder
         public override void OnGazeComplete()
         {
             base.OnGazeComplete();
+
             switch (questionNumber)
             {
                 case 1:

@@ -164,7 +164,7 @@ namespace REEL.Recorder
             if (!Directory.Exists(SurveyUtil.GetFolderPath))
                 Directory.CreateDirectory(SurveyUtil.GetFolderPath);
 
-            filePath = SurveyUtil.GetFilePath;
+            filePath = SurveyUtil.GetSurveyFilePath;
         }
 
         public void ResetState()
