@@ -12,6 +12,7 @@ namespace REEL.Recorder
         }
 
         [SerializeField] private ButtonType buttonType;
+        public ButtonType GetButtonType { get { return buttonType; } }
 
         private string yesString = "오";
         private string noString = "엑스";

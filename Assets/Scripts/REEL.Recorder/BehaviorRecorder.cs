@@ -125,6 +125,15 @@ namespace REEL.Recorder
         {
             get
             {
+                // Check if O/X button is being gazed.
+                if (EyeKeyboardManager.Instance.IsAnswerButtonGazed)
+                {
+                    if (EyeKeyboardManager.Instance.GetGazedButtonDirection.Contains("left"))
+                        return TargetRegion.LeftButton;
+                    else if (EyeKeyboardManager.Instance.GetGazedButtonDirection.Contains("right"))
+                        return TargetRegion.RightButton;
+                }
+
                 Ray ray = Camera.main.ScreenPointToRay(TobbiManager.Instance.GetEyePoint);
                 RaycastHit hit;
 

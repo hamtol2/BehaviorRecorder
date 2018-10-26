@@ -7,11 +7,23 @@ using UnityEngine.UI;
 
 namespace REEL.Recorder
 {
-    public class EyeKeyboardManager : MonoBehaviour
+    public class EyeKeyboardManager : Singleton<EyeKeyboardManager>
     {
         [SerializeField] private GraphicRaycaster raycaster;
         [SerializeField] private EventSystem eventSystem;
-        [SerializeField] private Timer timer = new Timer();
+        [SerializeField] private bool isAnswerButtonGazed = false;
+        [SerializeField] private RectTransform gazedButtonTransform;
+
+        public bool IsAnswerButtonGazed {  get { return isAnswerButtonGazed; } }
+        public string GetGazedButtonDirection
+        {
+            get
+            {
+                if (gazedButtonTransform.anchoredPosition.x <= -150f) return "left";
+                else if (gazedButtonTransform.anchoredPosition.x >= 150f) return "right";
+                else return "None";
+            }
+        }
 
         private PointerEventData data;
         private List<RaycastResult> results;
@@ -24,6 +36,12 @@ namespace REEL.Recorder
         private void Update()
         {
             RaycastByMouseOrTobii();
+        }
+
+        public void SetAnswerButtonGazed(bool isGazed, RectTransform rectTransform)
+        {
+            isAnswerButtonGazed = isGazed;
+            gazedButtonTransform = rectTransform;
         }
 
         void RaycastByMouseOrTobii()

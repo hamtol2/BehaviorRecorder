@@ -24,7 +24,7 @@ public class WebSurvey : Singleton<WebSurvey>
     public BehaviorRecorder behaviorRecorder;
     public BehaviorReplayer behaviorReplayer;
 
-    [SerializeField] private GameObject answerButton;
+    [SerializeField] private AnswerButton answerButton;
 
     RiveScript.RiveScript riveScript;
 
@@ -62,6 +62,8 @@ public class WebSurvey : Singleton<WebSurvey>
 
     private readonly float answerYPosHigh = 150f;
     private readonly float answerYPosLow = 50f;
+    private readonly float answerXLeft = -200f;
+    private readonly float answerXRightt = 200f;
 
     private Mode behaviorMode = Mode.None;
 
@@ -316,12 +318,33 @@ public class WebSurvey : Singleton<WebSurvey>
         pos.y = pos.y == answerYPosHigh ? answerYPosLow : answerYPosHigh;
         answerButton.GetComponent<RectTransform>().anchoredPosition = pos;
 
-        answerButton.SetActive(true);
+        // set random pos of O/X button (Left or Right).
+        int random = UnityEngine.Random.Range(0, 11);
+        if (random > 5)
+        {
+            Vector3 buttonPos = answerButton.yesButton.anchoredPosition;
+            buttonPos.x = answerXLeft;
+            answerButton.yesButton.anchoredPosition = buttonPos;
+
+            buttonPos.x = answerXRightt;
+            answerButton.noButton.anchoredPosition = buttonPos;
+        }
+        else
+        {
+            Vector3 buttonPos = answerButton.yesButton.anchoredPosition;
+            buttonPos.x = answerXLeft;
+            answerButton.noButton.anchoredPosition = buttonPos;
+
+            buttonPos.x = answerXRightt;
+            answerButton.yesButton.anchoredPosition = buttonPos;
+        }   
+
+        answerButton.gameObject.SetActive(true);
     }
 
     public void CloseAnswerButton()
     {
-        answerButton.SetActive(false);
+        answerButton.gameObject.SetActive(false);
     }
 
     private string GetWrongAnswer

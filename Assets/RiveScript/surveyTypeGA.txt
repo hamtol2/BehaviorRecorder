@@ -14,7 +14,7 @@
 + init 
 - 첫번째 문제입니다./ 우리나라의 애국가 후렴은/ 대한 사람 대한으로 길이 보전하세로 끝맺는다./\s
 ^ 맞으면 오/ 틀리면 엑스를 쳐다보세요./\s 
-^ <sm=qcount:6> <sm=answer:o> <sm=answertime:10> <sm=hinttime:1> <sm=robotmove:5> <sm=mode:Active>
+^ <sm=qcount:6> <sm=answer:o> <sm=answertime:10> <sm=hinttime:0> <sm=robotmove:5> <sm=mode:Active>
 
 + (오|어|아|우|o|5)
 - 정답입니다./ 그럼/ 다음 문제로 넘어갈께요/\s

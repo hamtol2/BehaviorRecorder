@@ -20,7 +20,7 @@ namespace REEL.Recorder
 
     public enum TargetRegion
     {
-        Eye, Mouth, Face, Arm, Body, FingerTip, Background, OffSight
+        Eye, Mouth, Face, Arm, Body, FingerTip, Background, OffSight, LeftButton, RightButton
     }
 
     [Serializable]
