@@ -125,7 +125,8 @@ public class WebSurvey : Singleton<WebSurvey>
 
     public void GetReply(string message)
     {
-        var reply = riveScript.reply("default", message);
+        //string reply = riveScript.reply("default", message);
+        string reply = riveScript.reply("REEL", message);
         if (reply.Contains("NOT_MATCHED"))
         {
             Debug.Log("Not matched");
@@ -219,10 +220,18 @@ public class WebSurvey : Singleton<WebSurvey>
     {
         ++currentQuizNumber;
 
-        if (currentQuizNumber == (numOfQuiz + 1))
+        //if (currentQuizNumber == (numOfQuiz + 1))
+        if (IsQuizFinished)
             FinishQuiz();
+        //if (currentQuizNumber == numOfQuiz)
+        //    FinishQuiz();
 
         SetTimersToNull();
+    }
+
+    bool IsQuizFinished
+    {
+        get { return currentQuizNumber == numOfQuiz + 2; }
     }
 
     public void TryAgain()
@@ -240,7 +249,7 @@ public class WebSurvey : Singleton<WebSurvey>
     public void RobotMovementStart(string message)
     {
         robotMovementTime = Convert.ToSingle(message);
-        Debug.Log("robotMovementTime: " + robotMovementTime);
+        //Debug.Log("robotMovementTime: " + robotMovementTime);
 
         // Remove Random.
         //if (UnityEngine.Random.Range(0, 2) == 0)

@@ -76,7 +76,7 @@ namespace REEL.Recorder
         float GetRandomTime(float maxValue)
         {
             float time = Random.Range(maxValue * 0.9f, maxValue * 1.2f);
-            Debug.LogWarning("Robot Return Time: " + time);
+            //Debug.LogWarning("Robot Return Time: " + time);
             return time;
         }
 

@@ -62,12 +62,14 @@ namespace REEL.PoseAnimation
             new float[9] {  0.5f,       -43f, -101f, -67f,   -24f, 101f, 67f,   0f, 20f   },
             new float[9] {  0.7f,        45f, -45f, -45f,   45f, 45f, 45f,      0f, 25f   }
         };
-        float[][] okList = new float[4][] {
+        float[][] okList = new float[][] {
                 			// Time,    Left Arm,           Right Arm,          Head
 			new float[9] {  0.4f,       57f, -75f, -24f,    57f, 75f, 24f,      0f,  10f    },
             new float[9] {  0.4f,       57f, -75f, -24f,    57f, 75f, 24f,      0f, -10f   },
             new float[9] {  0.4f,       57f, -75f, -24f,    57f, 75f, 24f,      0f,  10f   },
-            new float[9] {  0.7f,       45f, -45f, -45f,    45f, 45f, 45f,      0f, 25f   }
+            new float[9] {  0.4f,       57f, -75f, -24f,    57f, 75f, 24f,      0f, -10f   },
+            new float[9] {  0.4f,       57f, -75f, -24f,    57f, 75f, 24f,      0f,  10f   },
+            new float[9] {  0.7f,       45f, -45f, -45f,    45f, 45f, 45f,      0f, 10f   }
         };
         float[][] noList = new float[4][] {
                 			// Time,    Left Arm,           Right Arm,          Head

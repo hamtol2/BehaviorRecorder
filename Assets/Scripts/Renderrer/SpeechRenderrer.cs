@@ -24,8 +24,8 @@ class SpeechInfo
         shouldGoNext = speechScript.Contains("정답")
             || speechScript.Contains("땡")
             || speechScript.Contains("초과")
-            || speechScript.Contains("시작")
-            || speechScript.Contains("안녕");
+            || speechScript.Contains("시작");
+            //|| speechScript.Contains("안녕");
         shouldWaitForAnswer = speechScript.Contains("문제")
             || speechScript.Contains("난이도");
         //isTryAgain = speechScript.Contains("다시 말씀해 주세요")

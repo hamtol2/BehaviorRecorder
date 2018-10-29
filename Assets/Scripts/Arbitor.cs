@@ -79,11 +79,11 @@ public class Arbitor : Singleton<Arbitor>
 
     void ParseMessage(string reply)
     {
-        Debug.Log("Arbitor::Input " + reply);
+        //Debug.Log("Arbitor::Input " + reply);
 
         if (reply.Contains("No Reply"))
         {
-            Debug.Log("오류: No Reply");
+            Debug.Log("오류: No Reply: " + reply);
 
             SpeechRenderrer.Instance.TryAgain();
             return;
