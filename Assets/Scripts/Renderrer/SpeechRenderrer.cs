@@ -115,15 +115,34 @@ public class SpeechRenderrer : Singleton<SpeechRenderrer>, Renderrer
         voice.Rate = 1;
     }
 
+    private readonly string inSecondsString = "초안에";
+    private readonly string inQuizCountString = "개에";
     void TextToSpeech(string ttsText)
     {
-        //WebSurvey.Instance.RobotMovementStart();
-
         isTTSStarted = true;
 
         string[] sentences = ttsText.Split(new char[] { '/' }, StringSplitOptions.RemoveEmptyEntries);
         foreach (string sentence in sentences)
         {
+            if (sentence.Contains(inSecondsString))
+            {
+                string targetString = ((int)WebSurvey.Instance.GetTimeoutTime).ToString() + inSecondsString;
+                voice.Speak(
+                    sentence.Replace(inSecondsString, targetString), 
+                    SpeechVoiceSpeakFlags.SVSFlagsAsync | SpeechVoiceSpeakFlags.SVSFIsXML
+                );
+                continue;
+            }
+            else if (sentence.Contains(inQuizCountString))
+            {
+                string targetString = ((int)WebSurvey.Instance.GetQuizCount).ToString() + inQuizCountString;
+                voice.Speak(
+                    sentence.Replace(inQuizCountString, targetString),
+                    SpeechVoiceSpeakFlags.SVSFlagsAsync | SpeechVoiceSpeakFlags.SVSFIsXML
+                );
+                continue;
+            }
+
             voice.Speak(sentence, SpeechVoiceSpeakFlags.SVSFlagsAsync | SpeechVoiceSpeakFlags.SVSFIsXML);
         }
     }

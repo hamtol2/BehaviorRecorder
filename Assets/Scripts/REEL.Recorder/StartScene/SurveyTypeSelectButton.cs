@@ -1,10 +1,15 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 namespace REEL.Recorder
 {
     public enum SurveyType
     {
-        TypeGA, TypeNA, None
+        TypeGA,
+        TypeNA,
+        TypeDA,
+        TypeRA,
+        None
     }
 
     public class SurveyTypeSelectButton : EyeSelectionBase

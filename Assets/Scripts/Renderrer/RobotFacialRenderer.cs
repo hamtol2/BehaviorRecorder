@@ -31,10 +31,11 @@ namespace REEL.Animation
 
         //Queue<RobotFacialInfo> facialQueue = new Queue<RobotFacialInfo>();
         [SerializeField] private List<RobotFacialInfo> facialQueue = new List<RobotFacialInfo>();
-        private float defaultAnimPeriod = 2f;
+        private float defaultAnimPeriod = 1f;
         private RobotFacialInfo currentFacialInfo;
 
         private readonly string speakFaceName = "speak";
+        private readonly string gazeFaceName = "gaze";
 
         public int queueCount = 0;
 
@@ -86,23 +87,23 @@ namespace REEL.Animation
             SetFacialModel(info.faceName);
             robotFacialAnimator.PlayFacialAnim(info.faceName, info.animPeriod);
 
-            StartCoroutine(CheckFacialAnimFinished(defaultAnimPeriod));
+            StartCoroutine(CheckFacialAnimFinished(info.animPeriod));
 
             // 현재 표정 저장.
             currentFace = info.faceName;
 
             WebSurvey.Instance.behaviorRecorder.RecordBehavior(new Recorder.RecordEvent(1, info.faceName));
         }
-        
+
         public void Play(string name)
         {
-            //string[] splitString = name.Split('(');
-            //float animTime = splitString[0] == speakFaceName ? 0.8f : 1f;
-            float animTime = name == speakFaceName ? 0.8f : 1f;
+            float animTime = 1f;
+            if (name.Contains(speakFaceName)) animTime = 0.8f;
+            else if (name.Contains(gazeFaceName)) animTime = 0.4f;
 
             Play(new RobotFacialInfo(name, animTime));
         }
-        
+
         IEnumerator CheckFacialAnimFinished(float animPeriod)
         {
             float elapsedTime = 0f;
@@ -124,40 +125,27 @@ namespace REEL.Animation
             else
             {
                 bool isSpeaking = SpeechRenderrer.Instance.IsSpeaking;
-                bool isActive = WebSurvey.Instance.GetBehaviorMode == WebSurvey.Mode.Active;
+                //bool isActive = WebSurvey.Instance.GetBehaviorMode == WebSurvey.Mode.Active;
 
                 string faceName = string.Empty;
-                if (isSpeaking && isActive)
+                if (isSpeaking && WebSurvey.Instance.GetFaceActiveState)
                 {
                     faceName = "speak";
-                }   
+                }
 
-                else if (!isSpeaking && isActive)
+                else if (!isSpeaking && WebSurvey.Instance.GetFaceActiveState)
                 {
                     faceName = "normal_active";
                     //Debug.Log("Set Normal Active");
                 }
 
-                else if (!isActive)
+                else if (!WebSurvey.Instance.GetFaceActiveState)
                     faceName = "normal_inactive";
 
                 RobotFacialInfo info = new RobotFacialInfo(faceName, 1.0f);
                 Play(info);
             }
         }
-
-        //public void Play(string name)
-        //public bool Play(string name)
-        //{
-        //    string[] splitString = name.Split('(');
-        //    bool retValue = SetFacialModel(splitString[0]);
-        //    robotFacialAnimator.PlayFacialAnim(splitString[0], 1f);
-
-        //    // 현재 표정 저장.
-        //    currentFace = name;
-
-        //    return retValue;
-        //}
 
         public void Stop()
         {
@@ -237,7 +225,7 @@ namespace REEL.Animation
         // 표정 변경할 때 일단 파트 전체를 끈 다음 필요한 게임 오브젝트를 활성화해 설정함.
         void TurnOffAllFacialPart()
         {
-            for (int ix = 0; ix < robotFacialData.partSprites.Length ; ++ix)
+            for (int ix = 0; ix < robotFacialData.partSprites.Length; ++ix)
             {
                 robotFacialData.partSprites[ix].gameObject.SetActive(false);
                 robotFacialData.partSprites[ix].transform.localScale = Vector3.one;

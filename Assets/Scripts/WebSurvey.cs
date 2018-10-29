@@ -52,18 +52,21 @@ public class WebSurvey : Singleton<WebSurvey>
     [SerializeField] private int numOfQuiz = 0;
     private AnswerType currentAnswerType;
 
+    // 고정된 표정 / 변화하는 표정 여부.
+    private bool isActiveFace = false;
+    // Cue 줄지 여부.
+    private bool isCue = false;
+
     private readonly string timeoutString = "timeout";
 
     private readonly string answerYes = "오";
     private readonly string answerNo = "엑스";
 
-    private readonly string faceGazeO = "gazeo";
-    private readonly string faceGazeX = "gazex";
+    private readonly string faceGazeLeft = "gazeo";
+    private readonly string faceGazeRight = "gazex";
 
     private readonly float answerYPosHigh = 150f;
     private readonly float answerYPosLow = 50f;
-    private readonly float answerXLeft = -200f;
-    private readonly float answerXRightt = 200f;
 
     private Mode behaviorMode = Mode.None;
 
@@ -150,10 +153,14 @@ public class WebSurvey : Singleton<WebSurvey>
         timeOutTime = Convert.ToSingle(message);
     }
 
+    public float GetTimeoutTime { get { return timeOutTime; } }
+
     public void SetHintTime(string message)
     {
         hintTime = Convert.ToSingle(message);
     }
+
+    public float GetHintTime { get { return hintTime; } }
 
     public void SetBehaviorMode(string message)
     {
@@ -166,6 +173,18 @@ public class WebSurvey : Singleton<WebSurvey>
     }
 
     public Mode GetBehaviorMode { get { return behaviorMode; } }
+
+    public void SetCueState(string message)
+    {
+        isCue = Convert.ToBoolean(message);
+    }
+    public bool GetCueState { get { return isCue; } }
+
+    public void SetFaceActiveState(string message)
+    {
+        isActiveFace = Convert.ToBoolean(message);
+    }
+    public bool GetFaceActiveState {  get { return isActiveFace; } }
 
     public void StartQuiz()
     {
@@ -213,16 +232,20 @@ public class WebSurvey : Singleton<WebSurvey>
     public void WaitForAnswer()
     {
         answerTimer = new Timer(timeOutTime, TimeOut);
-        hintTimer = new Timer(hintTime, GazeToButton);
+        SetHintTimer();
         OpenAnswerButton();
     }
 
     public void RobotMovementStart(string message)
     {
         robotMovementTime = Convert.ToSingle(message);
+        Debug.Log("robotMovementTime: " + robotMovementTime);
 
         // Remove Random.
         //if (UnityEngine.Random.Range(0, 2) == 0)
+        if (robotMovementTime == -1f)
+            return;
+
         robotMovementTimer = new Timer(robotMovementTime, RobotMove);
     }
 
@@ -255,7 +278,7 @@ public class WebSurvey : Singleton<WebSurvey>
     }
 
     public string QuizTitle { get { return quizTitle; } }
-    public string GetQuizType { get { return quizType.Equals(SurveyType.TypeGA.ToString()) ? "가형" : "나형"; } }
+    public string GetQuizType { get { return Enum.Parse(typeof(SurveyType), quizType).ToString(); } }
     public string GetGender { get { return gender.Equals("m") ? "남성" : "여성"; } }
     public string GetAge { get { return age + "대"; } }
 
@@ -312,6 +335,14 @@ public class WebSurvey : Singleton<WebSurvey>
         }
     }
 
+    private void SetHintTimer()
+    {
+        if (!isCue)
+            return;
+
+        hintTimer = new Timer(hintTime, GazeToButton);
+    }
+
     public void OpenAnswerButton()
     {
         Vector3 pos = answerButton.GetComponent<RectTransform>().anchoredPosition;
@@ -322,21 +353,11 @@ public class WebSurvey : Singleton<WebSurvey>
         int random = UnityEngine.Random.Range(0, 11);
         if (random > 5)
         {
-            Vector3 buttonPos = answerButton.yesButton.anchoredPosition;
-            buttonPos.x = answerXLeft;
-            answerButton.yesButton.anchoredPosition = buttonPos;
-
-            buttonPos.x = answerXRightt;
-            answerButton.noButton.anchoredPosition = buttonPos;
+            answerButton.SetYesButtonOnLeft();
         }
         else
         {
-            Vector3 buttonPos = answerButton.yesButton.anchoredPosition;
-            buttonPos.x = answerXLeft;
-            answerButton.noButton.anchoredPosition = buttonPos;
-
-            buttonPos.x = answerXRightt;
-            answerButton.yesButton.anchoredPosition = buttonPos;
+            answerButton.SetYesButtonOnRight();
         }   
 
         answerButton.gameObject.SetActive(true);
@@ -367,14 +388,55 @@ public class WebSurvey : Singleton<WebSurvey>
 
     private void GazeToButton()
     {
-        Debug.Log("GazeToButton");
+        //Debug.Log("GazeToButton");
 
         hintTimer = null;
 
-        robotFacialRenderer.Play(currentAnswerType == AnswerType.O ? faceGazeO : faceGazeX);
+        ButtonPosition yesButtonPos = answerButton.GetYesButtonPosition;
+        bool isAnswerYes = currentAnswerType == AnswerType.O;
 
-        if (behaviorMode == Mode.Active)
-            transformController.PlayMotion(currentAnswerType == AnswerType.O ? "nodRight" : "nodLeft");
+        // 표정 설정.
+        SetGazeFace(isAnswerYes, yesButtonPos);
+
+        // 모션 설정.
+        SetGazeMotion(isAnswerYes, yesButtonPos);
+    }
+
+    private void SetGazeFace(bool isAnswerYes, ButtonPosition yesButtonPos)
+    {
+        string faceGaze = string.Empty;
+
+        // 정답이 O/X인지 확인하고, 
+        // 현재 O버튼이 왼쪽에 있는지 오른쪽에 있는지 확인해서 쳐다보도록 설정.
+        if (isAnswerYes)
+        {
+            if (yesButtonPos == ButtonPosition.Left) faceGaze = faceGazeLeft;
+            else if (yesButtonPos == ButtonPosition.Right) faceGaze = faceGazeRight;
+        }
+        else
+        {
+            if (yesButtonPos == ButtonPosition.Left) faceGaze = faceGazeRight;
+            else if (yesButtonPos == ButtonPosition.Right) faceGaze = faceGazeLeft;
+        }
+
+        robotFacialRenderer.Play(faceGaze);
+    }
+
+    private void SetGazeMotion(bool isAnswerYes, ButtonPosition yesButtonPos)
+    {
+        string gazeMotion = string.Empty;
+        if (isAnswerYes)
+        {
+            if (yesButtonPos == ButtonPosition.Left) gazeMotion = "nodRight";
+            else if (yesButtonPos == ButtonPosition.Right) gazeMotion = "nodLeft";
+        }
+        else
+        {
+            if (yesButtonPos == ButtonPosition.Left) gazeMotion = "nodLeft";
+            else if (yesButtonPos == ButtonPosition.Right) gazeMotion = "nodRight";
+        }
+
+        transformController.PlayMotion(gazeMotion);
     }
 
     private void SetTimersToNull()

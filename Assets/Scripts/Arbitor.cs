@@ -35,14 +35,12 @@ public class Arbitor : Singleton<Arbitor>
         }
     }
 
-    //public Toggle automaticExpression;
     public RobotFacialRenderer robotFacialRenderer;
 
-    [SerializeField] private float quizStartTime = 2f;
+    [SerializeField] private float quizStartTime = 1f;
 
     Dictionary<string, Action<string>> messageProcessors = new Dictionary<string, Action<string>>();
 
-    REEL.Recorder.Timer timer = new REEL.Recorder.Timer();
     bool isStarted = false;
 
     void Start()
@@ -50,13 +48,7 @@ public class Arbitor : Singleton<Arbitor>
         SpeechRenderrer.Instance.Init();
         InitMessageProcessor();
 
-        timer = new REEL.Recorder.Timer(quizStartTime, QuizStart);
-    }
-
-    private void Update()
-    {
-        if (!isStarted)
-            timer.Update(Time.deltaTime);
+        Invoke("QuizStart", quizStartTime);
     }
 
     void QuizStart()
@@ -78,9 +70,11 @@ public class Arbitor : Singleton<Arbitor>
         messageProcessors.Add("answer", WebSurvey.Instance.SetCurrentAnswer);
         messageProcessors.Add("answertime", WebSurvey.Instance.SetTimeoutTime);
         messageProcessors.Add("hinttime", WebSurvey.Instance.SetHintTime);
-        //messageProcessors.Add("movetime", WebSurvey.Instance.SetRobotMovementTime);
         messageProcessors.Add("robotmove", WebSurvey.Instance.RobotMovementStart);
         messageProcessors.Add("mode", WebSurvey.Instance.SetBehaviorMode);
+        messageProcessors.Add("facetype", WebSurvey.Instance.SetFaceActiveState);
+        messageProcessors.Add("iscue", WebSurvey.Instance.SetCueState);
+        messageProcessors.Add("activebreath", RobotTransformController.Instance.SetBreathActiveState);
     }
 
     void ParseMessage(string reply)

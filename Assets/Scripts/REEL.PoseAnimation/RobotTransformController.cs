@@ -96,19 +96,19 @@ namespace REEL.PoseAnimation
         };
         float[][] nodLeftList = new float[2][] {
 							// Time,	Left Arm, 			Right Arm,			Head
-			new float[9] {  0.5f,       45f, -45f, -45f,   45f, 45f, 45f,     -20f, -15f    },
-            new float[9] {  0.5f,       45f, -45f, -45f,   45f, 45f, 45f,     0f, 10f   }
+            new float[9] {  0.2f,       45f, -45f, -45f,   45f, 45f, 45f,     -10f, 0f    },
+            new float[9] {  0.4f,       45f, -45f, -45f,   45f, 45f, 45f,     0f, 10f   }
         };
         float[][] nodRightList = new float[2][] {
 							// Time,	Left Arm, 			Right Arm,			Head
-			new float[9] {  0.5f,       45f, -45f, -45f,   45f, 45f, 45f,     20f, -15f    },
-            new float[9] {  0.5f,       45f, -45f, -45f,   45f, 45f, 45f,     0f, 10f   }
+            new float[9] {  0.2f,       45f, -45f, -45f,   45f, 45f, 45f,     10f, 0f    },
+            new float[9] {  0.4f,       45f, -45f, -45f,   45f, 45f, 45f,     0f, 10f   }
         };
 
         float[][] breathing_active = new float[][] {
             // Time,	Left Arm, 			Right Arm,			Head
             //new float[9] {  0.0f,       45f, -45f, -45f, 45f, 45f, 45f, 0f, 10f },
-            new float[9] {  1.2f,       35f, -35f, -35f, 35f, 35f, 35f, 0f, 20f },
+            new float[9] {  1.2f,       35f, -35f, -35f, 35f, 35f, 35f, 0f, 15f },
             new float[9] {  1.2f,       45f, -45f, -45f, 45f, 45f, 45f, 0f, 10f },
         };
 
@@ -125,6 +125,8 @@ namespace REEL.PoseAnimation
         IEnumerator currentAnimation = null;
         private bool isPlaying = false;
 
+        private bool isBreathActive = false;
+
         private readonly float playMotionDelayTime = 1f;
 
         // Test.
@@ -140,10 +142,20 @@ namespace REEL.PoseAnimation
             //if (breath) PlayMotion("breathing");
         }
 
+        public void SetBreathActiveState(string message)
+        {
+            isBreathActive = Convert.ToBoolean(message);
+        }
+
         public void PlayMotion(string motion)
         {
-            if (WebSurvey.Instance.GetBehaviorMode == WebSurvey.Mode.Inactive
-                && !motion.Contains("breathing"))
+            //if (WebSurvey.Instance.GetBehaviorMode == WebSurvey.Mode.Inactive
+            //    && !motion.Contains("breathing"))
+            //{
+            //    StartCoroutine("DelayPlayMotion", motion);
+            //    return;
+            //}
+            if (!isBreathActive && !motion.Contains("breathing"))
             {
                 StartCoroutine("DelayPlayMotion", motion);
                 return;
@@ -170,13 +182,13 @@ namespace REEL.PoseAnimation
             if (motion.Contains("ok") || motion.Contains("clap"))
             {
                 robotMovement.SetState(RobotMovement.State.Clap);
-                Debug.Log("OK Motion");
+                //Debug.Log("OK Motion");
             }
 
             else if (motion.Contains("no") || motion.Contains("wrong"))
             {
                 robotMovement.SetState(RobotMovement.State.No);
-                Debug.Log("No Motion");
+                //Debug.Log("No Motion");
             }
         }
 
@@ -307,8 +319,8 @@ namespace REEL.PoseAnimation
             {
                 if (breath)
                 {
-                    bool isActiveMode = WebSurvey.Instance.GetBehaviorMode == WebSurvey.Mode.Active;
-                    string brethingName = isActiveMode ? "breathing_active" : "breathing_inactive";
+                    //bool isActiveMode = WebSurvey.Instance.GetBehaviorMode == WebSurvey.Mode.Active;
+                    string brethingName = isBreathActive ? "breathing_active" : "breathing_inactive";
                     PlayMotion(brethingName);
                 }
             }
@@ -364,43 +376,6 @@ namespace REEL.PoseAnimation
             yield return new WaitForSeconds(.5f);
             SetBasePos();
         }
-
-        int breathingUp = 1;
-        IEnumerator Breath()
-        {
-            while (breath)
-            {
-                if (breatheEnable)
-                {
-                    if (breathingUp > 0)
-                    {
-                        for (int i = 0; i < jointInfo.Length; i++)
-                        {
-                            float angle = jointInfo[i].GetAngle();
-                            jointInfo[i].SetAngle(angle + 0.1f * DIRECTION[i]);
-                        }
-
-                        breathingUp++;
-                        if (breathingUp > 40)
-                            breathingUp = -1;
-                    }
-                    else
-                    {
-                        for (int i = 0; i < jointInfo.Length; i++)
-                        {
-                            float angle = jointInfo[i].GetAngle();
-                            jointInfo[i].SetAngle(angle - 0.1f * DIRECTION[i]);
-                        }
-
-                        breathingUp--;
-                        if (breathingUp < -40)
-                            breathingUp = 1;
-                    }
-                }
-                yield return new WaitForSeconds(0.03f);
-            }
-        }
-
         public void SetAngle(int jointId, float angle)
         {
             jointInfo[jointId].SetAngle(angle);

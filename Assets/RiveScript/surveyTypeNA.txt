@@ -5,16 +5,16 @@
 
 > topic oxintro
 + init
-- 오늘 하실 일은 간딴합니다./ 제가 내는 퀴즈 6개에 대하여/ 맞다 틀리다로 답해 주시면 됩니다./\s
-^ 맞으면 오/ 틀리면 엑스를 쳐다봐 주세요./ 30초안에 답을 정하지 않을 경우/ 오답처리 됩니다./\s
-^ 그럼 지금부터 퀴즈를 시작하겠습니다./ <sm=facial:normal_inactive> <set score=zero> {topic=ox1} {@init}
+- 오늘 하실 일은 간딴합니다./ 제가 내는 퀴즈 개에 대하여/ 맞다 틀리다로 답해 주시면 됩니다./\s
+^ 맞으면 오/ 틀리면 엑스를 쳐다봐 주세요./ 초안에 답을 정하지 않을 경우/ 오답처리 됩니다./\s
+^ 그럼 지금부터 퀴즈를 시작하겠습니다./ <sm=facial:normal_inactive> <set score=zero> <sm=qcount:6> {topic=ox1} {@init}
 < topic
 
 > topic ox1 includes calculate
 + init 
 - 첫번째 문제입니다./ 우리나라의 애국가 후렴은/ 대한 사람 대한으로 길이 보전하세로 끝맺는다./\s
 ^ 맞으면 오/ 틀리면 엑스를 쳐다보세요./\s
-^ <sm=facial:normal_inactive> <sm=qcount:6> <sm=answer:o> <sm=answertime:10> <sm=hinttime:1> <sm=movetime:3><sm=mode:Inactive>
+^ <sm=facial:normal_inactive> <sm=answer:o> <sm=answertime:10> <sm=hinttime:0> <sm=movetime:3><sm=mode:Inactive>
 
 + (오|어|아|우|o|5)
 - 정답입니다./ 그럼/ 다음 문제로 넘어갈께요/\s
