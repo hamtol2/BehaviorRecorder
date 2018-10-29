@@ -13,20 +13,7 @@ namespace REEL.Recorder
         {
             base.OnGazeComplete();
 
-            switch (questionNumber)
-            {
-                case 1:
-                    {
-                        SurveyResultManager.Instance.ScoreFirstQuestion(score);
-                        break;
-                    }
-                case 2:
-                    {
-                        SurveyResultManager.Instance.ScoreSecondQuestion(score);
-                        break;
-                    }
-                default: break;
-            }
+            SurveyResultManager.Instance.ScoreQuestion(questionNumber, score);
         }
     }
 }

@@ -56,9 +56,7 @@ namespace REEL.Recorder
     public class SurveyResultManager : Singleton<SurveyResultManager>
     {
         private ResultSaveFormat resultSaveFormat;
-
-        [SerializeField] private UnityEngine.UI.Text firstQuestion;
-        [SerializeField] private UnityEngine.UI.Text secondQuestion;
+        [SerializeField] private UnityEngine.UI.Text[] questionTexts;
 
         [SerializeField] private GameObject[] stages;
 
@@ -99,26 +97,18 @@ namespace REEL.Recorder
             }
         }
 
-        public void ScoreFirstQuestion(int score)
+        public void ScoreQuestion(int questionNumber, int score)
         {
             ResultQuestionFormat data = new ResultQuestionFormat();
-            data.question = firstQuestion.text;
+            int questionIndex = questionNumber - 1;
+            data.question = questionTexts[questionIndex].text;
             data.score = score;
 
             resultSaveFormat.AddData(data);
             GoingForward();
-        }
 
-        public void ScoreSecondQuestion(int score)
-        {
-            ResultQuestionFormat data = new ResultQuestionFormat();
-            data.question = secondQuestion.text;
-            data.score = score;
-
-            resultSaveFormat.AddData(data);
-
-            SaveToFile();
-            GoingForward();
+            if (questionNumber == questionTexts.Length)
+                SaveToFile();
         }
 
         public void OnCloseButtonClicked()

@@ -14,6 +14,9 @@ public class WebSurvey : Singleton<WebSurvey>
 
     [SerializeField] private TextAsset surveyTypeGA;
     [SerializeField] private TextAsset surveyTypeNA;
+    [SerializeField] private TextAsset surveyTypeDA;
+    [SerializeField] private TextAsset surveyTypeRA;
+
     public REEL.Animation.RobotFacialRenderer robotFacialRenderer;
     public REEL.PoseAnimation.RobotTransformController transformController;
     public GameObject quizStatusWindow;
@@ -52,10 +55,8 @@ public class WebSurvey : Singleton<WebSurvey>
     [SerializeField] private int numOfQuiz = 0;
     private AnswerType currentAnswerType;
 
-    // 고정된 표정 / 변화하는 표정 여부.
-    private bool isActiveFace = false;
-    // Cue 줄지 여부.
-    private bool isCue = false;
+    private bool isActiveFace = false;          // 고정된 표정 / 변화하는 표정 여부.
+    private bool isCue = false;                 // Cue 줄지 여부.
 
     private readonly string timeoutString = "timeout";
 
