@@ -11,7 +11,7 @@ namespace REEL.Recorder
         public GameObject marker;
 
         [SerializeField] private bool isShowMarker = true;
-        public bool isMouseTracking = false;
+        [SerializeField] public bool isMouseTracking = false;
 
         // for mevement smoothing.
         [SerializeField] private float smoothTime = 15f;

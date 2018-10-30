@@ -18,7 +18,8 @@ namespace REEL.Recorder
         {
             base.UpdateTimer();
 
-            if (EyeKeyboardManager.Instance)
+            // 활성화인 경우에만.
+            if (EyeKeyboardManager.Instance && gameObject.activeInHierarchy)
                 EyeKeyboardManager.Instance.SetAnswerButtonGazed(true, GetComponent<RectTransform>());
         }
 

@@ -98,12 +98,12 @@ namespace REEL.PoseAnimation
         };
         float[][] nodRightList = new float[2][] {
 							// Time,	Left Arm, 			Right Arm,			Head
-            new float[9] {  0.2f,       45f, -45f, -45f,   45f, 45f, 45f,     -10f, 0f    },
+            new float[9] {  0.2f,       45f, -45f, -45f,   45f, 45f, 45f,     -10f, -10f    },
             new float[9] {  0.4f,       45f, -45f, -45f,   45f, 45f, 45f,     0f, 10f   }
         };
         float[][] nodLeftList = new float[2][] {
 							// Time,	Left Arm, 			Right Arm,			Head
-            new float[9] {  0.2f,       45f, -45f, -45f,   45f, 45f, 45f,     10f, 0f    },
+            new float[9] {  0.2f,       45f, -45f, -45f,   45f, 45f, 45f,     10f, -10f    },
             new float[9] {  0.4f,       45f, -45f, -45f,   45f, 45f, 45f,     0f, 10f   }
         };
 
