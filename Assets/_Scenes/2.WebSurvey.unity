@@ -3130,7 +3130,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   surveyTypeGA: {fileID: 4900000, guid: 7e2ab539a227e9147832ebe4c8db5314, type: 3}
-  surveyTypeNA: {fileID: 4900000, guid: 0699161a4ffff9646bf80ca5ff213cfd, type: 3}
+  surveyTypeNA: {fileID: 4900000, guid: 1a27c06b86da24342ba53efb5d2bb6f6, type: 3}
+  surveyTypeDA: {fileID: 4900000, guid: 574d3f11aa7bc0645ba07a2e703c6ec0, type: 3}
+  surveyTypeRA: {fileID: 4900000, guid: 09d604c92c465a240bbd060628c2bef1, type: 3}
   robotFacialRenderer: {fileID: 1053427238}
   transformController: {fileID: 574285150}
   quizStatusWindow: {fileID: 1748546970}

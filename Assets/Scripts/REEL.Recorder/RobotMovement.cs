@@ -4,8 +4,8 @@ using UnityEngine;
 
 namespace REEL.Recorder
 {
-	public class RobotMovement : MonoBehaviour
-	{
+    public class RobotMovement : MonoBehaviour
+    {
         public enum State
         {
             Idle, Move, Clap, No
@@ -25,7 +25,7 @@ namespace REEL.Recorder
         [SerializeField] private float waitTimeMin = 1.5f;
         [SerializeField] private float waitTimeMax = 5f;
 
-        [SerializeField] private float moveSpeed = 2f;
+        [SerializeField] private float moveSpeed = 2.5f;
         [SerializeField] private float turnSpeed = 360f;
 
         [SerializeField] private Vector3 targetPos;
@@ -37,7 +37,9 @@ namespace REEL.Recorder
         [SerializeField] private WaypointEnum currentPosition;
 
         private Timer returnToOriginTimer;
-        private float returnTime = 3f;
+        private float returnTime = 1.5f;
+
+        private Queue<WaypointEnum> nextWaypoint = new Queue<WaypointEnum>();
 
         private float WaitTime
         {
@@ -83,21 +85,27 @@ namespace REEL.Recorder
         public void MoveRight()
         {
             currentPosition = WaypointEnum.Right;
+            nextWaypoint.Enqueue(WaypointEnum.Left);
+            nextWaypoint.Enqueue(WaypointEnum.Origin);
+
             targetPos = waypoints[(int)currentPosition].position;
             SetState(State.Move);
 
-            float time = GetRandomTime(returnTime);
-            returnToOriginTimer = new Timer(time, ReturnToOrigin);
+            //float time = GetRandomTime(returnTime);
+            //returnToOriginTimer = new Timer(time, ReturnToOrigin);
         }
 
         public void MoveLeft()
         {
             currentPosition = WaypointEnum.Left;
+            nextWaypoint.Enqueue(WaypointEnum.Right);
+            nextWaypoint.Enqueue(WaypointEnum.Origin);
+
             targetPos = waypoints[(int)currentPosition].position;
             SetState(State.Move);
 
-            float time = GetRandomTime(returnTime);
-            returnToOriginTimer = new Timer(time, ReturnToOrigin);
+            //float time = GetRandomTime(returnTime);
+            //returnToOriginTimer = new Timer(time, ReturnToOrigin);
         }
 
         public void ReturnToOrigin()
@@ -131,8 +139,21 @@ namespace REEL.Recorder
 
             if (Vector3.Distance(transform.position, targetPos) == 0f)
             {
+                if (nextWaypoint.Count > 0)
+                {
+                    Invoke("GetNextWaypoint", GetRandomTime(returnTime));
+                }
+
                 SetState(State.Idle);
             }
+        }
+
+        private void GetNextWaypoint()
+        {
+            WaypointEnum nextPoint = nextWaypoint.Dequeue();
+            targetPos = waypoints[(int)nextPoint].position;
+
+            SetState(State.Move);
         }
 
         private void Clap()

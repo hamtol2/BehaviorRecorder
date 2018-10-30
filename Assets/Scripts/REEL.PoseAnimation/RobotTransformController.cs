@@ -151,14 +151,23 @@ namespace REEL.PoseAnimation
 
         public void PlayMotion(string motion)
         {
-            //if (WebSurvey.Instance.GetBehaviorMode == WebSurvey.Mode.Inactive
-            //    && !motion.Contains("breathing"))
-            //{
-            //    StartCoroutine("DelayPlayMotion", motion);
-            //    return;
-            //}
-            if (!isBreathActive && !motion.Contains("breathing"))
+            if (motion.Contains("nod"))
             {
+                if (isPlaying) StopAllCoroutines();
+                isPlaying = false;
+            }
+
+            //if (isPlaying && currentGesture.Contains("breathing"))
+            //{
+            //    Debug.Log("robot is " + currentGesture + " playing");
+            //    StopAllCoroutines();
+            //    isPlaying = false;
+            //}
+
+            if (!isBreathActive && !motion.Contains("breathing"))
+            //if (isPlaying && !motion.Contains("breathing"))
+            {
+                Debug.Log("motion debug check: " + motion);
                 StartCoroutine("DelayPlayMotion", motion);
                 return;
             }

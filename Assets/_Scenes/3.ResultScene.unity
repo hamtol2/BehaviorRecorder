@@ -1283,6 +1283,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 440054614}
+  - component: {fileID: 440054615}
   m_Layer: 5
   m_Name: Additional Questionaire 2
   m_TagString: Untagged
@@ -1314,6 +1315,19 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &440054615
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 440054613}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ce18e7cc072bb6847a0bb76b825a6832, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  questionaireText: {fileID: 1050395708}
+  isActiveState: 1
 --- !u!1001 &452258615
 Prefab:
   m_ObjectHideFlags: 0
@@ -7820,6 +7834,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 927080551}
+  - component: {fileID: 927080552}
   m_Layer: 5
   m_Name: ReturnOrClose
   m_TagString: Untagged
@@ -7848,6 +7863,19 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &927080552
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 927080550}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ce18e7cc072bb6847a0bb76b825a6832, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  questionaireText: {fileID: 0}
+  isActiveState: 1
 --- !u!1001 &1049452247
 Prefab:
   m_ObjectHideFlags: 0
@@ -9885,17 +9913,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 985d58621289b0e439b4d55e2b2ee2d1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  questionTexts:
-  - {fileID: 1184505744}
-  - {fileID: 1050395708}
-  - {fileID: 2035331398}
-  - {fileID: 499413247}
-  stages:
-  - {fileID: 1588876280}
-  - {fileID: 440054613}
-  - {fileID: 1967050895}
-  - {fileID: 1842962294}
-  - {fileID: 927080550}
+  questionaires:
+  - {fileID: 1588876282}
+  - {fileID: 440054615}
+  - {fileID: 1967050897}
+  - {fileID: 1842962296}
+  - {fileID: 927080552}
   startSceneName: 1.StartScene
 --- !u!4 &1451350849
 Transform:
@@ -10363,6 +10386,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1588876281}
+  - component: {fileID: 1588876282}
   m_Layer: 5
   m_Name: Additional Questionaire 1
   m_TagString: Untagged
@@ -10394,6 +10418,19 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1588876282
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1588876280}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ce18e7cc072bb6847a0bb76b825a6832, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  questionaireText: {fileID: 1184505744}
+  isActiveState: 1
 --- !u!1001 &1676283994
 Prefab:
   m_ObjectHideFlags: 0
@@ -10863,6 +10900,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1842962295}
+  - component: {fileID: 1842962296}
   m_Layer: 5
   m_Name: Additional Questionaire 4
   m_TagString: Untagged
@@ -10894,6 +10932,19 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1842962296
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1842962294}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ce18e7cc072bb6847a0bb76b825a6832, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  questionaireText: {fileID: 499413247}
+  isActiveState: 1
 --- !u!1 &1858287093
 GameObject:
   m_ObjectHideFlags: 0
@@ -15757,6 +15808,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1967050896}
+  - component: {fileID: 1967050897}
   m_Layer: 5
   m_Name: Additional Questionaire 3
   m_TagString: Untagged
@@ -15788,6 +15840,19 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1967050897
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1967050895}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ce18e7cc072bb6847a0bb76b825a6832, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  questionaireText: {fileID: 2035331398}
+  isActiveState: 1
 --- !u!1001 &1995872815
 Prefab:
   m_ObjectHideFlags: 0

@@ -18,14 +18,16 @@ namespace REEL.Recorder
         {
             base.UpdateTimer();
 
-            EyeKeyboardManager.Instance.SetAnswerButtonGazed(true, GetComponent<RectTransform>());
+            if (EyeKeyboardManager.Instance)
+                EyeKeyboardManager.Instance.SetAnswerButtonGazed(true, GetComponent<RectTransform>());
         }
 
         protected override void ResetButton()
         {
             base.ResetButton();
 
-            EyeKeyboardManager.Instance.SetAnswerButtonGazed(false, null);
+            if (EyeKeyboardManager.Instance)
+                EyeKeyboardManager.Instance.SetAnswerButtonGazed(false, null);
         }
     }
 }

@@ -10,6 +10,7 @@ namespace REEL.Recorder
         public static string ageKey = "age";
         public static string genderKey = "gender";
         public static string countKey = "fileCount";
+        public static string surveyTypeKey = "surveyType";
 
         public static string GetSurveyFilePath
         {

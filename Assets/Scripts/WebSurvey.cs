@@ -63,15 +63,13 @@ public class WebSurvey : Singleton<WebSurvey>
     private readonly string answerYes = "오";
     private readonly string answerNo = "엑스";
 
-    private readonly string faceGazeLeft = "gazeo";
-    private readonly string faceGazeRight = "gazex";
+    private readonly string faceGazeLeft = "gazeleft";
+    private readonly string faceGazeRight = "gazeright";
 
     private readonly float answerYPosHigh = 150f;
     private readonly float answerYPosLow = 50f;
 
     private Mode behaviorMode = Mode.None;
-
-    private readonly string surveyTypeKey = "surveyType";
 
     private string quizType;
     private string age;
@@ -105,12 +103,20 @@ public class WebSurvey : Singleton<WebSurvey>
 
         riveScript = new RiveScript.RiveScript(utf8: true, debug: true);
 
-        quizType = PlayerPrefs.GetString(surveyTypeKey);
+        quizType = PlayerPrefs.GetString(SurveyUtil.surveyTypeKey);
         age = PlayerPrefs.GetString(SurveyUtil.ageKey);
         gender = PlayerPrefs.GetString(SurveyUtil.genderKey);
 
-        bool isTypeGA = quizType == SurveyType.TypeGA.ToString();
-        TextAsset riveScriptTextAsset = isTypeGA ? surveyTypeGA : surveyTypeNA;
+        SurveyType surveyType = (SurveyType)Enum.Parse(typeof(SurveyType), quizType);
+        TextAsset riveScriptTextAsset = null;
+        switch (surveyType)
+        {
+            case SurveyType.TypeGA: riveScriptTextAsset = surveyTypeGA; break;
+            case SurveyType.TypeNA: riveScriptTextAsset = surveyTypeNA; break;
+            case SurveyType.TypeDA: riveScriptTextAsset = surveyTypeDA; break;
+            case SurveyType.TypeRA: riveScriptTextAsset = surveyTypeRA; break;
+            default: riveScriptTextAsset = null; break;
+        }
 
         if (riveScript.LoadTextAsset(riveScriptTextAsset))
         {
@@ -119,7 +125,7 @@ public class WebSurvey : Singleton<WebSurvey>
         }
         else
         {
-            Debug.Log("Fail to load " + riveScriptTextAsset.name + " file");
+            Debug.Log("Fail to load RiveScript, SurveyType: " + quizType);
         }
     }
 
@@ -135,7 +141,7 @@ public class WebSurvey : Singleton<WebSurvey>
         {
             Arbitor.Instance.Insert(reply);
         }
-    }
+   }
 
     public int GetQuizCount { get { return numOfQuiz; } }
     public void SetQuizCount(string message)
@@ -220,18 +226,15 @@ public class WebSurvey : Singleton<WebSurvey>
     {
         ++currentQuizNumber;
 
-        //if (currentQuizNumber == (numOfQuiz + 1))
         if (IsQuizFinished)
             FinishQuiz();
-        //if (currentQuizNumber == numOfQuiz)
-        //    FinishQuiz();
 
         SetTimersToNull();
     }
 
     bool IsQuizFinished
     {
-        get { return currentQuizNumber == numOfQuiz + 2; }
+        get { return currentQuizNumber == (numOfQuiz + 1); }
     }
 
     public void TryAgain()
@@ -405,11 +408,16 @@ public class WebSurvey : Singleton<WebSurvey>
         ButtonPosition yesButtonPos = answerButton.GetYesButtonPosition;
         bool isAnswerYes = currentAnswerType == AnswerType.O;
 
-        // 표정 설정.
-        SetGazeFace(isAnswerYes, yesButtonPos);
-
-        // 모션 설정.
-        SetGazeMotion(isAnswerYes, yesButtonPos);
+        if (isActiveFace)
+        {
+            Debug.Log(GetCurrentStep() + " 문제 표정 큐");
+            SetGazeFace(isAnswerYes, yesButtonPos);       // 표정 큐
+        }
+        else
+        {
+            Debug.Log(GetCurrentStep() + " 문제 모션 큐");
+            SetGazeMotion(isAnswerYes, yesButtonPos);                  // 모션 큐
+        }
     }
 
     private void SetGazeFace(bool isAnswerYes, ButtonPosition yesButtonPos)
@@ -446,6 +454,7 @@ public class WebSurvey : Singleton<WebSurvey>
             else if (yesButtonPos == ButtonPosition.Right) gazeMotion = "nodRight";
         }
 
+        Debug.Log(GetCurrentStep() + " 문제 힌트 모션: " + gazeMotion);
         transformController.PlayMotion(gazeMotion);
     }
 

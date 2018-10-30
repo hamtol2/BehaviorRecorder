@@ -56,10 +56,7 @@ namespace REEL.Recorder
     public class SurveyResultManager : Singleton<SurveyResultManager>
     {
         private ResultSaveFormat resultSaveFormat;
-        [SerializeField] private UnityEngine.UI.Text[] questionTexts;
-
-        [SerializeField] private GameObject[] stages;
-
+        [SerializeField] private Questionaire[] questionaires;
         [SerializeField] private string startSceneName = string.Empty;
 
         private string filePath = string.Empty;
@@ -75,6 +72,16 @@ namespace REEL.Recorder
 
         void Init()
         {
+            string quizType = PlayerPrefs.GetString(SurveyUtil.surveyTypeKey);
+            SurveyType surveyType = (SurveyType)Enum.Parse(typeof(SurveyType), quizType);
+            switch (surveyType)
+            {
+                case SurveyType.TypeGA:
+                case SurveyType.TypeNA: questionaires[1].SetActiveState(false); break;
+                case SurveyType.TypeDA:
+                case SurveyType.TypeRA: questionaires[1].SetActiveState(true); break;
+            }
+
             resultSaveFormat = new ResultSaveFormat();
 
             if (!Directory.Exists(SurveyUtil.GetFolderPath))
@@ -90,10 +97,26 @@ namespace REEL.Recorder
 
         private void NextStage()
         {
-            if (currentStage < stages.Length)
+            if (currentStage < questionaires.Length)
             {
-                stages[currentStage++].SetActive(false);
-                stages[currentStage].SetActive(true);
+                questionaires[currentStage].gameObject.SetActive(false);
+                currentStage = GetNextStateIndex;
+                questionaires[currentStage].gameObject.SetActive(true);
+            }
+        }
+
+        private int GetNextStateIndex
+        {
+            get
+            {
+                int ix = currentStage + 1;
+                for (; ix < questionaires.Length; ++ix)
+                {
+                    if (questionaires[ix].GetActiveState)
+                        break;
+                }
+
+                return ix;
             }
         }
 
@@ -101,13 +124,13 @@ namespace REEL.Recorder
         {
             ResultQuestionFormat data = new ResultQuestionFormat();
             int questionIndex = questionNumber - 1;
-            data.question = questionTexts[questionIndex].text;
+            data.question = questionaires[questionIndex].GetQuestionaireText;
             data.score = score;
 
             resultSaveFormat.AddData(data);
             GoingForward();
 
-            if (questionNumber == questionTexts.Length)
+            if (questionNumber == questionaires.Length - 1)
                 SaveToFile();
         }
 
