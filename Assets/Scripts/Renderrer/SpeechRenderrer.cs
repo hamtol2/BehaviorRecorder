@@ -173,7 +173,7 @@ public class SpeechRenderrer : Singleton<SpeechRenderrer>, Renderrer
 
             if (currentSpeech.shouldWaitForAnswer && !WebSurvey.Instance.QuizFinished)
             {
-                Debug.Log(WebSurvey.Instance.GetCurrentStep() + " 문제 답변 대기");
+                //Debug.Log(WebSurvey.Instance.GetCurrentStep() + " 문제 답변 대기");
                 WebSurvey.Instance.WaitForAnswer();
             }
 

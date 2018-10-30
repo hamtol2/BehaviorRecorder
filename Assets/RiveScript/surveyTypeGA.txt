@@ -17,7 +17,7 @@
 + init
 - 첫 번째 연습문제입니다./ 토사구팽이란 고사성어와 / 연관이 있는 동물은 /개와 토끼이다?/
 ^ 맞으면 오 틀리면 엑스를 쳐다보세요./
-^ <sm=facial:normal_inactive> <sm=answer:o> <sm=answertime:3> <sm=hinttime:0> <sm=robotmove:-1>
+^ <sm=facial:normal_inactive> <sm=answer:o> <sm=answertime:20> <sm=hinttime:0> <sm=robotmove:-1>
 
 + (오|어|아|우|o|5)
 - 맞았습니다./ 쉽지 않은 문제였는데 잘하셨어요./ 

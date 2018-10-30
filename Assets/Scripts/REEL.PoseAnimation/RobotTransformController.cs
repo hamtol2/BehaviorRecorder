@@ -96,12 +96,12 @@ namespace REEL.PoseAnimation
             new float[9] {  0.3f,       -20f, -45f, -45f,   -20f, 45f, 45f,     0f, 25f   },
             new float[9] {  0.9f,       45f, -45f, -45f,     45f, 45f, 45f,     0f, 25f    }
         };
-        float[][] nodLeftList = new float[2][] {
+        float[][] nodRightList = new float[2][] {
 							// Time,	Left Arm, 			Right Arm,			Head
             new float[9] {  0.2f,       45f, -45f, -45f,   45f, 45f, 45f,     -10f, 0f    },
             new float[9] {  0.4f,       45f, -45f, -45f,   45f, 45f, 45f,     0f, 10f   }
         };
-        float[][] nodRightList = new float[2][] {
+        float[][] nodLeftList = new float[2][] {
 							// Time,	Left Arm, 			Right Arm,			Head
             new float[9] {  0.2f,       45f, -45f, -45f,   45f, 45f, 45f,     10f, 0f    },
             new float[9] {  0.4f,       45f, -45f, -45f,   45f, 45f, 45f,     0f, 10f   }
@@ -151,23 +151,21 @@ namespace REEL.PoseAnimation
 
         public void PlayMotion(string motion)
         {
+            // 흘끗보기 동작은 우선적으로 재생.
             if (motion.Contains("nod"))
             {
-                if (isPlaying) StopAllCoroutines();
-                isPlaying = false;
+                if (isPlaying)
+                {
+                    StopAllCoroutines();
+                    isPlaying = false;
+                }
+
+                StartCoroutine(PlayMotionCoroutine(motion));
+                return;
             }
 
-            //if (isPlaying && currentGesture.Contains("breathing"))
-            //{
-            //    Debug.Log("robot is " + currentGesture + " playing");
-            //    StopAllCoroutines();
-            //    isPlaying = false;
-            //}
-
             if (!isBreathActive && !motion.Contains("breathing"))
-            //if (isPlaying && !motion.Contains("breathing"))
             {
-                Debug.Log("motion debug check: " + motion);
                 StartCoroutine("DelayPlayMotion", motion);
                 return;
             }
@@ -276,8 +274,9 @@ namespace REEL.PoseAnimation
             motionTable.Add("no", noList);
             motionTable.Add("wrong", noList);
             motionTable.Add("happy", happyList);
-            motionTable.Add("nodLeft", nodLeftList);
+            // 버튼 왼쪽과 로봇이 바라보는 방향의 왼쪽이 달라서 반대로 설정함.
             motionTable.Add("nodRight", nodRightList);
+            motionTable.Add("nodLeft", nodLeftList);
             motionTable.Add("breathing_active", breathing_active);
             motionTable.Add("breathing_inactive", breathing_inactive);
         }

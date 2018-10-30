@@ -410,12 +410,12 @@ public class WebSurvey : Singleton<WebSurvey>
 
         if (isActiveFace)
         {
-            Debug.Log(GetCurrentStep() + " 문제 표정 큐");
+            //Debug.Log(GetCurrentStep() + " 문제 표정 큐");
             SetGazeFace(isAnswerYes, yesButtonPos);       // 표정 큐
         }
         else
         {
-            Debug.Log(GetCurrentStep() + " 문제 모션 큐");
+            //Debug.Log(GetCurrentStep() + " 문제 모션 큐");
             SetGazeMotion(isAnswerYes, yesButtonPos);                  // 모션 큐
         }
     }
@@ -445,16 +445,16 @@ public class WebSurvey : Singleton<WebSurvey>
         string gazeMotion = string.Empty;
         if (isAnswerYes)
         {
-            if (yesButtonPos == ButtonPosition.Left) gazeMotion = "nodRight";
-            else if (yesButtonPos == ButtonPosition.Right) gazeMotion = "nodLeft";
-        }
-        else
-        {
             if (yesButtonPos == ButtonPosition.Left) gazeMotion = "nodLeft";
             else if (yesButtonPos == ButtonPosition.Right) gazeMotion = "nodRight";
         }
+        else
+        {
+            if (yesButtonPos == ButtonPosition.Left) gazeMotion = "nodRight";
+            else if (yesButtonPos == ButtonPosition.Right) gazeMotion = "nodLeft";
+        }
 
-        Debug.Log(GetCurrentStep() + " 문제 힌트 모션: " + gazeMotion);
+        //Debug.Log(GetCurrentStep() + " 문제 힌트 모션: " + gazeMotion);
         transformController.PlayMotion(gazeMotion);
     }
 
