@@ -297,15 +297,26 @@ public class WebSurvey : Singleton<WebSurvey>
 
     public ContentState GetCurrentState()
     {
-        if (currentQuizNumber.Equals(0))
-            contentState = ContentState.IceBreaking;
-        else
-        {
-            if (SpeechRenderrer.Instance.IsRunning()) contentState = ContentState.OnQuestion;
-            else contentState = ContentState.Waiting;
-        }
+        //if (currentQuizNumber.Equals(0))
+        //    contentState = ContentState.IceBreaking;
+        //else
+        //{
+        //    if (SpeechRenderrer.Instance.IsSpeaking)
+        //    {
+        //        contentState = ContentState.Asking;
+        //    }
+        //    else
+        //    {
+        //        contentState = ContentState.Waiting;
+        //    }
+        //}
 
         return contentState;
+    }
+
+    public void SetContentState(ContentState state)
+    {
+        contentState = state;
     }
 
     public ModelType GetModelType { get { return robotModelType; } }

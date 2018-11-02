@@ -16,20 +16,49 @@ class SpeechInfo
     public string speechScript;
     public bool shouldGoNext;
     public bool shouldWaitForAnswer;
-    //public bool isTryAgain;
+    [SerializeField] private ContentState contentState;
+    public ContentState GetContentState { get { return contentState; } }
 
     public SpeechInfo(string speechScript)
     {
         this.speechScript = speechScript;
-        shouldGoNext = speechScript.Contains("정답")
+        shouldGoNext = CheckShouldGoNextStep(speechScript);
+        shouldWaitForAnswer = CheckShouldWaitForAnswer(speechScript);
+        contentState = CheckContentState(speechScript);
+    }
+
+    bool CheckShouldGoNextStep(string speechScript)
+    {
+        return speechScript.Contains("정답")
             || speechScript.Contains("땡")
             || speechScript.Contains("초과")
             || speechScript.Contains("시작");
-            //|| speechScript.Contains("안녕");
-        shouldWaitForAnswer = speechScript.Contains("문제")
+    }
+
+    bool CheckShouldWaitForAnswer(string sppechScript)
+    {
+        return speechScript.Contains("문제")
             || speechScript.Contains("난이도");
-        //isTryAgain = speechScript.Contains("다시 말씀해 주세요")
-        //    || speechScript.Contains("대답해주세요");
+    }
+
+    ContentState CheckContentState(string speechScript)
+    {
+        if (WebSurvey.Instance.GetCurrentStep().Equals(0))
+            return ContentState.IceBreaking;
+
+        else if (speechScript.Contains("문제입니다")
+            || speechScript.Contains("맞으면 오"))
+            return ContentState.Asking;
+
+        else if (speechScript.Contains("맞았습니다")
+            || speechScript.Contains("틀리셨네요")
+            || speechScript.Contains("지나버렸네요")
+            || speechScript.Contains("정답")
+            || speechScript.Contains("땡")
+            || speechScript.Contains("초과"))
+            return ContentState.Answering;
+
+        return ContentState.Waiting;
     }
 }
 
@@ -71,7 +100,7 @@ public class SpeechRenderrer : Singleton<SpeechRenderrer>, Renderrer
 
     public bool IsRunning()
     {
-        return false;
+        return IsSpeaking;
     }
 
     public void OnDisable()
@@ -90,8 +119,9 @@ public class SpeechRenderrer : Singleton<SpeechRenderrer>, Renderrer
     public void Play(string speech)
     {
         //WebSurvey.Instance.robotFacialRenderer.Play(speakFaceName);
-        TextToSpeech(speech);
         currentSpeech = new SpeechInfo(speech);
+        WebSurvey.Instance.SetContentState(currentSpeech.GetContentState);
+        TextToSpeech(speech);
     }
 
     public void Stop()
@@ -128,7 +158,7 @@ public class SpeechRenderrer : Singleton<SpeechRenderrer>, Renderrer
             {
                 string targetString = ((int)WebSurvey.Instance.GetTimeoutTime).ToString() + inSecondsString;
                 voice.Speak(
-                    sentence.Replace(inSecondsString, targetString), 
+                    sentence.Replace(inSecondsString, targetString),
                     SpeechVoiceSpeakFlags.SVSFlagsAsync | SpeechVoiceSpeakFlags.SVSFIsXML
                 );
                 continue;
