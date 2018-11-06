@@ -14,8 +14,8 @@ namespace REEL.Recorder
         public RectTransform yesButton;
         public RectTransform noButton;
 
-        private readonly float answerXLeft = -200f;
-        private readonly float answerXRight = 200f;
+        private readonly float answerXLeft = -350f;
+        private readonly float answerXRight = 350f;
 
         public void SetYesButtonOnRight()
         {

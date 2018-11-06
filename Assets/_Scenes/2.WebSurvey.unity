@@ -2310,7 +2310,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 200, y: 0}
+  m_AnchoredPosition: {x: 350, y: 0}
   m_SizeDelta: {x: 200, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1123713726
@@ -3018,7 +3018,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -200, y: 0}
+  m_AnchoredPosition: {x: -350, y: 0}
   m_SizeDelta: {x: 200, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1337484937
@@ -3182,6 +3182,7 @@ MonoBehaviour:
     speechScript: 
     shouldGoNext: 0
     shouldWaitForAnswer: 0
+    contentState: 0
   wordEventText: {fileID: 0}
 --- !u!114 &1345046812
 MonoBehaviour:
@@ -4919,7 +4920,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4384830079354582, guid: 243c4f001e0da2c4dac47834601b1117, type: 2}
       propertyPath: m_LocalPosition.y
-      value: 0.074
+      value: 0.092
       objectReference: {fileID: 0}
     - target: {fileID: 4384830079354582, guid: 243c4f001e0da2c4dac47834601b1117, type: 2}
       propertyPath: m_LocalPosition.x
@@ -5122,11 +5123,11 @@ RectTransform:
   m_Father: {fileID: 234971117}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0}
-  m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: 0, y: 50}
+  m_AnchorMin: {x: 0.5, y: 1}
+  m_AnchorMax: {x: 0.5, y: 1}
+  m_AnchoredPosition: {x: 0, y: -100}
   m_SizeDelta: {x: 600, y: 120}
-  m_Pivot: {x: 0.5, y: 0}
+  m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &1995386085
 MonoBehaviour:
   m_ObjectHideFlags: 0

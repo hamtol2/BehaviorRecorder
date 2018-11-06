@@ -370,7 +370,7 @@ public class WebSurvey : Singleton<WebSurvey>
     public void OpenAnswerButton()
     {
         Vector3 pos = answerButton.GetComponent<RectTransform>().anchoredPosition;
-        pos.y = pos.y == answerYPosHigh ? answerYPosLow : answerYPosHigh;
+        //pos.y = pos.y == answerYPosHigh ? answerYPosLow : answerYPosHigh;
         answerButton.GetComponent<RectTransform>().anchoredPosition = pos;
 
         // set random pos of O/X button (Left or Right).
