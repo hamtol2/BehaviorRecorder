@@ -2288,7 +2288,7 @@ MonoBehaviour:
   robotFacialAnimator: {fileID: 1053427236}
   debugText: {fileID: 1295470174}
   isDebug: 1
-  baseFace: normal_active
+  baseFace: normal_inactive
   currentFace: 
   facialQueue: []
   queueCount: 0
@@ -4908,11 +4908,11 @@ Prefab:
         type: 3}
     - target: {fileID: 4691366238311374, guid: 243c4f001e0da2c4dac47834601b1117, type: 2}
       propertyPath: m_LocalPosition.y
-      value: 0.092
+      value: 0.0092
       objectReference: {fileID: 0}
     - target: {fileID: 4691366238311374, guid: 243c4f001e0da2c4dac47834601b1117, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 2.751
+      value: 2.7
       objectReference: {fileID: 0}
     - target: {fileID: 4691366238311374, guid: 243c4f001e0da2c4dac47834601b1117, type: 2}
       propertyPath: m_LocalPosition.z
@@ -4920,11 +4920,11 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4384830079354582, guid: 243c4f001e0da2c4dac47834601b1117, type: 2}
       propertyPath: m_LocalPosition.y
-      value: 0.092
+      value: 0.0092
       objectReference: {fileID: 0}
     - target: {fileID: 4384830079354582, guid: 243c4f001e0da2c4dac47834601b1117, type: 2}
       propertyPath: m_LocalPosition.x
-      value: -2.844
+      value: -2.8
       objectReference: {fileID: 0}
     - target: {fileID: 4908059847446616, guid: 243c4f001e0da2c4dac47834601b1117, type: 2}
       propertyPath: m_LocalPosition.y
