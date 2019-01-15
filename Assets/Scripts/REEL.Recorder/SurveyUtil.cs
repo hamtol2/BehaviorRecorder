@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 namespace REEL.Recorder
 {
-    public class SurveyUtil
+    public static class SurveyUtil
     {
         public static string ageKey = "age";
         public static string genderKey = "gender";

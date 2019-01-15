@@ -11,7 +11,7 @@ using SpeechLib;
 using REEL.Recorder;
 
 [Serializable]
-class SpeechInfo
+public class SpeechInfo
 {
     public string speechScript;
     public bool shouldGoNext;

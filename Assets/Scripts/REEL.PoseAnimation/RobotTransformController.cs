@@ -127,7 +127,7 @@ namespace REEL.PoseAnimation
         IEnumerator currentAnimation = null;
         private bool isPlaying = false;
 
-        private bool isBreathActive = false;
+        private bool isBreathActive = true;
 
         private readonly float playMotionDelayTime = 1f;
 

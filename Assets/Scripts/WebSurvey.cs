@@ -85,7 +85,7 @@ public class WebSurvey : Singleton<WebSurvey>
     // Use this for initialization
     void Start()
     {
-        SpeechRenderrer.Instance.Init();
+        //SpeechRenderrer.Instance.Init();
 
     }
 
@@ -139,6 +139,7 @@ public class WebSurvey : Singleton<WebSurvey>
         }
         else
         {
+            Debug.Log(reply);
             Arbitor.Instance.Insert(reply);
         }
    }

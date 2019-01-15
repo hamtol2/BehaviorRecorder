@@ -54,6 +54,28 @@ namespace REEL.PoseAnimation
             joint.localRotation = Quaternion.Euler(baseRotation);
         }
 
+        public float GetTargetAngleAxis(float angle)
+        {
+            Vector3 currentRot = joint.localRotation.eulerAngles;
+            Vector3 targetRot = GetTargetAngle(angle);
+
+            switch (jointRotAxis)
+            {
+                case JointAxis.RotFX: return targetRot.x - currentRot.x;
+                case JointAxis.RotRX: return currentRot.x - targetRot.x;
+                case JointAxis.RotFY: return targetRot.y - currentRot.y;
+                case JointAxis.RotRY: return currentRot.y - targetRot.y;
+                case JointAxis.RotFZ: return targetRot.z - currentRot.z;
+                case JointAxis.RotRZ: return currentRot.z - targetRot.z;
+                default: return -1f;
+            }
+        }
+
+        public Vector3 GetTargetAngle(float angle)
+        {
+            return isFixed ? GetFixedEulerAngle(angle) : GetEulerAngle(angle);
+        }
+
         Vector3 GetEulerAngle(float angle)
         {
             Vector3 rot = joint.localEulerAngles;
