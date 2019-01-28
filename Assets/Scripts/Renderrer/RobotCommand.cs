@@ -1,5 +1,6 @@
 ﻿namespace REEL.Recorder
 {
+    [System.Serializable]
     public class RobotCommand
     {
         public string speech;

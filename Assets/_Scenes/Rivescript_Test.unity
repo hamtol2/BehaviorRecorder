@@ -112,7 +112,7 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!1 &78692696
+--- !u!1 &59951562
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -120,42 +120,70 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 78692698}
-  - component: {fileID: 78692697}
+  - component: {fileID: 59951564}
+  - component: {fileID: 59951565}
+  - component: {fileID: 59951563}
+  - component: {fileID: 59951566}
   m_Layer: 0
-  m_Name: Speech Controller
+  m_Name: Parse Tester
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &78692697
+--- !u!114 &59951563
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 78692696}
+  m_GameObject: {fileID: 59951562}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4f05c910e7a737949a062bb569947714, type: 3}
+  m_Script: {fileID: 11500000, guid: 793324326265b2d4d8e92b3e72a5d597, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  testScript: {fileID: 4900000, guid: 43adf4c372c48b740bb627b65c5dbc29, type: 3}
---- !u!4 &78692698
+  riveScriptProcessor: {fileID: 59951565}
+  speechController: {fileID: 0}
+--- !u!4 &59951564
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 78692696}
+  m_GameObject: {fileID: 59951562}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.12101872, y: 1.4193014, z: 0.14968924}
+  m_LocalPosition: {x: -0.44152397, y: 1.8024694, z: 167.21921}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &59951565
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 59951562}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3794b249adb60bc4aa91aaf6df52fe00, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  testScript: {fileID: 4900000, guid: 43adf4c372c48b740bb627b65c5dbc29, type: 3}
+--- !u!114 &59951566
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 59951562}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4f05c910e7a737949a062bb569947714, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &491598142
 GameObject:
   m_ObjectHideFlags: 0
