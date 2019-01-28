@@ -1,5 +1,11 @@
 + (시작하자|시작하다)
-- 안녕하세요. / 저는 오늘 퀴즈 진행을 맡게된 / 로봇 모카 입니다./ <sm=motion:hi> <sm=facial:speak> <sm=facetype:false> <sm=iscue:true> |
-^ 오늘 하실 일은 간딴합니다./ 제가 내는 퀴즈 개에 대하여/ 맞다 틀리다로 답해 주시면 됩니다./ <sm=motion:ok> <set score=zero> <sm=qcount:5> <sm=activebreath:true> |
-^ 맞으면 오/ 틀리면 엑스를 쳐다봐 주세요./ 초안에 답을 정하지 않을 경우/ 오답처리 됩니다./ <sm=motion:clap> |
-^ 첫 번째 연습문제입니다./ 토사구팽이란 고사성어와 / 연관이 있는 동물은 /개와 토끼이다?/ <sm=motion:wrong> <sm=facial:smile> |
+- 안녕하세요.  <motion:hi1, facial:speak1> |
+^ 저는 오늘 퀴즈 진행을 맡게된 <motion:hi2, facial:speak2> |
+^ 로봇 모카 입니다. <motion:hi3, facial:speak3> |
+^ 오늘 하실 일은 간딴합니다. <motion:hi4, facial:speak4> | 
+^ 제가 내는 퀴즈 2개에 대하여 <motion:hi5, facial:speak5> | 
+^ 맞다 틀리다로 답해 주시면 됩니다. <motion:hi6, facial:speak6> |
+^ 맞으면 오 <motion:hi7,facial:speak7> |
+^ 틀리면 엑스를 쳐다봐 주세요. <motion:hi8,facial:speak8> |
+^ 초안에 답을 정하지 않을 경우 <motion:hi9,facial:speak9> | 
+^ 오답처리 됩니다. <motion:hi9,facial:speak9> |

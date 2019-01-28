@@ -1295,7 +1295,6 @@ MonoBehaviour:
   breath: 1
   behaviorRecorder: {fileID: 59991470}
   robotMovement: {fileID: 917890946}
-  motions: []
   motionData: {fileID: 574285151}
   currentGesture: 
 --- !u!114 &574285151
