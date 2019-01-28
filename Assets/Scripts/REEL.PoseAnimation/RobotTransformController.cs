@@ -13,13 +13,9 @@ namespace REEL.PoseAnimation
         public bool breath = true;
         public BehaviorRecorder behaviorRecorder;
         [SerializeField] private RobotMovement robotMovement;
-
         [SerializeField] private MotionData motionData;
 
         public string currentGesture;
-
-        string _gesture;
-        //float duration = -1f;
 
         bool breatheEnable = true;
 
@@ -30,12 +26,9 @@ namespace REEL.PoseAnimation
 
         float[] OFFSET = new float[] { 0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f };
 
-        Dictionary<string, float[][]> motionTable;
         IEnumerator currentAnimation = null;
         private bool isPlaying = false;
-
         private bool isBreathActive = true;
-
         private readonly float playMotionDelayTime = 1f;
 
         // Test.
@@ -109,10 +102,10 @@ namespace REEL.PoseAnimation
 
         IEnumerator TestAllMotion()
         {
-            foreach (KeyValuePair<string, float[][]> motion in motionTable)
+            foreach (MotionSequence motionSequence in motionData.GetAllMotionSequence)
             {
-                Debug.Log(motion.Key);
-                yield return PlayMotionCoroutine(motion.Key);
+                Debug.Log(motionSequence.motionName);
+                yield return PlayMotionCoroutine(motionSequence.motionName);
             }
         }
 
