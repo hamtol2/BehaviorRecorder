@@ -14,7 +14,7 @@ namespace REEL.PoseAnimation
         public BehaviorRecorder behaviorRecorder;
         [SerializeField] private RobotMovement robotMovement;
 
-        [SerializeField] private Motion[] motions;
+        [SerializeField] private MotionData motionData;
 
         public string currentGesture;
 
@@ -29,99 +29,6 @@ namespace REEL.PoseAnimation
         float[] DIRECTION = new float[8] { -1f, 1f, 1f, 1f, -1f, -1f, 0f, 1f };
 
         float[] OFFSET = new float[] { 0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f };
-        float[][] hiList = new float[5][] {
-							// Time,	Left Arm, 			Right Arm,			Head
-			new float[9] {  0.7f,       45f, -45f, -45f,    -60f, 60f, 38f,     0f, 25f    },
-            new float[9] {  0.6f,       45f, -45f, -45f,    -60f, 96f, 34f,     0f, 25f   },
-            new float[9] {  0.6f,       45f, -45f, -45f,    -60f, 60f, 38f,     0f, 25f   },
-            new float[9] {  0.6f,       45f, -45f, -45f,    -60f, 96f, 34f,     0f, 25f   },
-            new float[9] {  0.7f,       45f, -45f, -45f,    -57f, 75f, 23f,     0f, 25f    }
-        };
-
-        float[][] helloList = new float[5][] {
-							// Time,	Left Arm, 			Right Arm,		    Head
-			new float[9] {  0.7f,       -60f, -60f, -38f,   45f, 45f, 45f,      0f, 25f   },
-            new float[9] {  0.6f,       -60f, -80f, -34f,   45f, 45f, 45f,      0f, 25f   },
-            new float[9] {  0.6f,       -60f, -60f, -38f,   45f, 45f, 45f,      0f, 25f   },
-            new float[9] {  0.6f,       -60f, -80f, -34f,   45f, 45f, 45f,      0f, 25f   },
-            new float[9] {  0.6f,        45f, -45f, -45f,   45f, 45f, 45f,      0f, 25f   }
-        };
-
-        float[][] angryList = new float[4][] {
-							// Time,	Left Arm, 		    Right Arm,			Head
-			new float[9] {  0.7f,       14f, -83f, -24f,    14f, 83f, 24f,      0f, -9f    },
-            new float[9] {  0.7f,       57f, -75f, -24f,    57f, 75f, 24f,      0f, -9f   },
-            new float[9] {  0.7f,       14f, -83f, -24f,    14f, 83f, 24f,      0f, -99f   },
-            new float[9] {  0.8f,        45f, -45f, -45f,   45f, 45f, 45f,      0f, 25f   }
-        };
-        float[][] sadList = new float[5][] {
-                			// Time,    Left Arm,           Right Arm,          Head
-			new float[9] {  0.7f,       -25f, -101f, -67f,   -43f, 101f, 67f,   0f, 20f   },
-            new float[9] {  0.5f,       -43f, -101f, -67f,   -24f, 101f, 67f,   0f, 20f   },
-            new float[9] {  0.5f,       -25f, -101f, -67f,   -43f, 101f, 67f,   0f, 20f   },
-            new float[9] {  0.5f,       -43f, -101f, -67f,   -24f, 101f, 67f,   0f, 20f   },
-            new float[9] {  0.7f,        45f, -45f, -45f,   45f, 45f, 45f,      0f, 25f   }
-        };
-        float[][] okList = new float[][] {
-                			// Time,    Left Arm,           Right Arm,          Head
-			new float[9] {  0.4f,       57f, -75f, -24f,    57f, 75f, 24f,      0f,  10f    },
-            new float[9] {  0.4f,       57f, -75f, -24f,    57f, 75f, 24f,      0f, -10f   },
-            new float[9] {  0.4f,       57f, -75f, -24f,    57f, 75f, 24f,      0f,  10f   },
-            new float[9] {  0.4f,       57f, -75f, -24f,    57f, 75f, 24f,      0f, -10f   },
-            new float[9] {  0.4f,       57f, -75f, -24f,    57f, 75f, 24f,      0f,  10f   },
-            new float[9] {  0.7f,       45f, -45f, -45f,    45f, 45f, 45f,      0f, 10f   }
-        };
-        float[][] noList = new float[4][] {
-                			// Time,    Left Arm,           Right Arm,          Head
-			new float[9] {  0.4f,       57f, -75f, -24f,    57f, 75f, 24f,      -20f, -9f    },
-            new float[9] {  0.5f,       57f, -75f, -24f,    57f, 75f, 24f,       20f, -9f   },
-            new float[9] {  0.5f,       57f, -75f, -24f,    57f, 75f, 24f,      -20f, -9f   },
-            new float[9] {  0.7f,       45f, -45f, -45f,    45f, 45f, 45f,      0f, 25f   }
-        };
-        float[][] happyList = new float[4][] {
-                			// Time,    Left Arm,           Right Arm,          Head
-			new float[9] {  0.8f,       -70f, -70f, -30f,   -70f, 70f, 30f,     0f, -25f    },
-            new float[9] {  0.6f,       -70f, -70f, -30f,   -70f, 70f, 30f,     -14f, -10f   },
-            new float[9] {  0.6f,       -70f, -70f, -30f,   -70f, 70f, 30f,     0f, -25f   },
-            new float[9] {  0.7f,        45f, -45f, -45f,   45f, 45f, 45f,      0f, 25f   }
-        };
-        float[][] clapList = new float[8][] {
-							// Time,	Left Arm, 			Right Arm,			Head
-			new float[9] {  0.9f,       -20f, -45f, -45f,   -20f, 45f, 45f,     0f, 25f    },
-            new float[9] {  0.3f,       -20f, -85f, -75f,   -20f, 85f, 75f,     0f, 25f   },
-            new float[9] {  0.3f,       -20f, -45f, -45f,   -20f, 45f, 45f,     0f, 25f   },
-            new float[9] {  0.3f,       -20f, -85f, -75f,   -20f, 85f, 75f,     0f, 25f   },
-            new float[9] {  0.3f,       -20f, -45f, -45f,   -20f, 45f, 45f,     0f, 25f   },
-            new float[9] {  0.3f,       -20f, -85f, -75f,   -20f, 85f, 75f,     0f, 25f   },
-            new float[9] {  0.3f,       -20f, -45f, -45f,   -20f, 45f, 45f,     0f, 25f   },
-            new float[9] {  0.9f,       45f, -45f, -45f,     45f, 45f, 45f,     0f, 25f    }
-        };
-        float[][] nodRightList = new float[2][] {
-							// Time,	Left Arm, 			Right Arm,			Head
-            new float[9] {  0.2f,       45f, -45f, -45f,   45f, 45f, 45f,     -10f, 10f    },
-            new float[9] {  0.4f,       45f, -45f, -45f,   45f, 45f, 45f,     0f, 10f   }
-        };
-        float[][] nodLeftList = new float[2][] {
-							// Time,	Left Arm, 			Right Arm,			Head
-            new float[9] {  0.2f,       45f, -45f, -45f,   45f, 45f, 45f,     10f, 10f    },
-            new float[9] {  0.4f,       45f, -45f, -45f,   45f, 45f, 45f,     0f, 10f   }
-        };
-
-        float[][] breathing_active = new float[][] {
-            // Time,	Left Arm, 			Right Arm,			Head
-            //new float[9] {  0.0f,       45f, -45f, -45f, 45f, 45f, 45f, 0f, 10f },
-            new float[9] {  1.2f,       35f, -35f, -35f, 35f, 35f, 35f, 0f, 15f },
-            new float[9] {  1.2f,       45f, -45f, -45f, 45f, 45f, 45f, 0f, 10f },
-        };
-
-        float[][] breathing_inactive = new float[][] {
-            // Time,	Left Arm, 			Right Arm,			Head
-            //new float[9] {  0.0f,       45f, -45f, -45f, 45f, 45f, 45f, 0f, 10f },
-            new float[9] {  1.2f,       40f, -40f, -40f, 40f, 40f, 40f, 0f, 10f },
-            new float[9] {  1.2f,       45f, -45f, -45f, 45f, 45f, 45f, 0f, 10f },
-        };
-
-        //float[] DIRECTION = new float[8] { -1f, 1f, 1f, 1f, -1f, -1f, 0f, 1f };
 
         Dictionary<string, float[][]> motionTable;
         IEnumerator currentAnimation = null;
@@ -136,8 +43,7 @@ namespace REEL.PoseAnimation
 
         private IEnumerator Start()
         {
-            InitMotionTable();
-            InitMotionData();
+            if (motionData == null) motionData = GetComponent<MotionData>();
 
             yield return StartCoroutine(SetBasePos());
 
@@ -232,53 +138,23 @@ namespace REEL.PoseAnimation
             yield return new WaitForSeconds(basePoseTime);
         }
 
-        //public bool PlayMotion(string gesture)
-        public IEnumerator PlayMotionCoroutine(string gesture)
+        public IEnumerator PlayMotionCoroutine(string motion)
         {
-            float[][] gestureInfo;
-            if (motionTable.TryGetValue(gesture, out gestureInfo))
+            float[][] motionFrameData = motionData.GetMotionFrameDataWithName(motion);
+            if (motionFrameData != null)
             {
-                currentGesture = gesture;
-                behaviorRecorder.RecordBehavior(new RecordEvent(0, gesture));
-                yield return StartCoroutine("GestureProcess", gestureInfo);
+                currentGesture = motion;
+                behaviorRecorder.RecordBehavior(new RecordEvent(0, motion));
+
+                yield return StartCoroutine("GestureProcess", motionFrameData);
                 currentAnimation = null;
-                //return true;
             }
             else
             {
+                Debug.Log("motion null, " + motion);
                 currentGesture = string.Empty;
                 currentAnimation = null;
-                //return false;
             }
-        }
-
-        void InitMotionData()
-        {
-            motions = new Motion[motionTable.Count];
-            int index = 0;
-            foreach (KeyValuePair<string, float[][]> item in motionTable)
-            {
-                motions[index++] = new Motion(item.Key, item.Value);
-            }
-        }
-
-        void InitMotionTable()
-        {
-            motionTable = new Dictionary<string, float[][]>();
-            motionTable.Add("hi", hiList);
-            motionTable.Add("hello", helloList);
-            motionTable.Add("angry", angryList);
-            motionTable.Add("sad", sadList);
-            motionTable.Add("ok", okList);
-            motionTable.Add("clap", clapList);
-            motionTable.Add("no", noList);
-            motionTable.Add("wrong", noList);
-            motionTable.Add("happy", happyList);
-            // 버튼 왼쪽과 로봇이 바라보는 방향의 왼쪽이 달라서 반대로 설정함.
-            motionTable.Add("nodRight", nodRightList);
-            motionTable.Add("nodLeft", nodLeftList);
-            motionTable.Add("breathing_active", breathing_active);
-            motionTable.Add("breathing_inactive", breathing_inactive);
         }
 
         float GetPlayTime(float[][] motionList)
@@ -411,71 +287,6 @@ namespace REEL.PoseAnimation
             {
                 this.motion = motion;
                 motionCoroutine = coroutine;
-            }
-        }
-
-        [Serializable]
-        public struct Motion
-        {
-            public string motionName;
-            public MotionInfo[] motionInfo;
-
-            public Motion(string name, float[][] info)
-            {
-                motionName = name;
-                motionInfo = new MotionInfo[info.Length];
-                for (int ix = 0; ix < motionInfo.Length; ++ix)
-                {
-                    motionInfo[ix].time = info[ix][0];
-
-                    motionInfo[ix].leftArm.first = info[ix][1];
-                    motionInfo[ix].leftArm.second = info[ix][2];
-                    motionInfo[ix].leftArm.third = info[ix][3];
-
-                    motionInfo[ix].rightArm.first = info[ix][4];
-                    motionInfo[ix].rightArm.second = info[ix][5];
-                    motionInfo[ix].rightArm.third = info[ix][6];
-
-                    motionInfo[ix].head.first = info[ix][7];
-                    motionInfo[ix].head.second = info[ix][8];
-                }
-            }
-        }
-
-        [Serializable]
-        public struct MotionInfo
-        {
-            public float time;
-            public ArmAngleInfo leftArm;
-            public ArmAngleInfo rightArm;
-            public HeadAngleInfo head;
-        }
-
-        [Serializable]
-        public struct ArmAngleInfo
-        {
-            public float first;
-            public float second;
-            public float third;
-
-            public ArmAngleInfo(float first, float second, float third)
-            {
-                this.first = first;
-                this.second = second;
-                this.third = third;
-            }
-        }
-
-        [Serializable]
-        public struct HeadAngleInfo
-        {
-            public float first;
-            public float second;
-
-            public HeadAngleInfo(float first, float second)
-            {
-                this.first = first;
-                this.second = second;
             }
         }
     }

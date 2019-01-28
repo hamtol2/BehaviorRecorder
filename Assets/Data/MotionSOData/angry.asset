@@ -1,0 +1,64 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 852c337840eafeb429658e3cbce800e6, type: 3}
+  m_Name: angry
+  m_EditorClassIdentifier: 
+  motionName: angry
+  sequence:
+  - deltaTime: 0.7
+    leftArm:
+      shoulder: 14
+      upperArm: -83
+      lowerArm: -24
+    rightArm:
+      shoulder: 14
+      upperArm: 83
+      lowerArm: 24
+    head:
+      neck: 0
+      headBase: -9
+  - deltaTime: 0.7
+    leftArm:
+      shoulder: 57
+      upperArm: -75
+      lowerArm: -24
+    rightArm:
+      shoulder: 57
+      upperArm: 75
+      lowerArm: 24
+    head:
+      neck: 0
+      headBase: -9
+  - deltaTime: 0.7
+    leftArm:
+      shoulder: 14
+      upperArm: -83
+      lowerArm: -24
+    rightArm:
+      shoulder: 14
+      upperArm: 83
+      lowerArm: 24
+    head:
+      neck: 0
+      headBase: -99
+  - deltaTime: 0.8
+    leftArm:
+      shoulder: 45
+      upperArm: -45
+      lowerArm: -45
+    rightArm:
+      shoulder: 45
+      upperArm: 45
+      lowerArm: 45
+    head:
+      neck: 0
+      headBase: 25

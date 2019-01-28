@@ -1,0 +1,40 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 852c337840eafeb429658e3cbce800e6, type: 3}
+  m_Name: breathing_active
+  m_EditorClassIdentifier: 
+  motionName: breathing_active
+  sequence:
+  - deltaTime: 1.2
+    leftArm:
+      shoulder: 35
+      upperArm: -35
+      lowerArm: -35
+    rightArm:
+      shoulder: 35
+      upperArm: 35
+      lowerArm: 35
+    head:
+      neck: 0
+      headBase: 15
+  - deltaTime: 1.2
+    leftArm:
+      shoulder: 45
+      upperArm: -45
+      lowerArm: -45
+    rightArm:
+      shoulder: 45
+      upperArm: 45
+      lowerArm: 45
+    head:
+      neck: 0
+      headBase: 10

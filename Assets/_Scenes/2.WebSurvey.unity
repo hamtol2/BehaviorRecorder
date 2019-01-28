@@ -1225,6 +1225,7 @@ GameObject:
   m_Component:
   - component: {fileID: 574285149}
   - component: {fileID: 574285150}
+  - component: {fileID: 574285151}
   m_Layer: 0
   m_Name: Robot Transform Controller
   m_TagString: Untagged
@@ -1295,7 +1296,33 @@ MonoBehaviour:
   behaviorRecorder: {fileID: 59991470}
   robotMovement: {fileID: 917890946}
   motions: []
+  motionData: {fileID: 574285151}
   currentGesture: 
+--- !u!114 &574285151
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 574285148}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5fdb067b9323bee42be982519894532d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  motionSequences:
+  - {fileID: 11400000, guid: 36e2d98ee4d7ffd4286fa64122c9b8ab, type: 2}
+  - {fileID: 11400000, guid: c32b5865eade6f94ba2d63489b256245, type: 2}
+  - {fileID: 11400000, guid: 79ff31c3b19d6104797d9ae2ce49d0ad, type: 2}
+  - {fileID: 11400000, guid: ba4cbc4f6ed71ba43add529866ec48ff, type: 2}
+  - {fileID: 11400000, guid: fa71df1dd76c2614eb69e74a5dd0d91b, type: 2}
+  - {fileID: 11400000, guid: bb66923cabd1606439210a55665ffe63, type: 2}
+  - {fileID: 11400000, guid: 6e2d636f485f0424a9d430f6f836f2ad, type: 2}
+  - {fileID: 11400000, guid: abff7688597472243b8431f422a44666, type: 2}
+  - {fileID: 11400000, guid: dc05b81984979564697f6d57032545cf, type: 2}
+  - {fileID: 11400000, guid: 6acee77cfb273e8438b0692dbafd9128, type: 2}
+  - {fileID: 11400000, guid: c2667ba42cec75d47847dac5fb6c00b7, type: 2}
+  - {fileID: 11400000, guid: 7f05617af6195a04595d09ae131b2223, type: 2}
 --- !u!1 &590462872 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1404646033276478, guid: 243c4f001e0da2c4dac47834601b1117,
@@ -5122,6 +5149,10 @@ PrefabInstance:
     - target: {fileID: 1224125177410966, guid: 243c4f001e0da2c4dac47834601b1117, type: 3}
       propertyPath: m_TagString
       value: Face
+      objectReference: {fileID: 0}
+    - target: {fileID: 1224125177410966, guid: 243c4f001e0da2c4dac47834601b1117, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1886335327538926, guid: 243c4f001e0da2c4dac47834601b1117, type: 3}
       propertyPath: m_TagString
