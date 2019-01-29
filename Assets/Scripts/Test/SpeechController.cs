@@ -42,7 +42,7 @@ namespace REEL.Test
 
         private void Update()
         {
-            if (isTTSStarted && IsFinished)
+            if (IsFinished)
             {
                 isTTSStarted = false;
             }
@@ -83,7 +83,8 @@ namespace REEL.Test
 
         public bool IsFinished
         {
-            get { return isTTSStarted && voice.Status.RunningState == SpeechRunState.SRSEDone; }
+            //get { return isTTSStarted && voice.Status.RunningState == SpeechRunState.SRSEDone; }
+            get { return voice.Status.RunningState == SpeechRunState.SRSEDone; }
         }
     }
 }

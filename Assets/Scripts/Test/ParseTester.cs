@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace REEL.Test
 {
@@ -29,6 +30,10 @@ namespace REEL.Test
     {
         public RiveScriptProcessor riveScriptProcessor;
         public SpeechController speechController;
+
+        public Text speechText;
+        public Text motionMessageText;
+        public Text faceMessageText;
 
         Dictionary<string, Action<string>> processors = new Dictionary<string, Action<string>>();
         Queue<Command> currentCommands = new Queue<Command>();
@@ -58,24 +63,44 @@ namespace REEL.Test
             {
                 ParseLine(line);
 
-                yield return new WaitForSeconds(3f);
+                //yield return new WaitForSeconds(3f);
+                yield return StartCoroutine("WaitForSpeech");
             }
 
             Debug.Log("<color=red>All Process Done</color>");
         }
 
-        void ParseLine(string script)
+        IEnumerator WaitForSpeech()
+        {
+            bool isFinished = false;
+            while (!isFinished)
+            {
+                yield return null;
+
+                Debug.Log("Wait..." + speechController.IsFinished);
+
+                if (speechController.IsFinished)
+                {
+                    isFinished = true;
+                    break;
+                }   
+            }
+        }
+
+        void ParseLine(string speech)
         {
             Regex rx = new Regex("(<[^>]+>)");
-            MatchCollection matches = rx.Matches(script);
+            MatchCollection matches = rx.Matches(speech);
             if (matches.Count > 0)
             {
                 foreach (Match match in matches)
                 {
-                    script = script.Replace(match.Groups[0].ToString(), "");
+                    speech = speech.Replace(match.Groups[0].ToString(), "");
                     currentCommands.Enqueue(new Command(match.Groups[0]));
                 }
 
+                speechText.text = speech;
+                speechController.Play(speech);
                 ProcessorExecutor();
             }
         }
@@ -91,18 +116,38 @@ namespace REEL.Test
                 {
                     processor(command.message);
                 }
+                else
+                {
+                    ClearAllMessages();
+                }
             }
+
             Debug.Log("<color=green>Execute Finished</color>");
+            
+        }
+
+        void ProcessDone()
+        {
+            speechText.text = "실행 종료.";
+            ClearAllMessages();
+        }
+
+        void ClearAllMessages()
+        {
+            faceMessageText.text = "";
+            motionMessageText.text = "";
         }
 
         void FacialPlayer(string message)
         {
             Debug.Log("FacialPlayer: " + message);
+            faceMessageText.text = message;
         }
 
         void MotionPlayer(string message)
         {
             Debug.Log("MotionPlayer: " + message);
+            motionMessageText.text = message;
         }
     }
 }

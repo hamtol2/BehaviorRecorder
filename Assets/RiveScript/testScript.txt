@@ -1,5 +1,5 @@
 + (시작하자|시작하다)
-- 안녕하세요. <sm=motion:hi> <sm=facial:speak> <sm=facetype:true> <sm=iscue:true>|
+- 안녕하세요 <sm=motion:hi> <sm=facial:speak> <sm=facetype:true> <sm=iscue:true> |
 ^ 저는 오늘 퀴즈 진행을 맡게된<sm=motion:ok> <sm= facial:smile> <sm=set_score=zero> <sm=qcount:5> <sm= activebreath:true> |
 ^ 로봇 모카 입니다. <sm=motion:clap> <sm= facial:normal_inactive> <sm= answer:o> <sm= answertime:20> <sm= hinttime:0> <sm=robotmove:-1> |
 ^ 오늘 하실 일은 간딴합니다. <sm=motion:hi4> <sm=facial:speak4> | 
