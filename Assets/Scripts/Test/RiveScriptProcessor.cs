@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace REEL.Test
+namespace REEL.Recorder
 {
     public class RiveScriptProcessor : MonoBehaviour
     {

@@ -14,51 +14,51 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   motionName: angry
   sequence:
-  - deltaTime: 0.7
+  - deltaTime: 0.8
     leftArm:
-      shoulder: 14
-      upperArm: -83
+      shoulder: -20
+      upperArm: -70
       lowerArm: -24
     rightArm:
-      shoulder: 14
-      upperArm: 83
+      shoulder: 20
+      upperArm: 70
       lowerArm: 24
     head:
       neck: 0
-      headBase: -9
-  - deltaTime: 0.7
+      headBase: -2
+  - deltaTime: 0.8
     leftArm:
-      shoulder: 57
-      upperArm: -75
+      shoulder: 45
+      upperArm: -70
       lowerArm: -24
     rightArm:
-      shoulder: 57
-      upperArm: 75
+      shoulder: -45
+      upperArm: 70
       lowerArm: 24
     head:
       neck: 0
-      headBase: -9
-  - deltaTime: 0.7
+      headBase: -2
+  - deltaTime: 0.8
     leftArm:
-      shoulder: 14
-      upperArm: -83
+      shoulder: -20
+      upperArm: -70
       lowerArm: -24
     rightArm:
-      shoulder: 14
-      upperArm: 83
+      shoulder: 20
+      upperArm: 70
       lowerArm: 24
     head:
       neck: 0
-      headBase: -99
+      headBase: -2
   - deltaTime: 0.8
     leftArm:
       shoulder: 45
       upperArm: -45
       lowerArm: -45
     rightArm:
-      shoulder: 45
+      shoulder: -45
       upperArm: 45
       lowerArm: 45
     head:
       neck: 0
-      headBase: 25
+      headBase: 20

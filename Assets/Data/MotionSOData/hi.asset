@@ -14,63 +14,63 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   motionName: hi
   sequence:
+  - deltaTime: 1.5
+    leftArm:
+      shoulder: 45
+      upperArm: -45
+      lowerArm: -45
+    rightArm:
+      shoulder: 60
+      upperArm: 60
+      lowerArm: 38
+    head:
+      neck: 0
+      headBase: 20
   - deltaTime: 0.7
     leftArm:
       shoulder: 45
       upperArm: -45
       lowerArm: -45
     rightArm:
-      shoulder: -60
-      upperArm: 60
-      lowerArm: 38
-    head:
-      neck: 0
-      headBase: 25
-  - deltaTime: 0.6
-    leftArm:
-      shoulder: 45
-      upperArm: -45
-      lowerArm: -45
-    rightArm:
-      shoulder: -60
-      upperArm: 96
+      shoulder: 60
+      upperArm: 80
       lowerArm: 34
     head:
       neck: 0
-      headBase: 25
-  - deltaTime: 0.6
-    leftArm:
-      shoulder: 45
-      upperArm: -45
-      lowerArm: -45
-    rightArm:
-      shoulder: -60
-      upperArm: 60
-      lowerArm: 38
-    head:
-      neck: 0
-      headBase: 25
-  - deltaTime: 0.6
-    leftArm:
-      shoulder: 45
-      upperArm: -45
-      lowerArm: -45
-    rightArm:
-      shoulder: -60
-      upperArm: 96
-      lowerArm: 34
-    head:
-      neck: 0
-      headBase: 25
+      headBase: 20
   - deltaTime: 0.7
     leftArm:
       shoulder: 45
       upperArm: -45
       lowerArm: -45
     rightArm:
-      shoulder: -57
-      upperArm: 75
-      lowerArm: 23
+      shoulder: 60
+      upperArm: 60
+      lowerArm: 38
     head:
       neck: 0
-      headBase: 25
+      headBase: 20
+  - deltaTime: 0.7
+    leftArm:
+      shoulder: 45
+      upperArm: -45
+      lowerArm: -45
+    rightArm:
+      shoulder: 60
+      upperArm: 80
+      lowerArm: 34
+    head:
+      neck: 0
+      headBase: 20
+  - deltaTime: 1.5
+    leftArm:
+      shoulder: 45
+      upperArm: -45
+      lowerArm: -45
+    rightArm:
+      shoulder: -45
+      upperArm: 45
+      lowerArm: 45
+    head:
+      neck: 0
+      headBase: 20

@@ -5,6 +5,9 @@ using System.Text.RegularExpressions;
 using UnityEngine;
 using UnityEngine.UI;
 
+using REEL.Recorder;
+using REEL.PoseAnimation;
+
 namespace REEL.Test
 {
     class Command
@@ -31,6 +34,8 @@ namespace REEL.Test
         public RiveScriptProcessor riveScriptProcessor;
         public SpeechController speechController;
 
+        public RobotTransformController robotController;
+
         public Text speechText;
         public Text motionMessageText;
         public Text faceMessageText;
@@ -43,10 +48,10 @@ namespace REEL.Test
             InitProcessors();
         }
 
-        private void Start()
+        public void TestStart()
         {
             string targetString = riveScriptProcessor.GetReply("시작하자");
-            StartCoroutine("SplitScriptToLines", (targetString));
+            SplitScriptToQueue(targetString);
         }
 
         void InitProcessors()
@@ -55,36 +60,23 @@ namespace REEL.Test
             processors.Add("motion", MotionPlayer);
         }
 
-        IEnumerator SplitScriptToLines(string script)
+        Queue<string> lineQueue = new Queue<string>();
+        void SplitScriptToQueue(string script)
         {
             string[] lines = script.Split(new char[] { '|' }, System.StringSplitOptions.RemoveEmptyEntries);
-
-            foreach (string line in lines)
+            for (int ix = 0; ix < lines.Length; ++ix)
             {
-                ParseLine(line);
-
-                //yield return new WaitForSeconds(3f);
-                yield return StartCoroutine("WaitForSpeech");
+                lineQueue.Enqueue(lines[ix]);
             }
 
-            Debug.Log("<color=red>All Process Done</color>");
+            SpeechByLine();
         }
 
-        IEnumerator WaitForSpeech()
+        public void SpeechByLine()
         {
-            bool isFinished = false;
-            while (!isFinished)
-            {
-                yield return null;
+            if (lineQueue.Count == 0) return;
 
-                Debug.Log("Wait..." + speechController.IsFinished);
-
-                if (speechController.IsFinished)
-                {
-                    isFinished = true;
-                    break;
-                }   
-            }
+            ParseLine(lineQueue.Dequeue());
         }
 
         void ParseLine(string speech)
@@ -107,8 +99,8 @@ namespace REEL.Test
 
         void ProcessorExecutor()
         {
-            Debug.Log("<color=green>Execute Start</color>");
-            for (int ix = 0; ix < currentCommands.Count; ++ix)
+            Debug.Log("<color=green>Execute Start</color> Queue Count: " + currentCommands.Count);
+            while (currentCommands.Count > 0)
             {
                 Action<string> processor;
                 Command command = currentCommands.Dequeue();
@@ -123,7 +115,6 @@ namespace REEL.Test
             }
 
             Debug.Log("<color=green>Execute Finished</color>");
-            
         }
 
         void ProcessDone()
@@ -148,6 +139,8 @@ namespace REEL.Test
         {
             Debug.Log("MotionPlayer: " + message);
             motionMessageText.text = message;
+
+            robotController.PlayMotion(message);
         }
     }
 }

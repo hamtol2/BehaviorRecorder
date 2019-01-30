@@ -46,7 +46,8 @@ namespace REEL.Recorder
             get { return Random.Range(waitTimeMin, waitTimeMax); }
         }
 
-        private void Awake()
+        //private void Awake()
+        private void Start()
         {
             waypoints = waypoint.GetComponentsInChildren<Transform>();
             ResetTimer();

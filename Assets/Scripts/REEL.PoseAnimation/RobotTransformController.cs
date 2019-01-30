@@ -15,18 +15,19 @@ namespace REEL.PoseAnimation
         [SerializeField] private RobotMovement robotMovement;
         [SerializeField] private MotionData motionData;
 
+        public GameEvent OnRobotReady;
+
         public string currentGesture;
 
         bool breatheEnable = true;
 
+        private float rotSpeed = 360f;
+        private float rotSpeedPercentage = 0.8f;
+
         // Y, 	Z, 	  Z,   Y, 	X, Z
         float[] zeroAngle = new float[8] { 0f, -90f, 90f, 90f, 0f, 0f, 0f, 0f };
         float[] baseAngle = new float[8] { 45f, -45f, -45f, 45f, 45f, 45f, 0f, 10f };
-        float[] DIRECTION = new float[8] { -1f, 1f, 1f, 1f, -1f, -1f, 0f, 1f };
 
-        float[] OFFSET = new float[] { 0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f };
-
-        IEnumerator currentAnimation = null;
         private bool isPlaying = false;
         private bool isBreathActive = true;
         private readonly float playMotionDelayTime = 1f;
@@ -40,6 +41,8 @@ namespace REEL.PoseAnimation
 
             yield return StartCoroutine(SetBasePos());
 
+            OnRobotReady.Raise();
+
             //if (breath) PlayMotion("breathing");
         }
 
@@ -50,32 +53,22 @@ namespace REEL.PoseAnimation
 
         public void PlayMotion(string motion)
         {
-            // 흘끗보기 동작은 우선적으로 재생.
-            if (motion.Contains("nod"))
-            {
-                if (isPlaying)
-                {
-                    StopAllCoroutines();
-                    isPlaying = false;
-                }
-
-                StartCoroutine(PlayMotionCoroutine(motion));
-                return;
-            }
-
             if (!isBreathActive && !motion.Contains("breathing"))
             {
                 StartCoroutine("DelayPlayMotion", motion);
                 return;
             }
-
-            //Debug.Log("PlayMotion: " + motion);
-            SetRobotState(motion);
-
-            animationQueue.Enqueue(new MotionAnimInfo(motion, PlayMotionCoroutine(motion)));
-            if (!isPlaying && animationQueue.Count > 0)
+            else
             {
-                StartCoroutine(animationQueue.Dequeue().motionCoroutine);
+                if (isPlaying)
+                {
+                    StopCoroutine("GestureProcess");
+                    StopCoroutine("DelayPlayMotion");
+                    isPlaying = false;
+                }
+
+                StartCoroutine(PlayMotionCoroutine(motion));
+                return;
             }
         }
 
@@ -137,16 +130,14 @@ namespace REEL.PoseAnimation
             if (motionFrameData != null)
             {
                 currentGesture = motion;
-                behaviorRecorder.RecordBehavior(new RecordEvent(0, motion));
+                if (behaviorRecorder) behaviorRecorder.RecordBehavior(new RecordEvent(0, motion));
 
                 yield return StartCoroutine("GestureProcess", motionFrameData);
-                currentAnimation = null;
             }
             else
             {
                 Debug.Log("motion null, " + motion);
                 currentGesture = string.Empty;
-                currentAnimation = null;
             }
         }
 
@@ -160,12 +151,35 @@ namespace REEL.PoseAnimation
             return playTime;
         }
 
+        float GetDurationToFirstAngle(float[] motionInfo)
+        {
+            float maxDegree = 0f;
+            for (int ix = 0; ix < jointInfo.Length; ++ix)
+            {
+                float degree = jointInfo[ix].GetTargetAngleAxis(motionInfo[ix + 1]);
+                maxDegree = Mathf.Max(maxDegree, degree);
+            }
+
+            return maxDegree;
+        }
+
         IEnumerator GestureProcess(float[][] motionInfo)
         {
             isPlaying = true;
 
             for (int ix = 0; ix < motionInfo.Length; ++ix)
             {
+                // 첫 번째를 제외한 나머지 각도 설정인 경우, 각도 데이터에 있는 시간 값 사용.
+                float rotDuration = motionInfo[ix][0];
+
+                // 첫 번째 각도 설정인 경우, 최대 회전 각도를 기반으로 회전 시간 계산.
+                if (ix == 0)
+                {
+                    float maxDegree = GetDurationToFirstAngle(motionInfo[0]);
+                    rotDuration = maxDegree / (rotSpeed * rotSpeedPercentage);
+                    //Debug.Log("Max Degree: " + maxDegree + " , Rot Duration: " + rotDuration);
+                }
+
                 for (int jx = 0; jx < jointInfo.Length; ++jx)
                 {
                     // For Debug.
@@ -175,12 +189,11 @@ namespace REEL.PoseAnimation
                     //    continue;
                     //}
 
-                    StartCoroutine(jointInfo[jx].SetAngleLerp(motionInfo[ix][jx + 1], motionInfo[ix][0]));
+                    StartCoroutine(jointInfo[jx].SetAngleLerp(motionInfo[ix][jx + 1], rotDuration));
                 }
 
-                float waitTime = motionInfo[ix][0];
-
-                yield return new WaitForSeconds(waitTime);
+                //float waitTime = motionInfo[ix][0];
+                yield return new WaitForSeconds(rotDuration);
             }
 
             yield return StartCoroutine(SetBasePos());
@@ -207,32 +220,6 @@ namespace REEL.PoseAnimation
             //breatheEnable = true;
         }
 
-        IEnumerator WaitUntilNextCoroutine(float time)
-        {
-            float elapsedTime = 0f;
-            while (elapsedTime <= time)
-            {
-                elapsedTime += Time.deltaTime;
-                yield return null;
-            }
-        }
-
-        float GetAngleToGo(float[][] motionInfo, int index, int jointIndex, float duration)
-        {
-            // Destination angle of a series
-            float angleDest = motionInfo[index][jointIndex + 1] + OFFSET[jointIndex + 1];
-            // Current angle of joint
-            float angleNow = GetAngle(jointIndex);
-            // Different between destination and currenat angles
-            float angleDiff = angleDest - angleNow;
-            // Angle ratio from 
-            float angleRatio = duration / motionInfo[index][0];
-            // Angle of to go now
-            float angleToGo = angleNow + (angleDiff * angleRatio);
-
-            return angleToGo;
-        }
-
         IEnumerator TestExecutor()
         {
             for (int ix = 0; ix < 5; ++ix)
@@ -255,6 +242,7 @@ namespace REEL.PoseAnimation
             yield return new WaitForSeconds(.5f);
             SetBasePos();
         }
+
         public void SetAngle(int jointId, float angle)
         {
             jointInfo[jointId].SetAngle(angle);
@@ -263,11 +251,6 @@ namespace REEL.PoseAnimation
         public void SetAngleLerp(int jointId, float angle, float duration)
         {
             StartCoroutine(jointInfo[jointId].SetAngleLerp(angle, duration));
-        }
-
-        public float GetAngle(int JointID)
-        {
-            return jointInfo[JointID].GetAngle();
         }
 
         class MotionAnimInfo
