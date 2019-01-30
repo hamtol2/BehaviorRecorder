@@ -1,9 +1,9 @@
 ﻿using UnityEngine;
 using UnityEngine.Events;
 
-public class GameEventListener : MonoBehaviour
+public class MOCCAEventListener : MonoBehaviour
 {
-    public GameEvent Event;
+    public MOCCAEvent Event;
     public UnityEvent response;
 
     private void OnEnable()

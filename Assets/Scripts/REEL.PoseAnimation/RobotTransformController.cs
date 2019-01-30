@@ -6,7 +6,6 @@ using UnityEngine;
 
 namespace REEL.PoseAnimation
 {
-    //[ExecuteInEditMode]
     public class RobotTransformController : Singleton<RobotTransformController>
     {
         public JointSet[] jointInfo;
@@ -15,7 +14,7 @@ namespace REEL.PoseAnimation
         [SerializeField] private RobotMovement robotMovement;
         [SerializeField] private MotionData motionData;
 
-        public GameEvent OnRobotReady;
+        public MOCCAEvent OnRobotReady;
 
         public string currentGesture;
 
@@ -31,9 +30,6 @@ namespace REEL.PoseAnimation
         private bool isPlaying = false;
         private bool isBreathActive = true;
         private readonly float playMotionDelayTime = 1f;
-
-        // Test.
-        Queue<MotionAnimInfo> animationQueue = new Queue<MotionAnimInfo>();
 
         private IEnumerator Start()
         {
@@ -192,7 +188,6 @@ namespace REEL.PoseAnimation
                     StartCoroutine(jointInfo[jx].SetAngleLerp(motionInfo[ix][jx + 1], rotDuration));
                 }
 
-                //float waitTime = motionInfo[ix][0];
                 yield return new WaitForSeconds(rotDuration);
             }
 
@@ -200,47 +195,11 @@ namespace REEL.PoseAnimation
 
             isPlaying = false;
 
-            //Debug.Log("Motion Finished, queue count: " + animationQueue.Count);
-            if (animationQueue.Count > 0)
+            if (breath)
             {
-                MotionAnimInfo info = animationQueue.Dequeue();
-                //Debug.Log("Play Next motion: " + info.motion);
-                StartCoroutine(info.motionCoroutine);
+                string brethingName = isBreathActive ? "breathing_active" : "breathing_inactive";
+                PlayMotion(brethingName);
             }
-            else if (animationQueue.Count == 0)
-            {
-                if (breath)
-                {
-                    //bool isActiveMode = WebSurvey.Instance.GetBehaviorMode == WebSurvey.Mode.Active;
-                    string brethingName = isBreathActive ? "breathing_active" : "breathing_inactive";
-                    PlayMotion(brethingName);
-                }
-            }
-
-            //breatheEnable = true;
-        }
-
-        IEnumerator TestExecutor()
-        {
-            for (int ix = 0; ix < 5; ++ix)
-            {
-                yield return StartCoroutine(Test());
-            }
-        }
-
-        float waitTime = 0.1f;
-        IEnumerator Test()
-        {
-            for (int ix = 1; ix < 11; ++ix)
-            {
-                //SetAngle(6, -ix * 10f);
-                SetAngle(7, ix * 10f);
-
-                yield return new WaitForSeconds(waitTime);
-            }
-
-            yield return new WaitForSeconds(.5f);
-            SetBasePos();
         }
 
         public void SetAngle(int jointId, float angle)
@@ -251,19 +210,6 @@ namespace REEL.PoseAnimation
         public void SetAngleLerp(int jointId, float angle, float duration)
         {
             StartCoroutine(jointInfo[jointId].SetAngleLerp(angle, duration));
-        }
-
-        class MotionAnimInfo
-        {
-            public string motion;
-            public IEnumerator motionCoroutine;
-
-            public MotionAnimInfo() { }
-            public MotionAnimInfo(string motion, IEnumerator coroutine)
-            {
-                this.motion = motion;
-                motionCoroutine = coroutine;
-            }
         }
     }
 }

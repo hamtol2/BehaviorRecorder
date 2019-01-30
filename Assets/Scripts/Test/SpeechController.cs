@@ -5,11 +5,10 @@ namespace REEL.Test
 {
     public class SpeechController : MonoBehaviour
     {
-        public GameEvent OnSpeechFinished;
+        public MOCCAEvent OnSpeechFinished;
 
         private SpVoiceClass voice;
         private bool isTTSStarted = false;
-
 
         private void Awake()
         {

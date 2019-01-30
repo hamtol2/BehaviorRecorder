@@ -99,7 +99,7 @@ namespace REEL.Test
 
         void ProcessorExecutor()
         {
-            Debug.Log("<color=green>Execute Start</color> Queue Count: " + currentCommands.Count);
+            //Debug.Log("<color=green>Execute Start</color> Queue Count: " + currentCommands.Count);
             while (currentCommands.Count > 0)
             {
                 Action<string> processor;
@@ -114,7 +114,7 @@ namespace REEL.Test
                 }
             }
 
-            Debug.Log("<color=green>Execute Finished</color>");
+            //Debug.Log("<color=green>Execute Finished</color>");
         }
 
         void ProcessDone()

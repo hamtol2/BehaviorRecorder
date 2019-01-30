@@ -2,9 +2,9 @@
 using UnityEngine;
 
 [CreateAssetMenu]
-public class GameEvent : ScriptableObject
+public class MOCCAEvent : ScriptableObject
 {
-    private List<GameEventListener> listeners = new List<GameEventListener>();
+    private List<MOCCAEventListener> listeners = new List<MOCCAEventListener>();
 
     public void Raise()
     {
@@ -14,12 +14,12 @@ public class GameEvent : ScriptableObject
         }
     }
 
-    public void RegisterListener(GameEventListener listener)
+    public void RegisterListener(MOCCAEventListener listener)
     {
         listeners.Add(listener);
     }
 
-    public void UnregisterListener(GameEventListener listener)
+    public void UnregisterListener(MOCCAEventListener listener)
     {
         listeners.Remove(listener);
     }
