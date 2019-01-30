@@ -10,7 +10,7 @@ namespace REEL.Recorder
     {
         public string fileName = "Behavior.json";
         public RobotFacialRenderer facialRenderer;
-        public RobotTransformController transformController;
+        public RobotMotionController transformController;
         public GameObject marker;
         public RobotMovement robotMovement;
 

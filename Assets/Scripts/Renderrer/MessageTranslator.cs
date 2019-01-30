@@ -15,7 +15,7 @@ namespace REEL.Animation
     {
         public TextAsset riveScriptFile;
         public RobotFacialRenderer robotFacialRenderer;
-        public RobotTransformController robotTransformController;
+        public RobotMotionController robotTransformController;
         public BehaviorRecorder behaviorRecorder;
         public Text debugText;
 

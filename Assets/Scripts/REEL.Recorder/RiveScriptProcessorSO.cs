@@ -1,27 +1,26 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace REEL.Recorder
 {
-    public class RiveScriptProcessor : MonoBehaviour
+    [CreateAssetMenu(menuName = "ScriptableObject/RiveScript/RiveScript Processor")]
+    public class RiveScriptProcessorSO : ScriptableObject
     {
         RiveScript.RiveScript riveScript;
-        [SerializeField] private TextAsset testScript;
+        [SerializeField] private TextAsset riveScriptText;
 
-        private void Awake()
+        public void SetRiveScriptText(TextAsset textAsset)
         {
-            InitRiveScript();
+            riveScriptText = textAsset;
         }
 
-        void InitRiveScript()
+        public void InitRiveScript()
         {
             riveScript = new RiveScript.RiveScript(utf8: true, debug: true);
 
-            if (riveScript.LoadTextAsset(testScript))
+            if (riveScript.LoadTextAsset(riveScriptText))
             {
                 riveScript.sortReplies();
-                Debug.Log("Successfully load file: " + testScript.name);
+                Debug.Log("Successfully load file: " + riveScriptText.name);
             }
             else
             {

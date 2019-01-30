@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 312fda26c85f13b44a3acee96f00f15e, type: 3}
+  m_Name: RiveScriptFileArray
+  m_EditorClassIdentifier: 
+  riveScriptAssets:
+  - {fileID: 4900000, guid: 7e2ab539a227e9147832ebe4c8db5314, type: 3}
+  - {fileID: 4900000, guid: 1a27c06b86da24342ba53efb5d2bb6f6, type: 3}
+  - {fileID: 4900000, guid: 574d3f11aa7bc0645ba07a2e703c6ec0, type: 3}
+  - {fileID: 4900000, guid: 09d604c92c465a240bbd060628c2bef1, type: 3}

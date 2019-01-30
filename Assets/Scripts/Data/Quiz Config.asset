@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: df4f74531ec40ea40ab748ca4c54af06, type: 3}
+  m_Name: Quiz Config
+  m_EditorClassIdentifier: 
+  quizTitle: OX-Quiz
+  quizState: 0
+  answerState: 0
+  robotModelType: 1

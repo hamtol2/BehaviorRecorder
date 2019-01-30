@@ -319,6 +319,8 @@ MonoBehaviour:
   robotMovement: {fileID: 917890946}
   facialRenderer: {fileID: 1053427238}
   gestureController: {fileID: 574285150}
+  surveyController: {fileID: 1345046809}
+  quizStatusManager: {fileID: 2050646164}
 --- !u!4 &59991471
 Transform:
   m_ObjectHideFlags: 0
@@ -326,12 +328,12 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 59991469}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.20859794, y: 1.567586, z: 0.1535601}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0.20859793, y: 1.5675858, z: 0.15355968}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 12
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &67794066
 GameObject:
@@ -741,8 +743,9 @@ RectTransform:
   - {fileID: 1748546971}
   - {fileID: 1995386084}
   - {fileID: 317989545}
+  - {fileID: 1156301428}
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -1213,7 +1216,7 @@ Transform:
   - {fileID: 1256046765}
   - {fileID: 1407301190}
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &574285148
 GameObject:
@@ -1227,7 +1230,7 @@ GameObject:
   - component: {fileID: 574285150}
   - component: {fileID: 574285151}
   m_Layer: 0
-  m_Name: Robot Transform Controller
+  m_Name: Robot Motion Controller
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1296,6 +1299,7 @@ MonoBehaviour:
   behaviorRecorder: {fileID: 59991470}
   robotMovement: {fileID: 917890946}
   motionData: {fileID: 574285151}
+  OnRobotReady: {fileID: 11400000, guid: 2c74820cf5d5184478de93cea68dbeb1, type: 2}
   currentGesture: 
 --- !u!114 &574285151
 MonoBehaviour:
@@ -1601,54 +1605,6 @@ SpriteRenderer:
     type: 3}
   m_PrefabInstance: {fileID: 1906952549}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &702297391
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 702297392}
-  - component: {fileID: 702297393}
-  m_Layer: 0
-  m_Name: QuizManager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &702297392
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 702297391}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 892535533}
-  m_RootOrder: 3
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &702297393
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 702297391}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: df4f74531ec40ea40ab748ca4c54af06, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  quizTitle: NonSense
-  quizNumber: 1
-  quizState: 0
-  answerState: 0
-  robotModelType: 1
 --- !u!4 &730742441 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4517286573772592, guid: 243c4f001e0da2c4dac47834601b1117,
@@ -1916,7 +1872,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &817652547
 GameObject:
@@ -1995,7 +1951,7 @@ Transform:
   - {fileID: 649466476}
   - {fileID: 1522549096}
   m_Father: {fileID: 0}
-  m_RootOrder: 14
+  m_RootOrder: 15
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &829230310
 GameObject:
@@ -2064,7 +2020,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
 --- !u!1 &867752193
 GameObject:
@@ -2189,9 +2145,8 @@ Transform:
   - {fileID: 163239781}
   - {fileID: 1053427235}
   - {fileID: 574285149}
-  - {fileID: 702297392}
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &908145612 stripped
 GameObject:
@@ -2316,7 +2271,7 @@ Transform:
   m_LocalScale: {x: 0.6, y: 0.6, z: 0.6}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &922914786
 MonoBehaviour:
@@ -2447,6 +2402,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   robotFacialData: {fileID: 1053427237}
   robotFacialAnimator: {fileID: 1053427236}
+  surveyController: {fileID: 1345046809}
   debugText: {fileID: 1295470174}
   isDebug: 1
   baseFace: normal_inactive
@@ -2680,12 +2636,12 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1156301425}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -674.6192, y: -379.4733, z: 0}
+  m_LocalScale: {x: 0.70272833, y: 0.70272833, z: 0.70272833}
   m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_Father: {fileID: 234971117}
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1193719845 stripped
 GameObject:
@@ -3106,6 +3062,53 @@ SpriteRenderer:
     type: 3}
   m_PrefabInstance: {fileID: 1906952549}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1313113715
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1313113717}
+  - component: {fileID: 1313113716}
+  m_Layer: 0
+  m_Name: TimerManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1313113716
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1313113715}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d6a2238cae75e5847ac7b5e49af07464, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  answerTimer: {fileID: 11400000, guid: cc898487c957a754f8c18967bd636f03, type: 2}
+  hintTimer: {fileID: 11400000, guid: 81ac69db401542d40a16b22f8eb5f7b0, type: 2}
+  robotmovementTimer: {fileID: 11400000, guid: 7b48149baa90195418324458d7079ea0, type: 2}
+  resultSceneTimer: {fileID: 11400000, guid: 0e51dc3d1e48e1c439fb62c3178fd67e, type: 2}
+--- !u!4 &1313113717
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1313113715}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 960, y: 852.31604, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 10
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1314758684
 GameObject:
   m_ObjectHideFlags: 0
@@ -3319,10 +3322,14 @@ GameObject:
   m_Component:
   - component: {fileID: 1345046810}
   - component: {fileID: 1345046809}
+  - component: {fileID: 1345046814}
+  - component: {fileID: 1345046813}
+  - component: {fileID: 1345046816}
+  - component: {fileID: 1345046815}
   - component: {fileID: 1345046811}
   - component: {fileID: 1345046812}
   m_Layer: 0
-  m_Name: WebSurvey
+  m_Name: SurveyController
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3340,29 +3347,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bb9320bdeb91e46dea82274872abd41d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  surveyTypeGA: {fileID: 4900000, guid: 43adf4c372c48b740bb627b65c5dbc29, type: 3}
-  surveyTypeNA: {fileID: 4900000, guid: 1a27c06b86da24342ba53efb5d2bb6f6, type: 3}
-  surveyTypeDA: {fileID: 4900000, guid: 574d3f11aa7bc0645ba07a2e703c6ec0, type: 3}
-  surveyTypeRA: {fileID: 4900000, guid: 09d604c92c465a240bbd060628c2bef1, type: 3}
+  riveScript: {fileID: 11400000, guid: 607ad67de5eb4ec468bcf90c2093457b, type: 2}
+  riveScriptFileArray: {fileID: 11400000, guid: 486fba7a7e986fe4ab42104d262bfbe7,
+    type: 2}
   robotFacialRenderer: {fileID: 1053427238}
   transformController: {fileID: 574285150}
-  quizStatusWindow: {fileID: 1748546970}
-  quizNumberText: {fileID: 2054155524}
-  scoreText: {fileID: 1314758686}
+  quizStatusManager: {fileID: 2050646164}
   robotMovement: {fileID: 917890946}
   behaviorRecorder: {fileID: 59991470}
   behaviorReplayer: {fileID: 2066061028}
   answerButton: {fileID: 1995386085}
-  currentQuizNumber: 0
-  quizScore: 0
-  quizTitle: OX-Quiz
-  contentState: 0
-  answerState: 0
-  robotModelType: 1
+  timerManager: {fileID: 1313113716}
   timeOutTime: 0
   hintTime: 0
   robotMovementTime: 0
-  numOfQuiz: 0
   resultSceneName: 3.ResultScene
 --- !u!4 &1345046810
 Transform:
@@ -3371,12 +3369,12 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1345046808}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.058390886, y: 0.9494981, z: -0.09954852}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0.058390882, y: 0.9494981, z: -0.09954882}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 11
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1345046811
 MonoBehaviour:
@@ -3390,6 +3388,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9e4c0490fb6404287b852eb63a21200a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  surveyController: {fileID: 1345046809}
+  quizStatusManager: {fileID: 2050646164}
   speechRecognitionButton: {fileID: 357561500}
   currentSpeech:
     speechScript: 
@@ -3409,8 +3409,127 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 740de3c1eafa84139810c066af7df62e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  robotMotionController: {fileID: 574285150}
   robotFacialRenderer: {fileID: 1053427238}
+  surveyController: {fileID: 1345046809}
+  quizStatusManager: {fileID: 2050646164}
   quizStartTime: 2
+--- !u!114 &1345046813
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1345046808}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5a25d26a7e9d6924c90ed80f44478cc4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Event: {fileID: 11400000, guid: 7a54589e216b70b4593219b8eb3fba1a, type: 2}
+  response:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1345046809}
+        m_MethodName: GazeToButton
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+--- !u!114 &1345046814
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1345046808}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5a25d26a7e9d6924c90ed80f44478cc4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Event: {fileID: 11400000, guid: aba9e60fe43beef4eb2c9a44106b03a7, type: 2}
+  response:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1345046809}
+        m_MethodName: TimeOut
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+--- !u!114 &1345046815
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1345046808}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5a25d26a7e9d6924c90ed80f44478cc4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Event: {fileID: 11400000, guid: d3a0b0f5e12ad9549801689c84a643e0, type: 2}
+  response:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1345046809}
+        m_MethodName: GoToResultScene
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+--- !u!114 &1345046816
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1345046808}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5a25d26a7e9d6924c90ed80f44478cc4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Event: {fileID: 11400000, guid: afb1b0c73573d4c4ca7804b1372bf0ca, type: 2}
+  response:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1345046809}
+        m_MethodName: RobotMove
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
 --- !u!1 &1350474533 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1036756454505486, guid: 243c4f001e0da2c4dac47834601b1117,
@@ -3471,7 +3590,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4000011510471448, guid: 73477f779c490234d82ad11f2536dbd9, type: 3}
       propertyPath: m_RootOrder
-      value: 15
+      value: 16
       objectReference: {fileID: 0}
     - target: {fileID: 114000013716498916, guid: 73477f779c490234d82ad11f2536dbd9,
         type: 3}
@@ -3613,6 +3732,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 38d2b6b8889395646b435b345f5842c9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  surveyController: {fileID: 1345046809}
   buttonType: 1
 --- !u!114 &1394366319
 MonoBehaviour:
@@ -3826,7 +3946,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 9
+  m_RootOrder: 13
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &1485401939 stripped
 Transform:
@@ -5113,6 +5233,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 1946911959776662, guid: 243c4f001e0da2c4dac47834601b1117, type: 3}
+      propertyPath: m_TagString
+      value: Arm
+      objectReference: {fileID: 0}
     - target: {fileID: 4164432857449898, guid: 243c4f001e0da2c4dac47834601b1117, type: 3}
       propertyPath: m_LocalRotation.x
       value: 0
@@ -5137,13 +5261,33 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.x
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1946911959776662, guid: 243c4f001e0da2c4dac47834601b1117, type: 3}
+    - target: {fileID: 1480323421284214, guid: 243c4f001e0da2c4dac47834601b1117, type: 3}
+      propertyPath: m_TagString
+      value: Arm
+      objectReference: {fileID: 0}
+    - target: {fileID: 1638896119672608, guid: 243c4f001e0da2c4dac47834601b1117, type: 3}
       propertyPath: m_TagString
       value: Arm
       objectReference: {fileID: 0}
     - target: {fileID: 1404646033276478, guid: 243c4f001e0da2c4dac47834601b1117, type: 3}
       propertyPath: m_TagString
       value: Arm
+      objectReference: {fileID: 0}
+    - target: {fileID: 1335471466934154, guid: 243c4f001e0da2c4dac47834601b1117, type: 3}
+      propertyPath: m_TagString
+      value: Arm
+      objectReference: {fileID: 0}
+    - target: {fileID: 1161058495616016, guid: 243c4f001e0da2c4dac47834601b1117, type: 3}
+      propertyPath: m_TagString
+      value: Arm
+      objectReference: {fileID: 0}
+    - target: {fileID: 1061307256119550, guid: 243c4f001e0da2c4dac47834601b1117, type: 3}
+      propertyPath: m_TagString
+      value: Finger
+      objectReference: {fileID: 0}
+    - target: {fileID: 1886335327538926, guid: 243c4f001e0da2c4dac47834601b1117, type: 3}
+      propertyPath: m_TagString
+      value: Finger
       objectReference: {fileID: 0}
     - target: {fileID: 1224125177410966, guid: 243c4f001e0da2c4dac47834601b1117, type: 3}
       propertyPath: m_TagString
@@ -5153,32 +5297,12 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 1886335327538926, guid: 243c4f001e0da2c4dac47834601b1117, type: 3}
-      propertyPath: m_TagString
-      value: Finger
-      objectReference: {fileID: 0}
-    - target: {fileID: 1061307256119550, guid: 243c4f001e0da2c4dac47834601b1117, type: 3}
-      propertyPath: m_TagString
-      value: Finger
-      objectReference: {fileID: 0}
-    - target: {fileID: 1638896119672608, guid: 243c4f001e0da2c4dac47834601b1117, type: 3}
-      propertyPath: m_TagString
-      value: Arm
-      objectReference: {fileID: 0}
-    - target: {fileID: 1335471466934154, guid: 243c4f001e0da2c4dac47834601b1117, type: 3}
-      propertyPath: m_TagString
-      value: Arm
-      objectReference: {fileID: 0}
     - target: {fileID: 212862154903907226, guid: 243c4f001e0da2c4dac47834601b1117,
         type: 3}
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 21300000, guid: da4a1a3a8c2a048bb9e95dd5f0c67ae7,
         type: 3}
-    - target: {fileID: 1161058495616016, guid: 243c4f001e0da2c4dac47834601b1117, type: 3}
-      propertyPath: m_TagString
-      value: Arm
-      objectReference: {fileID: 0}
     - target: {fileID: 212362585515669018, guid: 243c4f001e0da2c4dac47834601b1117,
         type: 3}
       propertyPath: m_Sprite
@@ -5215,7 +5339,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4551693798511124, guid: 243c4f001e0da2c4dac47834601b1117, type: 3}
       propertyPath: m_RootOrder
-      value: 10
+      value: 14
       objectReference: {fileID: 0}
     - target: {fileID: 4551693798511124, guid: 243c4f001e0da2c4dac47834601b1117, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
@@ -5232,10 +5356,6 @@ PrefabInstance:
     - target: {fileID: 4754094995659854, guid: 243c4f001e0da2c4dac47834601b1117, type: 3}
       propertyPath: m_LocalPosition.y
       value: 0.0963
-      objectReference: {fileID: 0}
-    - target: {fileID: 1480323421284214, guid: 243c4f001e0da2c4dac47834601b1117, type: 3}
-      propertyPath: m_TagString
-      value: Arm
       objectReference: {fileID: 0}
     - target: {fileID: 1253716979720926, guid: 243c4f001e0da2c4dac47834601b1117, type: 3}
       propertyPath: m_TagString
@@ -5534,7 +5654,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2022606873 stripped
 GameObject:
@@ -5555,6 +5675,57 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1.6, y: 0.88519377, z: 1.5699997}
   m_Center: {x: -0.00006854534, y: 0.11690335, z: -0.09320272}
+--- !u!1 &2050646163
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2050646165}
+  - component: {fileID: 2050646164}
+  m_Layer: 0
+  m_Name: QuizStatus Manager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &2050646164
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2050646163}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b2d2e6cd670ea8745a8e970eceb76c64, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  quizConfig: {fileID: 11400000, guid: f2d985d77696c794881032585ca7ce46, type: 2}
+  quizStatusWindow: {fileID: 1748546970}
+  quizNumberText: {fileID: 2054155524}
+  scoreText: {fileID: 1314758686}
+  currentQuizNumber: 0
+  quizScore: 0
+  numOfQuiz: 0
+  currentAnswerType: 0
+--- !u!4 &2050646165
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2050646163}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -0.44152394, y: 1.8024693, z: 167.2192}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 7
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2054155522
 GameObject:
   m_ObjectHideFlags: 0
@@ -5677,12 +5848,12 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2066061027}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 328.21655, y: 275.46265, z: 10}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 328.21652, y: 275.46265, z: 10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 13
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2067273189
 GameObject:
@@ -5773,7 +5944,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2069316513
 GameObject:
@@ -5809,6 +5980,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 38d2b6b8889395646b435b345f5842c9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  surveyController: {fileID: 1345046809}
   buttonType: 0
 --- !u!114 &2069316515
 MonoBehaviour:

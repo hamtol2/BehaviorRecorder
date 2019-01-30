@@ -121,13 +121,12 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 59951564}
-  - component: {fileID: 59951565}
   - component: {fileID: 59951563}
   - component: {fileID: 59951566}
   - component: {fileID: 59951567}
   - component: {fileID: 59951568}
   m_Layer: 0
-  m_Name: Parse Tester
+  m_Name: Processor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -145,7 +144,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 793324326265b2d4d8e92b3e72a5d597, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  riveScriptProcessor: {fileID: 59951565}
+  riveScriptProcessor: {fileID: 11400000, guid: 607ad67de5eb4ec468bcf90c2093457b,
+    type: 2}
   speechController: {fileID: 59951566}
   robotController: {fileID: 1137040851}
   speechText: {fileID: 1486071134}
@@ -165,19 +165,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &59951565
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 59951562}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3794b249adb60bc4aa91aaf6df52fe00, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  testScript: {fileID: 4900000, guid: 43adf4c372c48b740bb627b65c5dbc29, type: 3}
 --- !u!114 &59951566
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -774,7 +761,7 @@ GameObject:
   - component: {fileID: 1137040851}
   - component: {fileID: 1137040850}
   m_Layer: 0
-  m_Name: Robot Transform Controller
+  m_Name: Robot Motion Controller
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -868,7 +855,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1163817936 stripped
 GameObject:
@@ -1184,6 +1171,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 1946911959776662, guid: 243c4f001e0da2c4dac47834601b1117, type: 3}
+      propertyPath: m_TagString
+      value: Arm
+      objectReference: {fileID: 0}
     - target: {fileID: 4164432857449898, guid: 243c4f001e0da2c4dac47834601b1117, type: 3}
       propertyPath: m_LocalRotation.x
       value: 0
@@ -1208,13 +1199,33 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.x
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1946911959776662, guid: 243c4f001e0da2c4dac47834601b1117, type: 3}
+    - target: {fileID: 1480323421284214, guid: 243c4f001e0da2c4dac47834601b1117, type: 3}
+      propertyPath: m_TagString
+      value: Arm
+      objectReference: {fileID: 0}
+    - target: {fileID: 1638896119672608, guid: 243c4f001e0da2c4dac47834601b1117, type: 3}
       propertyPath: m_TagString
       value: Arm
       objectReference: {fileID: 0}
     - target: {fileID: 1404646033276478, guid: 243c4f001e0da2c4dac47834601b1117, type: 3}
       propertyPath: m_TagString
       value: Arm
+      objectReference: {fileID: 0}
+    - target: {fileID: 1335471466934154, guid: 243c4f001e0da2c4dac47834601b1117, type: 3}
+      propertyPath: m_TagString
+      value: Arm
+      objectReference: {fileID: 0}
+    - target: {fileID: 1161058495616016, guid: 243c4f001e0da2c4dac47834601b1117, type: 3}
+      propertyPath: m_TagString
+      value: Arm
+      objectReference: {fileID: 0}
+    - target: {fileID: 1061307256119550, guid: 243c4f001e0da2c4dac47834601b1117, type: 3}
+      propertyPath: m_TagString
+      value: Finger
+      objectReference: {fileID: 0}
+    - target: {fileID: 1886335327538926, guid: 243c4f001e0da2c4dac47834601b1117, type: 3}
+      propertyPath: m_TagString
+      value: Finger
       objectReference: {fileID: 0}
     - target: {fileID: 1224125177410966, guid: 243c4f001e0da2c4dac47834601b1117, type: 3}
       propertyPath: m_TagString
@@ -1224,32 +1235,12 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 1886335327538926, guid: 243c4f001e0da2c4dac47834601b1117, type: 3}
-      propertyPath: m_TagString
-      value: Finger
-      objectReference: {fileID: 0}
-    - target: {fileID: 1061307256119550, guid: 243c4f001e0da2c4dac47834601b1117, type: 3}
-      propertyPath: m_TagString
-      value: Finger
-      objectReference: {fileID: 0}
-    - target: {fileID: 1638896119672608, guid: 243c4f001e0da2c4dac47834601b1117, type: 3}
-      propertyPath: m_TagString
-      value: Arm
-      objectReference: {fileID: 0}
-    - target: {fileID: 1335471466934154, guid: 243c4f001e0da2c4dac47834601b1117, type: 3}
-      propertyPath: m_TagString
-      value: Arm
-      objectReference: {fileID: 0}
     - target: {fileID: 212862154903907226, guid: 243c4f001e0da2c4dac47834601b1117,
         type: 3}
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 21300000, guid: da4a1a3a8c2a048bb9e95dd5f0c67ae7,
         type: 3}
-    - target: {fileID: 1161058495616016, guid: 243c4f001e0da2c4dac47834601b1117, type: 3}
-      propertyPath: m_TagString
-      value: Arm
-      objectReference: {fileID: 0}
     - target: {fileID: 212362585515669018, guid: 243c4f001e0da2c4dac47834601b1117,
         type: 3}
       propertyPath: m_Sprite
@@ -1286,7 +1277,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4551693798511124, guid: 243c4f001e0da2c4dac47834601b1117, type: 3}
       propertyPath: m_RootOrder
-      value: 5
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 4551693798511124, guid: 243c4f001e0da2c4dac47834601b1117, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
@@ -1303,10 +1294,6 @@ PrefabInstance:
     - target: {fileID: 4754094995659854, guid: 243c4f001e0da2c4dac47834601b1117, type: 3}
       propertyPath: m_LocalPosition.y
       value: 0.0963
-      objectReference: {fileID: 0}
-    - target: {fileID: 1480323421284214, guid: 243c4f001e0da2c4dac47834601b1117, type: 3}
-      propertyPath: m_TagString
-      value: Arm
       objectReference: {fileID: 0}
     - target: {fileID: 1253716979720926, guid: 243c4f001e0da2c4dac47834601b1117, type: 3}
       propertyPath: m_TagString
@@ -1482,7 +1469,7 @@ RectTransform:
   - {fileID: 858367820}
   - {fileID: 495763525}
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}

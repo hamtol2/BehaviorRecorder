@@ -4,6 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using REEL.Recorder;
 
 namespace REEL.Animation
 {
@@ -23,6 +24,7 @@ namespace REEL.Animation
     {
         public RobotFacialData robotFacialData;
         public RobotFacialAnimator robotFacialAnimator;
+        public SurveyController surveyController;
         public Text debugText;
         public bool isDebug = true;
         public string baseFace = "normal";
@@ -92,7 +94,7 @@ namespace REEL.Animation
             // 현재 표정 저장.
             currentFace = info.faceName;
 
-            WebSurvey.Instance.behaviorRecorder.RecordBehavior(new Recorder.RecordEvent(1, info.faceName));
+            surveyController.behaviorRecorder.RecordBehavior(new Recorder.RecordEvent(1, info.faceName));
         }
 
         public void Play(string name)
@@ -125,21 +127,21 @@ namespace REEL.Animation
             else
             {
                 bool isSpeaking = SpeechRenderrer.Instance.IsSpeaking;
-                //bool isActive = WebSurvey.Instance.GetBehaviorMode == WebSurvey.Mode.Active;
+                //bool isActive = webSurvey.GetBehaviorMode == WebSurvey.Mode.Active;
 
                 string faceName = string.Empty;
-                if (isSpeaking && WebSurvey.Instance.GetFaceActiveState)
+                if (isSpeaking && surveyController.GetFaceActiveState)
                 {
                     faceName = "speak";
                 }
 
-                else if (!isSpeaking && WebSurvey.Instance.GetFaceActiveState)
+                else if (!isSpeaking && surveyController.GetFaceActiveState)
                 {
                     faceName = "normal_active";
                     //Debug.Log("Set Normal Active");
                 }
 
-                else if (!WebSurvey.Instance.GetFaceActiveState)
+                else if (!surveyController.GetFaceActiveState)
                     faceName = "normal_inactive";
 
                 RobotFacialInfo info = new RobotFacialInfo(faceName, 1.0f);

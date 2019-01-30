@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu]
+[CreateAssetMenu(menuName = "ScriptableObject/Event/MOCCAEvent")]
 public class MOCCAEvent : ScriptableObject
 {
     private List<MOCCAEventListener> listeners = new List<MOCCAEventListener>();

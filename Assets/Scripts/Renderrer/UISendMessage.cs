@@ -11,7 +11,7 @@ namespace REEL.Animation
     {
         public InputField inputField;
         public RobotFacialRenderer robotFacialRenderer;
-        public RobotTransformController robotTransformController;
+        public RobotMotionController robotTransformController;
         public MessageTranslator messageTranslator;
 
         private StringBuilder sb = new StringBuilder();

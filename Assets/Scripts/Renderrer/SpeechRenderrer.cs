@@ -19,9 +19,12 @@ public class SpeechInfo
     [SerializeField] private ContentState contentState;
     public ContentState GetContentState { get { return contentState; } }
 
-    public SpeechInfo(string speechScript)
+    private SurveyController webSurvey;
+
+    public SpeechInfo(string speechScript, SurveyController webSurvey)
     {
         this.speechScript = speechScript;
+        this.webSurvey = webSurvey;
         shouldGoNext = CheckShouldGoNextStep(speechScript);
         shouldWaitForAnswer = CheckShouldWaitForAnswer(speechScript);
         contentState = CheckContentState(speechScript);
@@ -43,7 +46,7 @@ public class SpeechInfo
 
     ContentState CheckContentState(string speechScript)
     {
-        if (WebSurvey.Instance.GetCurrentStep().Equals(0))
+        if (webSurvey.GetCurrentStep().Equals(0))
             return ContentState.IceBreaking;
 
         else if (speechScript.Contains("문제입니다")
@@ -62,152 +65,158 @@ public class SpeechInfo
     }
 }
 
-public class SpeechRenderrer : Singleton<SpeechRenderrer>, Renderrer
+namespace REEL.Recorder
 {
-    [SerializeField] private Button speechRecognitionButton;
-
-    private SpVoiceClass voice;
-    private string tryAgainScript = "잘 못알아 들었습니다. 다시 말씀해 주세요.";
-    private bool isTTSStarted = false;
-    [SerializeField] private SpeechInfo currentSpeech;
-
-    [SerializeField] private Text wordEventText;
-
-    void Awake()
+    public class SpeechRenderrer : Singleton<SpeechRenderrer>, Renderrer
     {
-        InitTTS();
-    }
+        public SurveyController surveyController;
+        public QuizStatusManager quizStatusManager;
+        [SerializeField] private Button speechRecognitionButton;
 
-    void Update()
-    {
-        CheckAudioPlayState();
-    }
+        private SpVoiceClass voice;
+        private string tryAgainScript = "잘 못알아 들었습니다. 다시 말씀해 주세요.";
+        private bool isTTSStarted = false;
+        [SerializeField] private SpeechInfo currentSpeech;
 
-    void GetStatus(SpVoiceClass voice)
-    {
-        if (voice == null) return;
+        [SerializeField] private Text wordEventText;
 
-        SPVOICESTATUS status;
-        string bookmark;
-        voice.GetStatus(out status, out bookmark);
-        print(status.ulInputWordPos + " / " + status.ulInputWordPos + " / " + status.ulInputSentLen);
-    }
-
-    public void Init()
-    {
-
-    }
-
-    public bool IsRunning()
-    {
-        return IsSpeaking;
-    }
-
-    public void OnDisable()
-    {
-        if (voice != null)
-            TTSStop();
-    }
-
-    public void TryAgain()
-    {
-        TextToSpeech(tryAgainScript);
-        WebSurvey.Instance.TryAgain();
-    }
-
-    private readonly string speakFaceName = "speak";
-    public void Play(string speech)
-    {
-        //WebSurvey.Instance.robotFacialRenderer.Play(speakFaceName);
-        currentSpeech = new SpeechInfo(speech);
-        WebSurvey.Instance.SetContentState(currentSpeech.GetContentState);
-        TextToSpeech(speech);
-    }
-
-    public void Stop()
-    {
-    }
-
-    public bool IsSpeaking
-    {
-        get { return isTTSStarted && voice.Status.RunningState == SpeechRunState.SRSEIsSpeaking; }
-    }
-
-    bool IsFinished
-    {
-        get { return isTTSStarted && voice.Status.RunningState == SpeechRunState.SRSEDone; }
-    }
-
-    void InitTTS()
-    {
-        voice = new SpVoiceClass();
-        voice.Volume = 100;
-        voice.Rate = 1;
-    }
-
-    private readonly string inSecondsString = "초안에";
-    private readonly string inQuizCountString = "개에";
-    void TextToSpeech(string ttsText)
-    {
-        isTTSStarted = true;
-
-        string[] sentences = ttsText.Split(new char[] { '/' }, StringSplitOptions.RemoveEmptyEntries);
-        foreach (string sentence in sentences)
+        void Awake()
         {
-            if (sentence.Contains(inSecondsString))
-            {
-                string targetString = ((int)WebSurvey.Instance.GetTimeoutTime).ToString() + inSecondsString;
-                voice.Speak(
-                    sentence.Replace(inSecondsString, targetString),
-                    SpeechVoiceSpeakFlags.SVSFlagsAsync | SpeechVoiceSpeakFlags.SVSFIsXML
-                );
-                continue;
-            }
-            else if (sentence.Contains(inQuizCountString))
-            {
-                string targetString = ((int)WebSurvey.Instance.GetQuizCount).ToString() + inQuizCountString;
-                voice.Speak(
-                    sentence.Replace(inQuizCountString, targetString),
-                    SpeechVoiceSpeakFlags.SVSFlagsAsync | SpeechVoiceSpeakFlags.SVSFIsXML
-                );
-                continue;
-            }
-
-            voice.Speak(sentence, SpeechVoiceSpeakFlags.SVSFlagsAsync | SpeechVoiceSpeakFlags.SVSFIsXML);
+            InitTTS();
         }
-    }
 
-    void TTSStop()
-    {
-        voice.Speak(string.Empty, SpeechVoiceSpeakFlags.SVSFPurgeBeforeSpeak);
-    }
-
-    private void CheckAudioPlayState()
-    {
-        // check audio play state.
-        if (IsFinished)
+        void Update()
         {
-            //Debug.LogWarning("Speak Finished");
+            CheckAudioPlayState();
+        }
 
-            isTTSStarted = false;
+        void GetStatus(SpVoiceClass voice)
+        {
+            if (voice == null) return;
 
-            if (currentSpeech == null)
+            SPVOICESTATUS status;
+            string bookmark;
+            voice.GetStatus(out status, out bookmark);
+            print(status.ulInputWordPos + " / " + status.ulInputWordPos + " / " + status.ulInputSentLen);
+        }
+
+        public void Init()
+        {
+
+        }
+
+        public bool IsRunning()
+        {
+            return IsSpeaking;
+        }
+
+        public void OnDisable()
+        {
+            if (voice != null)
+                TTSStop();
+        }
+
+        public void TryAgain()
+        {
+            TextToSpeech(tryAgainScript);
+            surveyController.TryAgain();
+        }
+
+        private readonly string speakFaceName = "speak";
+        public void Play(string speech)
+        {
+            //webSurvey.robotFacialRenderer.Play(speakFaceName);
+            currentSpeech = new SpeechInfo(speech, surveyController);
+            quizStatusManager.SetContentState(currentSpeech.GetContentState);
+            TextToSpeech(speech);
+        }
+
+        public void Stop()
+        {
+        }
+
+        public bool IsSpeaking
+        {
+            get { return isTTSStarted && voice.Status.RunningState == SpeechRunState.SRSEIsSpeaking; }
+        }
+
+        bool IsFinished
+        {
+            get { return isTTSStarted && voice.Status.RunningState == SpeechRunState.SRSEDone; }
+        }
+
+        void InitTTS()
+        {
+            voice = new SpVoiceClass();
+            voice.Volume = 100;
+            voice.Rate = 1;
+        }
+
+        private readonly string inSecondsString = "초안에";
+        private readonly string inQuizCountString = "개에";
+        void TextToSpeech(string ttsText)
+        {
+            isTTSStarted = true;
+
+            string[] sentences = ttsText.Split(new char[] { '/' }, StringSplitOptions.RemoveEmptyEntries);
+            foreach (string sentence in sentences)
             {
-                return;
-            }
+                if (sentence.Contains(inSecondsString))
+                {
+                    string targetString = ((int)surveyController.GetTimeoutTime).ToString() + inSecondsString;
+                    voice.Speak(
+                        sentence.Replace(inSecondsString, targetString),
+                        SpeechVoiceSpeakFlags.SVSFlagsAsync | SpeechVoiceSpeakFlags.SVSFIsXML
+                    );
+                    continue;
+                }
+                else if (sentence.Contains(inQuizCountString))
+                {
+                    string targetString = ((int)surveyController.GetQuizCount).ToString() + inQuizCountString;
+                    voice.Speak(
+                        sentence.Replace(inQuizCountString, targetString),
+                        SpeechVoiceSpeakFlags.SVSFlagsAsync | SpeechVoiceSpeakFlags.SVSFIsXML
+                    );
+                    continue;
+                }
 
-            if (currentSpeech.shouldGoNext)
+                voice.Speak(sentence, SpeechVoiceSpeakFlags.SVSFlagsAsync | SpeechVoiceSpeakFlags.SVSFIsXML);
+            }
+        }
+
+        void TTSStop()
+        {
+            voice.Speak(string.Empty, SpeechVoiceSpeakFlags.SVSFPurgeBeforeSpeak);
+        }
+
+        private void CheckAudioPlayState()
+        {
+            // check audio play state.
+            if (IsFinished)
             {
-                WebSurvey.Instance.NextStep();
-            }
+                //Debug.LogWarning("Speak Finished");
 
-            if (currentSpeech.shouldWaitForAnswer && !WebSurvey.Instance.QuizFinished)
-            {
-                //Debug.Log(WebSurvey.Instance.GetCurrentStep() + " 문제 답변 대기");
-                WebSurvey.Instance.WaitForAnswer();
-            }
+                isTTSStarted = false;
 
-            currentSpeech = null;
+                if (currentSpeech == null)
+                {
+                    return;
+                }
+
+                if (currentSpeech.shouldGoNext)
+                {
+                    surveyController.NextStep();
+                }
+
+                if (currentSpeech.shouldWaitForAnswer && !surveyController.QuizFinished)
+                {
+                    //Debug.Log(webSurvey.GetCurrentStep() + " 문제 답변 대기");
+                    //Debug.Log(" 문제 답변 대기");
+                    surveyController.WaitForAnswer();
+                }
+
+                currentSpeech = null;
+            }
         }
     }
 }

@@ -11,6 +11,8 @@ namespace REEL.Recorder
             YES, NO, ETC
         }
 
+        public SurveyController surveyController;
+
         [SerializeField] private ButtonType buttonType;
         public ButtonType GetButtonType { get { return buttonType; } }
 
@@ -19,8 +21,8 @@ namespace REEL.Recorder
 
         public void TimerListener()
         {
-            WebSurvey.Instance.GetReply(this.ToString());
-            WebSurvey.Instance.CloseAnswerButton();
+            surveyController.GetReply(this.ToString());
+            surveyController.CloseAnswerButton();
         }
 
         public override string ToString()

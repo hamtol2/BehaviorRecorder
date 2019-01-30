@@ -4,10 +4,10 @@ using UnityEngine;
 
 namespace REEL.Recorder
 {
-	public class QuizManager : Singleton<QuizManager>
+    [CreateAssetMenu(menuName = "ScriptableObject/Quiz/Quiz Config")]
+	public class QuizConfig : ScriptableObject
 	{
         public string quizTitle;
-        public int quizNumber;
         public ContentState quizState = ContentState.IceBreaking;
         public AnswerState answerState = AnswerState.Wait;
         public ModelType robotModelType = ModelType.ExpressionRobot;

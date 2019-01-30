@@ -10,31 +10,12 @@ using REEL.PoseAnimation;
 
 namespace REEL.Test
 {
-    class Command
+    public class Processor : MonoBehaviour
     {
-        public string topic;
-        public string message;
-
-        public Command(Group group)
-        {
-            string command = group.ToString();
-            string[] splitted = command.Split(new char[] { '=', ':', '>' }, System.StringSplitOptions.RemoveEmptyEntries);
-            topic = splitted[1];
-            message = splitted[2];
-        }
-
-        public override string ToString()
-        {
-            return topic + " " + message;
-        }
-    }
-
-    public class ParseTester : MonoBehaviour
-    {
-        public RiveScriptProcessor riveScriptProcessor;
+        public RiveScriptProcessorSO riveScriptProcessor;
         public SpeechController speechController;
 
-        public RobotTransformController robotController;
+        public RobotMotionController robotController;
 
         public Text speechText;
         public Text motionMessageText;
@@ -42,9 +23,11 @@ namespace REEL.Test
 
         Dictionary<string, Action<string>> processors = new Dictionary<string, Action<string>>();
         Queue<Command> currentCommands = new Queue<Command>();
+        Queue<string> lineQueue = new Queue<string>();
 
         private void Awake()
         {
+            riveScriptProcessor.InitRiveScript();
             InitProcessors();
         }
 
@@ -60,7 +43,6 @@ namespace REEL.Test
             processors.Add("motion", MotionPlayer);
         }
 
-        Queue<string> lineQueue = new Queue<string>();
         void SplitScriptToQueue(string script)
         {
             string[] lines = script.Split(new char[] { '|' }, System.StringSplitOptions.RemoveEmptyEntries);

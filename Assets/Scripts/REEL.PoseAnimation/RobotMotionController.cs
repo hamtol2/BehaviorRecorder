@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace REEL.PoseAnimation
 {
-    public class RobotTransformController : Singleton<RobotTransformController>
+    public class RobotMotionController : MonoBehaviour
     {
         public JointSet[] jointInfo;
         public bool breath = true;

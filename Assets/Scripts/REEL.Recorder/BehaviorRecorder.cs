@@ -16,7 +16,9 @@ namespace REEL.Recorder
         public bool autoSave = true;
         public RobotMovement robotMovement;
         public RobotFacialRenderer facialRenderer;
-        public RobotTransformController gestureController;
+        public RobotMotionController gestureController;
+        public SurveyController surveyController;
+        public QuizStatusManager quizStatusManager;
 
         //private List<RecordFormat> records = new List<RecordFormat>();
         private RecordJsonFormat saveData = new RecordJsonFormat();
@@ -76,15 +78,15 @@ namespace REEL.Recorder
             if (!isRecording) return;
 
             RecordData newData = new RecordData();
-            newData.quizTitle = WebSurvey.Instance.QuizTitle;
-            newData.quizType = WebSurvey.Instance.GetQuizType;
-            newData.age = WebSurvey.Instance.GetAge;
-            newData.gender = WebSurvey.Instance.GetGender;
-            newData.quizNumber = WebSurvey.Instance.GetCurrentStep();
+            newData.quizTitle = quizStatusManager.QuizTitle;
+            newData.quizType = surveyController.GetQuizType;
+            newData.age = surveyController.GetAge;
+            newData.gender = surveyController.GetGender;
+            newData.quizNumber = surveyController.GetCurrentStep();
             newData.elapsedTime = mainTimer.GetElapsedTime;
-            newData.contentState = WebSurvey.Instance.GetCurrentState().ToString();
-            newData.answer = WebSurvey.Instance.GetAnswerState.ToString();
-            newData.modelType = WebSurvey.Instance.GetModelType.ToString();
+            newData.contentState = quizStatusManager.GetCurrentState().ToString();
+            newData.answer = quizStatusManager.GetAnswerState.ToString();
+            newData.modelType = quizStatusManager.GetModelType.ToString();
             newData.eyePosition = TobbiManager.Instance.GetEyePoint;
             newData.robotPosition = robotMovement.transform.position;
             newData.robotState = robotMovement.GetRobotState.ToString();
@@ -100,15 +102,15 @@ namespace REEL.Recorder
             if (!isRecording) return;
 
             RecordData newData = new RecordData();
-            newData.quizTitle = WebSurvey.Instance.QuizTitle;
-            newData.quizType = WebSurvey.Instance.GetQuizType;
-            newData.age = WebSurvey.Instance.GetAge;
-            newData.gender = WebSurvey.Instance.GetGender;
-            newData.quizNumber = WebSurvey.Instance.GetCurrentStep();
+            newData.quizTitle = quizStatusManager.QuizTitle;
+            newData.quizType = surveyController.GetQuizType;
+            newData.age = surveyController.GetAge;
+            newData.gender = surveyController.GetGender;
+            newData.quizNumber = surveyController.GetCurrentStep();
             newData.elapsedTime = mainTimer.GetElapsedTime;
-            newData.contentState = WebSurvey.Instance.GetCurrentState().ToString();
-            newData.answer = WebSurvey.Instance.GetAnswerState.ToString();
-            newData.modelType = WebSurvey.Instance.GetModelType.ToString();
+            newData.contentState = quizStatusManager.GetCurrentState().ToString();
+            newData.answer = quizStatusManager.GetAnswerState.ToString();
+            newData.modelType = quizStatusManager.GetModelType.ToString();
             newData.eyePosition = TobbiManager.Instance.GetEyePoint;
             newData.robotPosition = robotMovement.transform.position;
             newData.robotState = robotMovement.GetRobotState.ToString();
