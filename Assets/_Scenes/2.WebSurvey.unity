@@ -1229,6 +1229,7 @@ GameObject:
   - component: {fileID: 574285149}
   - component: {fileID: 574285150}
   - component: {fileID: 574285151}
+  - component: {fileID: 574285152}
   m_Layer: 0
   m_Name: Robot Motion Controller
   m_TagString: Untagged
@@ -1326,6 +1327,35 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 6acee77cfb273e8438b0692dbafd9128, type: 2}
   - {fileID: 11400000, guid: c2667ba42cec75d47847dac5fb6c00b7, type: 2}
   - {fileID: 11400000, guid: 7f05617af6195a04595d09ae131b2223, type: 2}
+--- !u!114 &574285152
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 574285148}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c9d10a847739ef14591ed132bdf88ab0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Event: {fileID: 11400000, guid: 7a3263e9b13b1584ab992ff2bb2143ff, type: 2}
+  response:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 574285150}
+        m_MethodName: PlayMotion
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_TypeName: REEL.Recorder.UnityStringEvent, Assembly-CSharp, Version=1.0.0.0,
+      Culture=neutral, PublicKeyToken=null
 --- !u!1 &590462872 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1404646033276478, guid: 243c4f001e0da2c4dac47834601b1117,
@@ -2314,6 +2344,7 @@ GameObject:
   - component: {fileID: 1053427237}
   - component: {fileID: 1053427238}
   - component: {fileID: 1053427236}
+  - component: {fileID: 1053427239}
   m_Layer: 0
   m_Name: Robot Facial Renderer
   m_TagString: Untagged
@@ -2409,6 +2440,35 @@ MonoBehaviour:
   currentFace: 
   facialQueue: []
   queueCount: 0
+--- !u!114 &1053427239
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1053427234}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c9d10a847739ef14591ed132bdf88ab0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Event: {fileID: 11400000, guid: 8548d451c1bd46a47a7bcc67108657c0, type: 2}
+  response:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1053427238}
+        m_MethodName: Play
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_TypeName: REEL.Recorder.UnityStringEvent, Assembly-CSharp, Version=1.0.0.0,
+      Culture=neutral, PublicKeyToken=null
 --- !u!224 &1056201728
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3409,6 +3469,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 740de3c1eafa84139810c066af7df62e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  facialEvent: {fileID: 11400000, guid: 8548d451c1bd46a47a7bcc67108657c0, type: 2}
+  motionEvent: {fileID: 11400000, guid: 7a3263e9b13b1584ab992ff2bb2143ff, type: 2}
+  quizCountEvent: {fileID: 11400000, guid: c0446d2182f853846ba1167427c1da68, type: 2}
+  answerEvent: {fileID: 11400000, guid: 0135c163f691ef948bf5d23139fc680a, type: 2}
+  answertimeEvent: {fileID: 11400000, guid: 6221ca2c8d63c1e469c9a24bd4e3e4f0, type: 2}
+  hinttimeEvent: {fileID: 11400000, guid: 86daabe8fb0f711448d7fb537979e028, type: 2}
+  robotmoveEvent: {fileID: 11400000, guid: 2508e2480c6bf1244bb76ae4094b953d, type: 2}
+  modeEvent: {fileID: 11400000, guid: ae87b1579b1746c4883e7637aa676b03, type: 2}
+  facetypeEvent: {fileID: 11400000, guid: 0109d2289a57f234a8853dd241c6e482, type: 2}
+  iscueEvent: {fileID: 11400000, guid: 9d1b6be0932c16946a2a3e9431184f10, type: 2}
+  activebreathEvent: {fileID: 11400000, guid: f145c8a9dfd4d674389c0289b08e6b19, type: 2}
   robotMotionController: {fileID: 574285150}
   robotFacialRenderer: {fileID: 1053427238}
   surveyController: {fileID: 1345046809}
@@ -5233,10 +5304,6 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 1946911959776662, guid: 243c4f001e0da2c4dac47834601b1117, type: 3}
-      propertyPath: m_TagString
-      value: Arm
-      objectReference: {fileID: 0}
     - target: {fileID: 4164432857449898, guid: 243c4f001e0da2c4dac47834601b1117, type: 3}
       propertyPath: m_LocalRotation.x
       value: 0
@@ -5261,33 +5328,13 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.x
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1480323421284214, guid: 243c4f001e0da2c4dac47834601b1117, type: 3}
-      propertyPath: m_TagString
-      value: Arm
-      objectReference: {fileID: 0}
-    - target: {fileID: 1638896119672608, guid: 243c4f001e0da2c4dac47834601b1117, type: 3}
+    - target: {fileID: 1946911959776662, guid: 243c4f001e0da2c4dac47834601b1117, type: 3}
       propertyPath: m_TagString
       value: Arm
       objectReference: {fileID: 0}
     - target: {fileID: 1404646033276478, guid: 243c4f001e0da2c4dac47834601b1117, type: 3}
       propertyPath: m_TagString
       value: Arm
-      objectReference: {fileID: 0}
-    - target: {fileID: 1335471466934154, guid: 243c4f001e0da2c4dac47834601b1117, type: 3}
-      propertyPath: m_TagString
-      value: Arm
-      objectReference: {fileID: 0}
-    - target: {fileID: 1161058495616016, guid: 243c4f001e0da2c4dac47834601b1117, type: 3}
-      propertyPath: m_TagString
-      value: Arm
-      objectReference: {fileID: 0}
-    - target: {fileID: 1061307256119550, guid: 243c4f001e0da2c4dac47834601b1117, type: 3}
-      propertyPath: m_TagString
-      value: Finger
-      objectReference: {fileID: 0}
-    - target: {fileID: 1886335327538926, guid: 243c4f001e0da2c4dac47834601b1117, type: 3}
-      propertyPath: m_TagString
-      value: Finger
       objectReference: {fileID: 0}
     - target: {fileID: 1224125177410966, guid: 243c4f001e0da2c4dac47834601b1117, type: 3}
       propertyPath: m_TagString
@@ -5297,12 +5344,32 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 1886335327538926, guid: 243c4f001e0da2c4dac47834601b1117, type: 3}
+      propertyPath: m_TagString
+      value: Finger
+      objectReference: {fileID: 0}
+    - target: {fileID: 1061307256119550, guid: 243c4f001e0da2c4dac47834601b1117, type: 3}
+      propertyPath: m_TagString
+      value: Finger
+      objectReference: {fileID: 0}
+    - target: {fileID: 1638896119672608, guid: 243c4f001e0da2c4dac47834601b1117, type: 3}
+      propertyPath: m_TagString
+      value: Arm
+      objectReference: {fileID: 0}
+    - target: {fileID: 1335471466934154, guid: 243c4f001e0da2c4dac47834601b1117, type: 3}
+      propertyPath: m_TagString
+      value: Arm
+      objectReference: {fileID: 0}
     - target: {fileID: 212862154903907226, guid: 243c4f001e0da2c4dac47834601b1117,
         type: 3}
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 21300000, guid: da4a1a3a8c2a048bb9e95dd5f0c67ae7,
         type: 3}
+    - target: {fileID: 1161058495616016, guid: 243c4f001e0da2c4dac47834601b1117, type: 3}
+      propertyPath: m_TagString
+      value: Arm
+      objectReference: {fileID: 0}
     - target: {fileID: 212362585515669018, guid: 243c4f001e0da2c4dac47834601b1117,
         type: 3}
       propertyPath: m_Sprite
@@ -5356,6 +5423,10 @@ PrefabInstance:
     - target: {fileID: 4754094995659854, guid: 243c4f001e0da2c4dac47834601b1117, type: 3}
       propertyPath: m_LocalPosition.y
       value: 0.0963
+      objectReference: {fileID: 0}
+    - target: {fileID: 1480323421284214, guid: 243c4f001e0da2c4dac47834601b1117, type: 3}
+      propertyPath: m_TagString
+      value: Arm
       objectReference: {fileID: 0}
     - target: {fileID: 1253716979720926, guid: 243c4f001e0da2c4dac47834601b1117, type: 3}
       propertyPath: m_TagString

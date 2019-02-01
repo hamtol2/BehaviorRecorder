@@ -1,9 +1,11 @@
-﻿namespace REEL.Recorder
+﻿using System;
+
+namespace REEL.Recorder
 {
     public class RobotMessage
     {
-        private string messageType = string.Empty;      // facial / motion.
-        private string message = string.Empty;          //  표정 or 모션 이름.
+        private string topic = string.Empty;      // facial / motion.
+        private string value = string.Empty;          //  표정 or 모션 이름.
 
         public RobotMessage() { }
         public RobotMessage(string[] robotMessage)
@@ -11,18 +13,45 @@
             SetMessage(robotMessage);
         }
 
-        public string GetMessageType { get { return messageType; } }
-        public string GetMessage { get { return message; } }
+        public RobotMessage(string totalMessage)
+        {
+            SetMessage(totalMessage);
+        }
+
+        public string GetMessageType { get { return topic; } }
+        public string GetMessage { get { return value; } }
+
+        public void SetMessage(string totalMessage)
+        {
+            SetMessage(ProcessCommand(totalMessage));
+        }
 
         public void SetMessage(string[] robotMessage)
         {
-            messageType = robotMessage[0];
-            message = robotMessage[1];
+            topic = robotMessage[0];
+            value = robotMessage[1];
+        }
+
+        string[] ProcessCommand(string command)
+        {
+            int index = command.IndexOf("=");
+            if (index > 0)
+            {
+                string tag = command.Substring(0, index);
+                command = command.Substring(index + 1);
+
+                if (tag.Equals("sm"))
+                {
+                    return command.Split(new char[] { ':' }, StringSplitOptions.RemoveEmptyEntries);
+                }
+            }
+
+            return null;
         }
 
         public override string ToString()
         {
-            return "messageType: " + messageType + ", message: " + message;
+            return "messageType: " + topic + ", message: " + value;
         }
     }
 }

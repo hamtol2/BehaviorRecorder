@@ -9,8 +9,20 @@ namespace REEL.Recorder
 {
     public class Arbitor : Singleton<Arbitor>
     {
-        public RobotMotionController robotMotionController;
-        public RobotFacialRenderer robotFacialRenderer;
+        public MOCCAStringEvent facialEvent;
+        public MOCCAStringEvent motionEvent;
+        public MOCCAStringEvent quizCountEvent;
+        public MOCCAStringEvent answerEvent;
+        public MOCCAStringEvent answertimeEvent;
+        public MOCCAStringEvent hinttimeEvent;
+        public MOCCAStringEvent robotmoveEvent;
+        public MOCCAStringEvent modeEvent;
+        public MOCCAStringEvent facetypeEvent;
+        public MOCCAStringEvent iscueEvent;
+        public MOCCAStringEvent activebreathEvent;
+
+        //public RobotMotionController robotMotionController;
+        //public RobotFacialRenderer robotFacialRenderer;
         public SurveyController surveyController;
         public QuizStatusManager quizStatusManager;
 
@@ -22,7 +34,6 @@ namespace REEL.Recorder
 
         void Start()
         {
-            SpeechRenderrer.Instance.Init();
             InitMessageProcessor();
 
             Invoke("QuizStart", quizStartTime);
@@ -41,17 +52,29 @@ namespace REEL.Recorder
 
         void InitMessageProcessor()
         {
-            messageProcessors.Add("facial", robotFacialRenderer.Play);
-            messageProcessors.Add("motion", robotMotionController.PlayMotion);
-            messageProcessors.Add("qcount", surveyController.SetQuizCount);
-            messageProcessors.Add("answer", surveyController.SetCurrentAnswer);
-            messageProcessors.Add("answertime", surveyController.SetTimeoutTime);
-            messageProcessors.Add("hinttime", surveyController.SetHintTime);
-            messageProcessors.Add("robotmove", surveyController.RobotMovementStart);
-            messageProcessors.Add("mode", surveyController.SetBehaviorMode);
-            messageProcessors.Add("facetype", surveyController.SetFaceActiveState);
-            messageProcessors.Add("iscue", surveyController.SetCueState);
-            messageProcessors.Add("activebreath", robotMotionController.SetBreathActiveState);
+            //messageProcessors.Add("facial", robotFacialRenderer.Play);
+            //messageProcessors.Add("motion", robotMotionController.PlayMotion);
+            //messageProcessors.Add("qcount", surveyController.SetQuizCount);
+            //messageProcessors.Add("answer", surveyController.SetCurrentAnswer);
+            //messageProcessors.Add("answertime", surveyController.SetTimeoutTime);
+            //messageProcessors.Add("hinttime", surveyController.SetHintTime);
+            //messageProcessors.Add("robotmove", surveyController.RobotMovementStart);
+            //messageProcessors.Add("mode", surveyController.SetBehaviorMode);
+            //messageProcessors.Add("facetype", surveyController.SetFaceActiveState);
+            //messageProcessors.Add("iscue", surveyController.SetCueState);
+            //messageProcessors.Add("activebreath", robotMotionController.SetBreathActiveState);
+
+            messageProcessors.Add("facial", facialEvent.Raise);
+            messageProcessors.Add("motion", motionEvent.Raise);
+            messageProcessors.Add("qcount", quizCountEvent.Raise);
+            messageProcessors.Add("answer", answerEvent.Raise);
+            messageProcessors.Add("answertime", answertimeEvent.Raise);
+            messageProcessors.Add("hinttime", hinttimeEvent.Raise);
+            messageProcessors.Add("robotmove", robotmoveEvent.Raise);
+            messageProcessors.Add("mode", modeEvent.Raise);
+            messageProcessors.Add("facetype", facetypeEvent.Raise);
+            messageProcessors.Add("iscue", iscueEvent.Raise);
+            messageProcessors.Add("activebreath", activebreathEvent.Raise);
         }
 
         void ParseMessage(string reply)
